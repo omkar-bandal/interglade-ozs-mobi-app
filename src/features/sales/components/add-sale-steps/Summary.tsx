@@ -1,0 +1,199 @@
+import {SPACING} from '@theme/constants';
+import React from 'react';
+import {Image, ScrollView, StyleSheet, Text, View} from 'react-native';
+import Icon from 'react-native-vector-icons/Ionicons';
+
+interface SummaryProps {
+  formData: {
+    title?: string;
+    category?: string;
+    description?: string;
+    price?: string;
+    condition?: string;
+    location?: string;
+    photos?: string[];
+  };
+}
+
+export const Summary: React.FC<SummaryProps> = ({formData}) => {
+  // Condition mapping
+  const conditionMap = {
+    new: {label: 'Neuf', color: '#4CAF50'},
+    'very-good': {label: 'Très bon état', color: '#2196F3'},
+    good: {label: 'Bon état', color: '#FFC107'},
+    average: {label: 'État moyen', color: '#FF9800'},
+    'for-parts': {label: 'Pour pièces', color: '#F44336'},
+  };
+
+  return (
+    <ScrollView style={styles.container} showsVerticalScrollIndicator={false}>
+      {/* Title Card */}
+      <View style={styles.card}>
+        <View style={styles.cardHeader}>
+          <Icon name="pricetag-outline" size={24} color="#4A90E2" />
+          <Text style={styles.cardHeaderText}>Product Details</Text>
+        </View>
+        <View style={styles.cardContent}>
+          <Text style={styles.titleText}>{formData.title || 'N/A'}</Text>
+          <Text style={styles.subtitleText}>
+            {formData.category || 'No category selected'}
+          </Text>
+        </View>
+      </View>
+
+      {/* Description Card */}
+      <View style={styles.card}>
+        <View style={styles.cardHeader}>
+          <Icon name="document-text-outline" size={24} color="#4A90E2" />
+          <Text style={styles.cardHeaderText}>Description</Text>
+        </View>
+        <View style={styles.cardContent}>
+          <Text style={styles.descriptionText}>
+            {formData.description || 'No description provided'}
+          </Text>
+        </View>
+      </View>
+
+      {/* Price and Condition Card */}
+      <View style={styles.card}>
+        <View style={styles.cardHeader}>
+          <Icon name="cash-outline" size={24} color="#4A90E2" />
+          <Text style={styles.cardHeaderText}>Pricing & Condition</Text>
+        </View>
+        <View style={styles.cardContent}>
+          <View style={styles.priceConditionRow}>
+            <Text style={styles.labelText}>Price:</Text>
+            <Text style={styles.valueText}>
+              {formData.price ? `€${formData.price}` : 'N/A'}
+            </Text>
+          </View>
+          <View style={styles.priceConditionRow}>
+            <Text style={styles.labelText}>Condition:</Text>
+            <Text
+              style={[
+                styles.conditionText,
+                {
+                  color:
+                    conditionMap[
+                      formData.condition as keyof typeof conditionMap
+                    ]?.color || '#666',
+                },
+              ]}>
+              {conditionMap[formData.condition as keyof typeof conditionMap]
+                ?.label || 'N/A'}
+            </Text>
+          </View>
+        </View>
+      </View>
+
+      {/* Location Card */}
+      <View style={styles.card}>
+        <View style={styles.cardHeader}>
+          <Icon name="location-outline" size={24} color="#4A90E2" />
+          <Text style={styles.cardHeaderText}>Location</Text>
+        </View>
+        <View style={styles.cardContent}>
+          <Text style={styles.locationText}>
+            {formData.location || 'No location specified'}
+          </Text>
+        </View>
+      </View>
+
+      {/* Image Gallery Card */}
+      {formData.photos && formData.photos.length > 0 && (
+        <View style={styles.card}>
+          <View style={styles.cardHeader}>
+            <Icon name="camera-outline" size={24} color="#4A90E2" />
+            <Text style={styles.cardHeaderText}>Gallery Images</Text>
+          </View>
+          <ScrollView
+            horizontal
+            showsHorizontalScrollIndicator={false}
+            style={styles.imageGallery}>
+            {formData.photos.map((photoUri: any, index) => (
+              <Image
+                key={index}
+                source={{uri: photoUri.uri}}
+                style={styles.galleryImage}
+              />
+            ))}
+          </ScrollView>
+        </View>
+      )}
+    </ScrollView>
+  );
+};
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+  },
+  card: {
+    borderRadius: 12,
+    marginBottom: SPACING.sm,
+  },
+  cardHeader: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    padding: 15,
+    borderBottomWidth: 1,
+    borderBottomColor: '#F0F0F0',
+  },
+  cardHeaderText: {
+    marginLeft: 10,
+    fontSize: 16,
+    fontWeight: '600',
+    color: '#333',
+  },
+  cardContent: {
+    padding: 15,
+  },
+  titleText: {
+    fontSize: 18,
+    fontWeight: 'bold',
+    color: '#333',
+    marginBottom: 5,
+  },
+  subtitleText: {
+    fontSize: 14,
+    color: '#666',
+  },
+  descriptionText: {
+    fontSize: 15,
+    color: '#555',
+    lineHeight: 22,
+  },
+  priceConditionRow: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    marginBottom: 10,
+  },
+  labelText: {
+    fontSize: 15,
+    color: '#666',
+    fontWeight: '500',
+  },
+  valueText: {
+    fontSize: 16,
+    color: '#333',
+    fontWeight: '600',
+  },
+  conditionText: {
+    fontSize: 15,
+    fontWeight: '600',
+  },
+  locationText: {
+    fontSize: 15,
+    color: '#555',
+  },
+  imageGallery: {
+    paddingHorizontal: 15,
+    paddingBottom: 15,
+  },
+  galleryImage: {
+    width: 100,
+    height: 100,
+    borderRadius: 10,
+    marginRight: 10,
+  },
+});
