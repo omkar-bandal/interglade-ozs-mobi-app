@@ -1,13 +1,13 @@
+/* eslint-disable react-native/no-inline-styles */
 import {useActions} from '@hooks/useActions';
 import {useTypedSelector} from '@hooks/useTypedSelector';
 import {supabase} from '@lib/supabase/supabase';
 import {navigate, resetAndNavigate} from '@utils/NavigationUtils';
-import React, {useState} from 'react';
+import React from 'react';
 import {
   Image,
   ScrollView,
   StyleSheet,
-  Switch,
   Text,
   TouchableOpacity,
   View,
@@ -16,12 +16,13 @@ import {SafeAreaView} from 'react-native-safe-area-context';
 import AntDesignIcon from 'react-native-vector-icons/AntDesign';
 
 export default function Account() {
+  //const navigation = useNavigation();
   const {user} = useTypedSelector(state => state.auth);
   const {resetAuth} = useActions();
-  const [form, setForm] = useState({
-    emailNotifications: true,
-    pushNotifications: false,
-  });
+  // const [form, setForm] = useState({
+  //   emailNotifications: true,
+  //   pushNotifications: false,
+  // });
 
   const handleLogout = async () => {
     try {
@@ -69,7 +70,7 @@ export default function Account() {
           <View style={styles.sectionBody}>
             <TouchableOpacity
               onPress={() => {
-                // handle onPress
+                navigate('PersonalInfo');
               }}
               style={styles.profile}>
               <Image
@@ -128,6 +129,48 @@ export default function Account() {
             </View>
 
             <View style={styles.rowWrapper}>
+              <TouchableOpacity
+                onPress={() => {
+                  navigate('PaymentMethods');
+                }}
+                style={styles.row}>
+                <Text style={styles.rowLabel}>Payment Method</Text>
+
+                <View style={styles.rowSpacer} />
+
+                <AntDesignIcon color="#bcbcbc" name="right" size={16} />
+              </TouchableOpacity>
+            </View>
+
+            <View style={styles.rowWrapper}>
+              <TouchableOpacity
+                onPress={() => {
+                  navigate('Notifications');
+                }}
+                style={styles.row}>
+                <Text style={styles.rowLabel}>Notifications</Text>
+
+                <View style={styles.rowSpacer} />
+
+                <AntDesignIcon color="#bcbcbc" name="right" size={16} />
+              </TouchableOpacity>
+            </View>
+
+            <View style={styles.rowWrapper}>
+              <TouchableOpacity
+                onPress={() => {
+                  navigate('Privacy');
+                }}
+                style={styles.row}>
+                <Text style={styles.rowLabel}>Privacy Setting</Text>
+
+                <View style={styles.rowSpacer} />
+
+                <AntDesignIcon color="#bcbcbc" name="right" size={16} />
+              </TouchableOpacity>
+            </View>
+
+            {/* <View style={styles.rowWrapper}>
               <View style={styles.row}>
                 <Text style={styles.rowLabel}>Email Notifications</Text>
 
@@ -157,7 +200,7 @@ export default function Account() {
                   value={form.pushNotifications}
                 />
               </View>
-            </View>
+            </View> */}
           </View>
         </View>
 
@@ -274,6 +317,7 @@ const styles = StyleSheet.create({
   /** Content */
   content: {
     paddingHorizontal: 16,
+    //backgroundColor: 'red',
   },
   contentFooter: {
     marginTop: 24,

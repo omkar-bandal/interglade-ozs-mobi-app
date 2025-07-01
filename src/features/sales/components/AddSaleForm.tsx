@@ -1,13 +1,13 @@
-import React, {useState} from 'react';
-import {StyleSheet} from 'react-native';
-
 import {MultiStep, Step} from '@components/MultiStep';
 import {Form, FormButton, FormError} from '@components/ui/Form';
 import {useCreateSale, useUpdateSale} from '@hooks/api/sales.rq';
 import {useActions} from '@hooks/useActions';
 import useForm from '@hooks/useForm';
 import {useTypedSelector} from '@hooks/useTypedSelector';
+import {lightTheme, SPACING} from '@theme/constants';
 import useTheme from '@theme/useTheme';
+import React, {useState} from 'react';
+import {StyleSheet} from 'react-native';
 import {validationLoginFormSchema} from '../utils/validate';
 import {StepFour} from './add-sale-steps/StepFour';
 import {StepOne} from './add-sale-steps/StepOne';
@@ -81,16 +81,16 @@ export default function AddSaleForm({initialData, saleId}: any) {
           />
         }>
         <Step title="Détails de l'article">
-          <StepOne formControl={formControl} />
+          <StepOne formControl={formControl} style={styles.formContainer} />
         </Step>
         <Step title="Photos de l'article">
-          <StepTwo formControl={formControl} />
+          <StepTwo formControl={formControl} style={styles.formContainer} />
         </Step>
         <Step title="Prix et état de l'article">
-          <StepThree formControl={formControl} />
+          <StepThree formControl={formControl} style={styles.formContainer} />
         </Step>
         <Step title="Localisation">
-          <StepFour formControl={formControl} />
+          <StepFour formControl={formControl} style={styles.formContainer} />
         </Step>
         <Step title="Récapitulatif et publication">
           <Summary formData={formControl.values} />
@@ -106,10 +106,18 @@ const styles = StyleSheet.create({
     flexShrink: 1,
     flexBasis: 0,
   },
-  formAction: {
-    marginBottom: 4,
+  formContainer: {
+    padding: SPACING.sm,
+    borderWidth: 1,
+    borderColor: lightTheme.colors.border,
+    borderRadius: 10,
+    height: '100%',
+    justifyContent: 'center',
   },
-  input: {
-    marginBottom: 1,
-  },
+  // formAction: {
+  //   marginBottom: 4,
+  // },
+  // input: {
+  //   marginBottom: 1,
+  // },
 });

@@ -1,6 +1,11 @@
 import BookingSummary from '@features/booking-details/components/BookingSummary';
 import {NavigationContainer} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
+import {Notifications} from '@screens/account/Notifications';
+import {PaymentMethods} from '@screens/account/PaymentMethods';
+import {PersonalInfo} from '@screens/account/PersonalInfo';
+import {Privacy} from '@screens/account/Privacy';
+import {Settings} from '@screens/account/Settings';
 import {ActivityDetailsScreen} from '@screens/activities/ActivityDetails';
 import AddEditAddressScreen from '@screens/address/AddAddress';
 import AddressList from '@screens/address/AddressList';
@@ -74,6 +79,12 @@ const AppNavigation: React.FC = () => {
         />
 
         <Stack.Screen name="Review" component={ReviewScreen} />
+
+        <Stack.Screen name="PersonalInfo" component={PersonalInfo} />
+        <Stack.Screen name="PaymentMethods" component={PaymentMethods} />
+        <Stack.Screen name="Notifications" component={Notifications} />
+        <Stack.Screen name="Privacy" component={Privacy} />
+        <Stack.Screen name="Settings" component={Settings} />
 
         <Stack.Screen name="AddressList" component={AddressList} />
         <Stack.Screen name="AddEditAddress" component={AddEditAddressScreen} />

@@ -5,14 +5,17 @@ import {
   useGetAllSubCategoriesByID,
   useGetPredefineItemsBySubCategroryId,
 } from '@hooks/api/category.rq';
+//import {lightTheme, SPACING} from '@theme/constants';
 import {FC, useMemo} from 'react';
-import {View} from 'react-native';
+import { View } from 'react-native';
+//import {StyleSheet, View} from 'react-native';
 
 interface StepOneProps {
   formControl: any;
+  style?: any;
 }
 
-export const StepOne: FC<StepOneProps> = ({formControl}) => {
+export const StepOne: FC<StepOneProps> = ({formControl, style}) => {
   const {data} = useGetAllSalesCategories();
   const {data: subcategoryData} = useGetAllSubCategoriesByID(
     formControl.watch('category'),
@@ -41,7 +44,7 @@ export const StepOne: FC<StepOneProps> = ({formControl}) => {
   }, [predefinedData]);
 
   return (
-    <View>
+    <View style={style}>
       <FormInput
         label="Title"
         placeholder="Ex: iPhone 13 Pro Max - 256Go"
@@ -107,3 +110,12 @@ export const StepOne: FC<StepOneProps> = ({formControl}) => {
     </View>
   );
 };
+
+// const styles = StyleSheet.create({
+//   container: {
+//     padding: SPACING.sm,
+//     borderWidth: 1,
+//     borderColor: lightTheme.colors.border,
+//     borderRadius: 10,
+//   },
+// });

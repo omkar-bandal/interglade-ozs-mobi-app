@@ -1,7 +1,7 @@
 import {AppHeader} from '@components/header/AppHeader';
 import Button from '@components/ui/Button';
 import Tabs from '@components/ui/Tabs';
-import {SPACING} from '@theme/constants';
+import {lightTheme, SPACING} from '@theme/constants';
 import useTheme from '@theme/useTheme';
 import {navigate} from '@utils/NavigationUtils';
 import {useState} from 'react';
@@ -87,5 +87,6 @@ const styles = StyleSheet.create({
     borderRadius: 999, // Makes it fully circular
     justifyContent: 'center',
     alignItems: 'center',
+    backgroundColor: lightTheme.colors.primary,
   },
 });

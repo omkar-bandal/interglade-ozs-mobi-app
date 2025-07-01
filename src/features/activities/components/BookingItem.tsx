@@ -1,3 +1,4 @@
+import lightTheme from '@theme/light';
 import {navigate} from '@utils/NavigationUtils';
 import React from 'react';
 import {
@@ -7,6 +8,7 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native';
+import AntDesignIcon from 'react-native-vector-icons/AntDesign';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import Confirm from './Confirm';
 import Decline from './Decline';
@@ -37,6 +39,9 @@ const BookingItem = ({
   date,
   location,
   status,
+  onChat,
+  onCancel,
+  onClose,
   onViewDetails,
   type = 'myPropsal',
 }: any) => {
@@ -89,12 +94,36 @@ const BookingItem = ({
         <View style={styles.bookingDetailLocation}>
           <LocationIcon />
           <Text style={styles.detailText}>{location}</Text>
-          <TouchableOpacity
-            style={styles.viewDetailsButton}
-            onPress={onViewDetails}>
-            <Text style={styles.viewDetailsText}>View Details</Text>
-          </TouchableOpacity>
         </View>
+        {status !== 'pending' || type === 'myBooking' ? (
+          <View style={styles.btnCon}>
+            <TouchableOpacity style={styles.viewDetailsButton} onPress={onChat}>
+              <AntDesignIcon color="#393872" name="wechat" size={20} />
+              <Text style={styles.viewDetailsText}>Chat</Text>
+            </TouchableOpacity>
+            {type === 'myBooking' ? (
+              <TouchableOpacity
+                style={styles.viewDetailsButton}
+                onPress={onCancel}>
+                <AntDesignIcon color="#393872" name="close" size={20} />
+                <Text style={styles.viewDetailsText}>Cancel</Text>
+              </TouchableOpacity>
+            ) : (
+              <TouchableOpacity
+                style={styles.viewDetailsButton}
+                onPress={onClose}>
+                <AntDesignIcon color="#393872" name="close" size={20} />
+                <Text style={styles.viewDetailsText}>Close</Text>
+              </TouchableOpacity>
+            )}
+            <TouchableOpacity
+              style={styles.viewDetailsButton}
+              onPress={onViewDetails}>
+              <AntDesignIcon color="#393872" name="eye" size={20} />
+              <Text style={styles.viewDetailsText}>View Details</Text>
+            </TouchableOpacity>
+          </View>
+        ) : null}
 
         {(status === 'reserved' || status === 'pending') &&
           type === 'myPropsal' && (
@@ -195,16 +224,22 @@ const styles = StyleSheet.create({
     color: '#666',
     flex: 1,
   },
+  btnCon: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+  },
   viewDetailsButton: {
-    paddingVertical: 4,
-    paddingHorizontal: 8,
-    backgroundColor: '#FFF3E0',
-    borderRadius: 4,
+    paddingVertical: 5,
+    paddingHorizontal: 10,
+    backgroundColor: lightTheme.colors.secondaryLight,
+    borderRadius: 5,
+    flexDirection: 'row',
   },
   viewDetailsText: {
-    color: '#FFA726',
+    color: lightTheme.colors.textSecondary,
     fontSize: 12,
     fontWeight: '500',
+    paddingHorizontal: 5,
   },
   actionButtons: {
     flexDirection: 'row',

@@ -6,6 +6,7 @@ import {View} from 'react-native';
 
 interface StepThreeProps {
   formControl: any;
+  style?: any;
 }
 
 const billingTypeOptions = [
@@ -24,9 +25,9 @@ export const timeSlots = [
   {id: 'all-night', label: 'Toute la nuit'},
 ] as const;
 
-export const StepThree: FC<StepThreeProps> = ({formControl}) => {
+export const StepThree: FC<StepThreeProps> = ({formControl, style}) => {
   return (
-    <View>
+    <View style={style}>
       <FormRadioGroup
         label="Type de facturation"
         name="billing_type"

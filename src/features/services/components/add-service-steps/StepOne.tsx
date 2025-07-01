@@ -10,9 +10,10 @@ import {View} from 'react-native';
 
 interface StepOneProps {
   formControl: any;
+  style?: any;
 }
 
-export const StepOne: FC<StepOneProps> = ({formControl}) => {
+export const StepOne: FC<StepOneProps> = ({formControl, style}) => {
   const {data} = useGetAllServiceCategories();
   const {data: subcategoryData} = useGetAllSubCategoriesByID(
     formControl.watch('category'),
@@ -41,7 +42,7 @@ export const StepOne: FC<StepOneProps> = ({formControl}) => {
   }, [predefinedData]);
 
   return (
-    <View>
+    <View style={style}>
       <FormSelect
         label="Catégorie"
         placeholder="Select Catégorie"

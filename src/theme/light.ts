@@ -1,13 +1,14 @@
 const lightTheme = {
   colors: {
     // Primary colors - Using your #FFC163 as the primary color
-    primary: '#C49E00', //FFC163
-    primaryLight: '#FFDB99', // Lighter version of your color  #C49E00  //FFDB99
-    primaryDark: '#E6A43D', // Darker version of your color
+    primary: '#4D948E',
+    primaryLight: '#65B0A9', // Lighter version of your color
+    primaryDark: '#3E797E', // Darker version of your color
 
     // Secondary colors - Complementary blues that work well with amber
     secondary: '#63A9FF', // Complementary blue
-    secondaryLight: '#99CDFF',
+    //secondaryLight: '#99CDFF',
+    secondaryLight: '#E0F0F0',
     secondaryDark: '#3D85E6',
 
     // Accent colors - A subtle purple accent that pairs nicely with amber
@@ -31,6 +32,7 @@ const lightTheme = {
     textSecondary: '#5F534A',
     textTertiary: '#8E8578',
     textDisabled: '#C7C2B8',
+    textButton: '#393872',
 
     // Inverse colors (for dark elements)
     textInverse: '#FFFFFF',
@@ -55,7 +57,7 @@ const lightTheme = {
       placeholderColor: '#8E8578', // Matching tertiary text
     },
     button: {
-      primaryBackground: '#C49E00', // Your color
+      primaryBackground: '#4D948E', // Your color
       secondaryBackground: 'transparent',
       disabledBackground: '#EDE5D6',
       textColor: '#FFF', // Dark text on amber buttons

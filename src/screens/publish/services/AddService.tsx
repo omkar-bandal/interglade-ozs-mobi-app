@@ -63,7 +63,12 @@ export default function AddService({route}: any) {
   };
 
   if (isSuccess) {
-    return <SuccessScreen onRedirect={handleRedirect} />;
+    return (
+      <SuccessScreen
+        message="Service added successfully!"
+        onRedirect={handleRedirect}
+      />
+    );
   }
 
   // Render AddSaleForm with initial data
