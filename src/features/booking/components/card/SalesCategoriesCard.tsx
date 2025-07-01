@@ -1,5 +1,5 @@
 import Typography from '@components/ui/Typography';
-import {Dimensions, StyleSheet, View} from 'react-native';
+import {Dimensions, Image, StyleSheet, View} from 'react-native';
 
 const screenWidth = Dimensions.get('window').width;
 
@@ -14,14 +14,14 @@ export const SalesCategoriesCard = ({items}: any) => {
           <View
             style={[styles.container, isLastItemOdd && styles.fullWidth]}
             key={item.id}>
-            {/* <View style={styles.imageContainer}>
+            <View style={styles.imageContainer}>
               <Image
                 style={styles.image}
                 source={{
                   uri: 'https://img.freepik.com/free-vector/cleaners-with-cleaning-products-housekeeping-service_18591-52068.jpg?semt=ais_hybrid',
                 }}
               />
-            </View> */}
+            </View>
             <View style={styles.textContainer}>
               <Typography variant="caption">{item.name}</Typography>
             </View>

@@ -179,8 +179,8 @@ export const ServicesListScreen = ({
         showsVerticalScrollIndicator={false}
         ListEmptyComponent={
           <View style={styles.centerContent}>
-            <Text>No service found</Text>
-          </View>
+            <Text>“No listings yet. Tap the + to publish your first item!”</Text>
+          </View> 
         }
       />
     </View>

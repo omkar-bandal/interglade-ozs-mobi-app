@@ -7,6 +7,7 @@ import ConversationListScreen from '@screens/messages/ConversationListScreen';
 import {Publish} from '@screens/publish/Publish';
 import {BottomTabParamList} from './types';
 
+
 const BottomTab = createBottomTabNavigator<BottomTabParamList>();
 
 export function TabNavigator() {
@@ -23,6 +24,7 @@ export function TabNavigator() {
       <BottomTab.Screen name="Home" component={Booking} />
       <BottomTab.Screen name="Activity" component={Activities} />
       <BottomTab.Screen name="Account" component={Account} />
+      
     </BottomTab.Navigator>
   );
 }
