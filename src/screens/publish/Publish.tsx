@@ -1,5 +1,4 @@
 import {AppHeader} from '@components/header/AppHeader';
-import {ImageCarousel} from '@components/ImageCarousel';
 import Button from '@components/ui/Button';
 import Tabs from '@components/ui/Tabs';
 import {SPACING} from '@theme/constants';
@@ -12,6 +11,7 @@ import MySales from './sales/MySales';
 import MyServices from './services/MyServices';
 
 export function Publish() {
+  // const navigation = useNavigation<ConfirmationScreenNavigationProp>();
   const {theme} = useTheme();
   const [tabValue, setTabValue] = useState('sales');
 
@@ -29,7 +29,7 @@ export function Publish() {
     <View style={{flex: 1, backgroundColor: theme.colors.background}}>
       <AppHeader />
 
-      <ImageCarousel images={images} autoPlay={true} autoPlayInterval={5000} />
+      {/* <ImageCarousel images={images} autoPlay={true} autoPlayInterval={5000} /> */}
 
       <View style={styles.tabContainer}>
         <View style={styles.tabsWrapper}>
@@ -42,24 +42,32 @@ export function Publish() {
             onItemChange={handleTabChange}
           />
         </View>
-
-        <Button
-          style={styles.addButton}
-          size="small"
-          onPress={() =>
-            tabValue === 'sales' ? navigate('AddSale') : navigate('AddService')
-          }
-          leftIcon={<AntDesignIcon name="plus" size={20} color="#fff" />}
-        />
       </View>
 
       {tabValue === 'sales' ? <MySales /> : <MyServices />}
+      {/* 
+      <Button
+        style={styles.addButton}
+        size="large"
+        onPress={() =>
+          tabValue === 'sales' ? navigate('AddSale') : navigate('AddService')
+        }
+        leftIcon={<AntDesignIcon name="plus" size={25} color="#fff" />}
+      /> */}
+
+      <Button
+        style={styles.addButton}
+        size="large"
+        onPress={() => navigate('Post')}
+        leftIcon={<AntDesignIcon name="plus" size={25} color="#fff" />}
+      />
     </View>
   );
 }
 
 const styles = StyleSheet.create({
   tabContainer: {
+    paddingTop: SPACING.md,
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center', // Changed from 'stretch' to 'center'
@@ -71,10 +79,12 @@ const styles = StyleSheet.create({
     marginRight: SPACING.sm,
   },
   addButton: {
-    height: 40,
-    alignSelf: 'center',
-    aspectRatio: 1,
-    paddingHorizontal: 0,
+    position: 'absolute',
+    bottom: SPACING.xl,
+    right: SPACING.lg,
+    aspectRatio: 1, //. Ensures it's a circle
+    padding: 16, // Internal padding for icon
+    borderRadius: 999, // Makes it fully circular
     justifyContent: 'center',
     alignItems: 'center',
   },

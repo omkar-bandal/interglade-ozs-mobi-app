@@ -11,5 +11,7 @@ export function Search({style}: {style?: any}) {
 }
 
 const styles = StyleSheet.create({
-  searchContainer: {},
+  searchContainer: {
+  
+  },
 });

@@ -11,6 +11,7 @@ import {ResetPassword} from '@screens/auth/ResetPassword';
 import ServiceDetailsScreen from '@screens/booking/ServiceDetails';
 import LocationScreen from '@screens/location/Location';
 import ConversationScreen from '@screens/messages/ConversationScreen';
+import Post from '@screens/publish/Post';
 import AddSale from '@screens/publish/sales/AddSale';
 import SaleDetails from '@screens/publish/sales/SaleDetails';
 import AddService from '@screens/publish/services/AddService';
@@ -76,6 +77,7 @@ const AppNavigation: React.FC = () => {
 
         <Stack.Screen name="AddressList" component={AddressList} />
         <Stack.Screen name="AddEditAddress" component={AddEditAddressScreen} />
+        <Stack.Screen name="Post" component={Post} />
 
         <Stack.Screen
           name="SearchAndFilter"

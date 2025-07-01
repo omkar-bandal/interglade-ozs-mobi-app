@@ -184,7 +184,7 @@ export const SalesListScreen = ({sales, onEditSale, onDeleteSale}: any) => {
         showsVerticalScrollIndicator={false}
         ListEmptyComponent={
           <View style={styles.centerContent}>
-            <Text>No sales found</Text>
+            <Text>“No listings yet. Tap the + to publish your first item!”</Text>
           </View>
         }
       />

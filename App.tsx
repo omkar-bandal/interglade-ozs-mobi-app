@@ -1,3 +1,4 @@
+
 import AppNavigation from '@navigation/AppNavigation';
 import {persistor, store} from '@store/store';
 import {QueryClient, QueryClientProvider} from '@tanstack/react-query';
