@@ -44,8 +44,8 @@ export const PopularServices = (): JSX.Element => {
       </View>
 
       <ScrollView
-        horizontal
-        showsHorizontalScrollIndicator={false}
+        //   horizontal
+        //   showsHorizontalScrollIndicator={false}
         style={styles.horizontalScrollView}>
         {servicesData?.data?.map((service: any) => (
           <ServicesCard
@@ -71,7 +71,7 @@ const styles = StyleSheet.create({
     marginBottom: 10,
   },
   horizontalScrollView: {
-    paddingHorizontal: 5,
-    paddingVertical: 5,
+    paddingHorizontal: 20,
+    paddingVertical: 10,
   },
 });
