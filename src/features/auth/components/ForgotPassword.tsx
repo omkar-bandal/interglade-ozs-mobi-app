@@ -1,3 +1,4 @@
+/* eslint-disable react-native/no-inline-styles */
 import {FormInput} from '@components/auto-form/form-fields/Input';
 import {Form, FormButton} from '@components/ui/Form';
 import {useForgotPassword} from '@hooks/api/auth.rq';
@@ -33,7 +34,7 @@ export default function ForgotPasswordForm() {
   const handleLogin = async ({email}: EmailRequestParams) => {
     const {data, error} = await forgotPassword({
       email: email,
-    });
+  });
 
     if (data.user) {
       await navigate('HomeTab');
@@ -50,11 +51,11 @@ export default function ForgotPasswordForm() {
   const navigation = useNavigation();
 
   const [currentStep, setCurrentStep] = useState(1);
-  const [email, setEmail] = useState('');
+ // const [email, setEmail] = useState('');
   const [otp, setOtp] = useState(['', '', '', '']);
   const [newPassword, setNewPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
-  const [loading, setLoading] = useState(false);
+  //const [loading, setLoading] = useState(false);
 
   const otpRefs = [
     useRef<TextInput>(null),
