@@ -16,6 +16,7 @@ import TimeSlotPicker from './TimeSlotPicker';
 import {ImageCarousel} from '@components/ImageCarousel';
 import Button from '@components/ui/Button';
 import Typography from '@components/ui/Typography';
+import {RecentSales} from '@features/booking/components/RecentSales';
 import {useActions} from '@hooks/useActions';
 import {useTypedSelector} from '@hooks/useTypedSelector';
 import {SPACING} from '@theme/constants';
@@ -162,6 +163,8 @@ const ServiceDetails = ({serviceId}: {serviceId: string}) => {
               }>{`${serviceData?.provider?.first_name} ${serviceData?.provider?.last_name}`}</Text>
           </View>
         </View>
+
+        <RecentSales />
 
         {/* Reviews Section */}
         <View style={styles.sectionContainer}>
