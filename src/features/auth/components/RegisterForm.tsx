@@ -1,6 +1,5 @@
-import React from 'react';
-import {StyleSheet, View} from 'react-native';
-
+/* eslint-disable react-native/no-inline-styles */
+import {FormCheckbox} from '@components/auto-form/form-fields/Checkbox';
 import {FormInput} from '@components/auto-form/form-fields/Input';
 import {Form, FormButton} from '@components/ui/Form';
 import {useRegister} from '@hooks/api/auth.rq';
@@ -8,6 +7,8 @@ import {useActions} from '@hooks/useActions';
 import useForm from '@hooks/useForm';
 import {RegisterRequestParams} from '@services/auth/auth.model';
 import {navigate} from '@utils/NavigationUtils';
+import React from 'react';
+import {StyleSheet, View} from 'react-native';
 import {validationLoginFormSchema} from '../utils/validate';
 
 export default function RegisterForm() {
@@ -94,9 +95,17 @@ export default function RegisterForm() {
         />
       </View>
 
+      <View style={styles.input}>
+        <FormCheckbox
+          label="Accept Terms and Conditions"
+          name="terms"
+          formControl={formControl}
+        />
+      </View>
+
       <View style={styles.formAction}>
         <FormButton
-          label="Sign up"
+          label="Create Account"
           disabled={isPending}
           loading={isPending}
           formControl={formControl}

@@ -4,12 +4,11 @@ import React from 'react';
 import {StyleSheet, View} from 'react-native';
 
 export const ActivityDetailsScreen = ({route}: any) => {
-  const {reservationId = null} = route?.params || {};
+  const {reservationId} = route?.params;
 
   return (
     <View style={styles.container}>
       <ScreenHeader title="Activity Details" />
-
       <ActivityDetails reservationId={reservationId} />
     </View>
   );

@@ -1,12 +1,11 @@
 import React from 'react';
-import {ScrollView, StyleSheet, TouchableOpacity, View} from 'react-native';
-
-import {Container} from '@components/ui/Container';
-import Typography from '@components/ui/Typography';
+import {ScrollView, StyleSheet, View} from 'react-native';
 
 import BreakerText from '@components/ui/BreakerText';
 import Button from '@components/ui/Button';
+import {Container} from '@components/ui/Container';
 import RegisterForm from '@features/auth/components/RegisterForm';
+import Tab from '@features/auth/components/TabSelector';
 import {SPACING} from '@theme/constants';
 import useTheme from '@theme/useTheme';
 import {navigate} from '@utils/NavigationUtils';
@@ -19,6 +18,10 @@ export function Register() {
     <Container style={{backgroundColor: theme.colors.background}}>
       <ScrollView style={styles.container}>
         <View style={styles.header}>
+          <Tab selectedTab={'SignUp'} onTabSelect={() => navigate('Login')} />
+        </View>
+
+        {/* <View style={styles.header}>
           <Typography variant="h1" weight="bold">
             Sign up to{' '}
             <Typography
@@ -32,7 +35,7 @@ export function Register() {
           <Typography variant="caption">
             Get access to your portfolio and more
           </Typography>
-        </View>
+        </View> */}
 
         <RegisterForm />
 
@@ -51,7 +54,7 @@ export function Register() {
           />
         </View>
 
-        <View style={styles.signUpContainer}>
+        {/* <View style={styles.signUpContainer}>
           <Typography variant="body1">Have account</Typography>
           <TouchableOpacity onPress={() => navigate('Login')}>
             <Typography
@@ -60,7 +63,7 @@ export function Register() {
               Sign In
             </Typography>
           </TouchableOpacity>
-        </View>
+        </View> */}
       </ScrollView>
       {/* <SocialLogin /> */}
     </Container>

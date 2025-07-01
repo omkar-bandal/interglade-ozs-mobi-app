@@ -1,10 +1,9 @@
-import {useGetReservationById} from '@hooks/api/reservation.rq';
+/* eslint-disable react-native/no-inline-styles */
 import lightTheme from '@theme/light';
 import useTheme from '@theme/useTheme';
 import {navigate} from '@utils/NavigationUtils';
 import React from 'react';
 import {
-  ActivityIndicator,
   Image,
   ScrollView,
   StyleSheet,
@@ -13,52 +12,110 @@ import {
   View,
 } from 'react-native';
 import Ionicons from 'react-native-vector-icons/Ionicons';
+
+import {SPACING} from '@theme/constants';
 import Complete from '../Complete';
 
-const ActivityDetails = ({reservationId}: {reservationId: string}) => {
+const reservationData = {
+  data: [
+    {
+      id: '101',
+      service: {
+        title: 'Bridal Makeup Trial',
+        location: 'Shimmer Studio, Mumbai',
+        photos: {
+          //image: require('https://randomuser.me/api/portraits/men/44.jpg'),
+        },
+      },
+      provider: {
+        name: 'Priya Deshmukh',
+      },
+      date: '2025-07-03T14:00:00',
+      status: 'pending',
+    },
+    {
+      id: '102',
+      service: {
+        title: 'Hair Styling Session',
+        location: 'Salon One, Pune',
+      },
+      provider: {
+        name: 'Rahul Verma',
+      },
+      date: '2025-07-10T10:30:00',
+      status: 'approved',
+    },
+    {
+      id: '103',
+      service: {
+        title: 'Makeup Consultation',
+        location: 'Beauty Point, Delhi',
+        price: 100,
+      },
+      provider: {
+        name: 'Sana Khan',
+      },
+      date: '2025-07-15T16:15:00',
+      status: 'rejected',
+    },
+  ],
+};
+
+const ActivityDetails = ({reservationId}: any) => {
   const {theme} = useTheme();
 
-  const {data: reservationData, isLoading} =
-    useGetReservationById(reservationId);
+  const reservation = reservationData.data.find(
+    reservation => reservation.id === reservationId,
+  );
 
-  if (isLoading) {
-    return (
-      <View style={styles.centerContainer}>
-        <ActivityIndicator size="large" color="#FFC163" />
-      </View>
-    );
-  }
+  // const {data: reservationData, isLoading} =
+  //   useGetReservationById(reservationId);
 
-  const reservation = reservationData?.data;
+  // if (isLoading) {
+  //   return (
+  //     <View style={styles.centerContainer}>
+  //       <ActivityIndicator size="large" color="#FFC163" />
+  //     </View>
+  //   );
+  // }
 
-  if (!reservation) {
-    return (
-      <View style={styles.centerContainer}>
-        <Text>No reservation found</Text>
-      </View>
-    );
-  }
+  // const reservation = reservationData?.data;
+
+  // if (!reservation) {
+  //   return (
+  //     <View style={styles.centerContainer}>
+  //       <Text>No reservation found</Text>
+  //     </View>
+  //   );
+  // }
 
   return (
-    <View style={{flex: 1, backgroundColor: theme.colors.background}}>
+    <View
+      style={{
+        flex: 1,
+        backgroundColor: theme.colors.background,
+        paddingTop: SPACING.sm,
+      }}>
       <ScrollView
         style={styles.container}
         contentContainerStyle={{paddingBottom: 32}}>
         {/* Service Info */}
         <View style={styles.serviceInfo}>
-          <Image
+          {/* <Image
             source={{uri: reservation?.service?.photos[0]}}
             style={styles.serviceImage}
-          />
+          /> */}
           <View style={{flex: 1, marginLeft: 16}}>
             <Text style={styles.serviceTitle}>
-              {reservation?.service?.title}
+              {reservation?.service?.title || 'Hair Styling Session'}
             </Text>
             <View style={styles.ratingRow}>
               <Ionicons name="star" size={16} color={theme.colors.primary} />
               <Text style={styles.ratingText}>5.0</Text>
             </View>
-            <Text style={styles.price}>${reservation?.service?.price}</Text>
+            <Text style={styles.price}>
+              ${reservation?.service?.price || ' 100'}
+            </Text>
           </View>
         </View>
 
@@ -82,10 +139,16 @@ const ActivityDetails = ({reservationId}: {reservationId: string}) => {
             source={{uri: 'https://randomuser.me/api/portraits/men/44.jpg'}}
             style={styles.providerImage}
           />
+          {/* <View style={{flex: 1, marginLeft: 12}}>
+            <Text style={styles.providerName}>
+              {reservation?.provider?.first_name || 'Sara'}{' '}
+              {reservation?.provider?.last_name || 'Khan'}
+            </Text>
+          </View> */}
           <View style={{flex: 1, marginLeft: 12}}>
             <Text style={styles.providerName}>
-              {reservation?.provider?.first_name}{' '}
-              {reservation?.provider?.last_name}
+              {reservation?.provider?.name || 'Sara'}{' '}
+              {reservation?.provider?.name || 'Khan'}
             </Text>
           </View>
           {/* <View style={styles.providerActions}>
@@ -223,6 +286,7 @@ const styles = StyleSheet.create({
   serviceTitle: {
     fontWeight: 'bold',
     fontSize: 16,
+    color: lightTheme.colors.text,
     marginBottom: 4,
   },
   ratingRow: {
@@ -295,6 +359,7 @@ const styles = StyleSheet.create({
   providerName: {
     fontWeight: 'bold',
     fontSize: 15,
+    color: lightTheme.colors.text,
   },
   providerRole: {
     color: lightTheme.colors.gray,
@@ -376,6 +441,7 @@ const styles = StyleSheet.create({
   grandTotalLabel: {
     fontWeight: 'bold',
     fontSize: 16,
+    color: lightTheme.colors.primary,
   },
   grandTotalValue: {
     fontWeight: 'bold',

@@ -5,11 +5,12 @@ import {View} from 'react-native';
 
 interface StepThreeProps {
   formControl: any;
+  style?: any;
 }
 
-export const StepThree: FC<StepThreeProps> = ({formControl}) => {
+export const StepThree: FC<StepThreeProps> = ({formControl, style}) => {
   return (
-    <View>
+    <View style={style}>
       <FormInput
         label="Prix"
         placeholder="Ex: 50"

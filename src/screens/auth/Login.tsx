@@ -1,5 +1,5 @@
 import React, {useEffect} from 'react';
-import {ScrollView, StyleSheet, TouchableOpacity, View} from 'react-native';
+import {ScrollView, StyleSheet, View} from 'react-native';
 
 import {Container} from '@components/ui/Container';
 import Typography from '@components/ui/Typography';
@@ -9,6 +9,7 @@ import BreakerText from '@components/ui/BreakerText';
 import Button from '@components/ui/Button';
 import FBLogin from '@features/auth/components/FBLogin';
 import GoogleLogin from '@features/auth/components/GoogleLogin';
+import Tab from '@features/auth/components/TabSelector';
 import {useTypedSelector} from '@hooks/useTypedSelector';
 import {SPACING} from '@theme/constants';
 import useTheme from '@theme/useTheme';
@@ -28,18 +29,10 @@ export function Login() {
 
   return (
     <Container style={{backgroundColor: theme.colors.background}}>
-      <View style={styles.skipContainer}>
-        <Button
-          size="small"
-          variant="outline"
-          label="Skip"
-          onPress={() => navigate('Tab', {screen: 'Home'})}
-        />
-      </View>
       <ScrollView style={styles.container}>
-        <View style={styles.header}>
+        <View style={[styles.header]}>
           <Typography variant="h1" weight="bold">
-            Sign in to{' '}
+            Welcome to{' '}
             <Typography
               variant="h1"
               weight="bold"
@@ -49,8 +42,12 @@ export function Login() {
           </Typography>
 
           <Typography variant="caption">
-            Get access to your portfolio and more
+            Login to access your account
           </Typography>
+        </View>
+
+        <View style={[styles.header]}>
+          <Tab selectedTab={'Login'} onTabSelect={() => navigate('Register')} />
         </View>
 
         <LoginForm />
@@ -62,7 +59,7 @@ export function Login() {
           <FBLogin />
         </View>
 
-        <View style={styles.signUpContainer}>
+        {/* <View style={styles.signUpContainer}>
           <Typography variant="body1">Don't have account</Typography>
           <TouchableOpacity onPress={() => navigate('Register')}>
             <Typography
@@ -71,6 +68,15 @@ export function Login() {
               Sign Up
             </Typography>
           </TouchableOpacity>
+        </View> */}
+
+        <View style={styles.skipContainer}>
+          <Button
+            size="small"
+            variant="outline"
+            label="Skip"
+            onPress={() => navigate('Tab', {screen: 'Home'})}
+          />
         </View>
       </ScrollView>
       {/* <SocialLogin /> */}
@@ -93,9 +99,10 @@ const styles = StyleSheet.create({
   header: {
     alignItems: 'center',
     justifyContent: 'center',
-    marginVertical: 36,
+    marginVertical: 30,
   },
   socialContainer: {
+    marginBottom: SPACING.md,
     gap: 5,
   },
   signUpContainer: {

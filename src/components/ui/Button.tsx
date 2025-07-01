@@ -88,9 +88,10 @@ export const Button: React.FC<ButtonProps> = ({
       },
       secondary: {
         backgroundColor: theme.colors.secondaryLight,
+        //backgroundColor: 'red',
         borderWidth: 0,
         borderColor: theme.colors.secondaryLight,
-        textColor: theme.colors.textInverse,
+        textColor: theme.colors.textButton,
       },
       destructive: {
         backgroundColor: theme.colors.error,

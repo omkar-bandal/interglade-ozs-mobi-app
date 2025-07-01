@@ -232,7 +232,7 @@ const ServiceDetails = ({serviceId}: {serviceId: string}) => {
 
         <Button
           label="Confirm"
-          disabled={!selectedDay || !selectedTimeSlot}
+          //disabled={!selectedDay || !selectedTimeSlot}
           onPress={handleConfirmBooking}
         />
       </ActionSheet>

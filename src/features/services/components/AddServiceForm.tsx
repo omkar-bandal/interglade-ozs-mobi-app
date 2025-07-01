@@ -7,6 +7,7 @@ import {useCreateService, useUpdateService} from '@hooks/api/service.rq';
 import {useActions} from '@hooks/useActions';
 import useForm from '@hooks/useForm';
 import {useTypedSelector} from '@hooks/useTypedSelector';
+import {lightTheme, SPACING} from '@theme/constants';
 import useTheme from '@theme/useTheme';
 import {uploadFile} from '@utils/upload.utils';
 import {validationServiceFormSchema} from '../utils/validate';
@@ -96,13 +97,13 @@ export default function AddServiceForm({initialData, serviceId}: any) {
           />
         }>
         <Step title="Détails de l'article">
-          <StepOne formControl={formControl} />
+          <StepOne formControl={formControl} style={styles.formContainer} />
         </Step>
         <Step title="Photos de l'article">
-          <StepTwo formControl={formControl} />
+          <StepTwo formControl={formControl} style={styles.formContainer} />
         </Step>
         <Step title="Prix et état de l'article">
-          <StepThree formControl={formControl} />
+          <StepThree formControl={formControl} style={styles.formContainer} />
         </Step>
         <Step title="Récapitulatif et publication">
           <Summary formData={formControl.values} />
@@ -117,6 +118,14 @@ const styles = StyleSheet.create({
     flexGrow: 1,
     flexShrink: 1,
     flexBasis: 0,
+  },
+  formContainer: {
+    padding: SPACING.sm,
+    borderWidth: 1,
+    borderColor: lightTheme.colors.border,
+    borderRadius: 10,
+    height: '100%',
+    justifyContent: 'center',
   },
   formAction: {
     marginBottom: 4,

@@ -2,7 +2,7 @@ import {AppHeader} from '@components/header/AppHeader';
 import {ImageCarousel} from '@components/ImageCarousel';
 import Button from '@components/ui/Button';
 import Tabs from '@components/ui/Tabs';
-import {SPACING} from '@theme/constants';
+import {lightTheme, SPACING} from '@theme/constants';
 import useTheme from '@theme/useTheme';
 import {navigate} from '@utils/NavigationUtils';
 import {useState} from 'react';
@@ -77,5 +77,6 @@ const styles = StyleSheet.create({
     paddingHorizontal: 0,
     justifyContent: 'center',
     alignItems: 'center',
+    backgroundColor: lightTheme.colors.primary,
   },
 });
