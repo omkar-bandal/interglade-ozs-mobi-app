@@ -1,8 +1,38 @@
-import React from 'react';
+import Button from '@components/ui/Button';
+import {useGetAllServices} from '@hooks/api/service.rq';
+import {SPACING} from '@theme/constants';
+import React, {useCallback, useState} from 'react';
 import {Image, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
+import AntDesign from 'react-native-vector-icons/AntDesign';
 import Icon from 'react-native-vector-icons/Ionicons';
 
 export const ServicesCard = ({service, onReserveClick}: any) => {
+  const {data: servicesData} = useGetAllServices();
+  const [selectedProviderId, setSelectedProviderId] = useState<string | null>(
+    null,
+  );
+
+  // Use a callback for handling service selection to prevent re-renders
+  const handleContactClick = useCallback(
+    (serviceId: any): void => {
+      // Get the service data first
+      const selectedService = servicesData?.data?.find(
+        (service: any) => service.id === serviceId,
+      );
+
+      // Check if the provider is the current user
+      // if (selectedService?.provider_id === user?.id) {
+      //   return;
+      // }
+
+      // Set the provider ID to trigger the hooks and effect
+      if (selectedService?.provider_id) {
+        setSelectedProviderId(selectedService.provider_id);
+      }
+    },
+    [null],
+  );
+
   return (
     <TouchableOpacity
       key={service.id}
@@ -29,11 +59,11 @@ export const ServicesCard = ({service, onReserveClick}: any) => {
           </View>
 
           {/* Service Title */}
-          <Text style={styles.title}>{service.title}</Text>
+          <Text style={styles.title}>{service.title || 'Cleaning'}</Text>
 
           {/* Price */}
           <View style={styles.priceContainer}>
-            <Text style={styles.currentPrice}>${service.price}</Text>
+            <Text style={styles.currentPrice}>${service.price || '100'}</Text>
           </View>
 
           {/* Service Provider */}
@@ -50,6 +80,29 @@ export const ServicesCard = ({service, onReserveClick}: any) => {
               </View>
             </View>
           </View>
+
+          {/* Action Button*/}
+
+          <View style={styles.actionBtnRow}>
+            <Button
+              label="Message"
+              variant="outline"
+              size="medium"
+              style={styles.button}
+              leftIcon={<AntDesign name="wechat" size={16} color="#393872" />}
+              onPress={() => handleContactClick(service.id)}
+              
+            />
+
+            <Button
+              label="Book"
+              variant="primary"
+              size="medium"
+              style={styles.button}
+              onPress={() => onReserveClick(service.id)}
+
+            />
+          </View>
         </View>
       </View>
     </TouchableOpacity>
@@ -58,7 +111,7 @@ export const ServicesCard = ({service, onReserveClick}: any) => {
 
 const styles = StyleSheet.create({
   card: {
-    width: 280,
+    width: '100%',
     backgroundColor: 'white',
     borderRadius: 12,
     overflow: 'hidden',
@@ -67,7 +120,7 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.1,
     shadowRadius: 4,
     elevation: 3,
-    marginHorizontal: 10,
+    marginBottom: 10,
   },
   image: {
     width: '100%',
@@ -136,11 +189,13 @@ const styles = StyleSheet.create({
     fontSize: 12,
     color: '#777',
   },
-  addButton: {
-    backgroundColor: '#2196F3',
-    paddingHorizontal: 16,
-    paddingVertical: 8,
-    borderRadius: 6,
+  actionBtnRow: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    paddingVertical: SPACING.sm,
+  },
+  button: {
+    width: '40%',
   },
   addButtonText: {
     color: 'white',
