@@ -6,6 +6,7 @@ import {View} from 'react-native';
 
 interface StepTwoProps {
   formControl: any;
+  style?: any;
 }
 
 const languages = [
@@ -18,9 +19,9 @@ const languages = [
   {code: 'bm', name: 'Bambara'},
 ];
 
-export const StepTwo: FC<StepTwoProps> = ({formControl}) => {
+export const StepTwo: FC<StepTwoProps> = ({formControl, style}) => {
   return (
-    <View>
+    <View style={style}>
       <FormMultiImageUpload
         label="Upload Gallery Images"
         name="photos"

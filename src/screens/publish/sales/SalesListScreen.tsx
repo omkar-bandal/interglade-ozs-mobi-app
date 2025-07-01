@@ -139,17 +139,17 @@ export const SalesListScreen = ({sales, onEditSale, onDeleteSale}: any) => {
                   label="Edit"
                   style={styles.editButton}
                   leftIcon={
-                    <Icon name="create-outline" size={16} color="#fff" />
+                    <Icon name="create-outline" size={16} color="#393972" />
                   }
                   onPress={() => onEditSale(item)}
                 />
                 <Button
                   label="Delete"
-                  variant="destructive"
+                  variant="secondary"
                   size="small"
                   style={styles.deleteButton}
                   leftIcon={
-                    <Icon name="trash-outline" size={16} color="#fff" />
+                    <Icon name="trash-outline" size={16} color="#393872" />
                   }
                   onPress={() => {
                     Alert.alert(

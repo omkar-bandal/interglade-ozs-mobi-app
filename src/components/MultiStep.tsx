@@ -1,3 +1,4 @@
+import {lightTheme, SPACING} from '@theme/constants';
 import useTheme from '@theme/useTheme';
 import React, {
   Children,
@@ -127,7 +128,7 @@ const MultiStep: React.FC<MultiStepProps> = ({
           <Button
             label="Back"
             onPress={prevStep}
-            variant="secondary"
+            variant="outline"
             style={{flex: 1}}
           />
         )}
@@ -166,8 +167,13 @@ const styles = StyleSheet.create({
   },
   progressContainer: {
     marginBottom: 30,
+    borderWidth: 1,
+    borderColor: '#E0E0E0',
+    borderRadius: 10,
+    padding: SPACING.sm,
   },
   progressTrack: {
+    marginTop: 15,
     height: 10,
     backgroundColor: '#E0E0E0',
     borderRadius: 5,
@@ -177,7 +183,7 @@ const styles = StyleSheet.create({
   progressFill: {
     position: 'absolute',
     height: '100%',
-    backgroundColor: '#FFC163',
+    backgroundColor: lightTheme.colors.primary,
     borderRadius: 5,
     zIndex: 2,
   },

@@ -57,11 +57,16 @@ export default function AddSale({route}: any) {
   }
 
   const handleRedirect = () => {
-    navigate('Tab', {screen: 'Publish'});
+    navigate('Tab-', {screen: 'Publish'});
   };
 
   if (isSuccess) {
-    return <SuccessScreen onRedirect={handleRedirect} />;
+    return (
+      <SuccessScreen
+        message="Sales added successfully!"
+        onRedirect={handleRedirect}
+      />
+    );
   }
 
   // Render AddSaleForm with initial data

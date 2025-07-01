@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
+/* eslint-disable react-native/no-inline-styles */
 import ScreenHeader from '@components/header/ScreenHeader';
 import SuccessScreen from '@components/Success';
 import Button from '@components/ui/Button';
