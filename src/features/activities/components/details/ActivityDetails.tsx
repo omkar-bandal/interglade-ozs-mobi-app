@@ -56,7 +56,7 @@ const reservationData = {
         name: 'Sana Khan',
       },
       date: '2025-07-15T16:15:00',
-      status: 'rejected',
+      status: 'Completed',
     },
   ],
 };

@@ -1,3 +1,4 @@
+/* eslint-disable react-native/no-inline-styles */
 // ServiceDetails.tsx
 import {ActionSheet} from '@components/ActionSheet';
 import {useGetServiceById} from '@hooks/api/service.rq';

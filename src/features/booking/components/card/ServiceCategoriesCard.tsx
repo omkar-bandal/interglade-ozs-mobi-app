@@ -1,4 +1,6 @@
 import Typography from '@components/ui/Typography';
+import {SPACING} from '@theme/constants';
+import lightTheme from '@theme/light';
 import {Dimensions, Image, StyleSheet, View} from 'react-native';
 
 const screenWidth = Dimensions.get('window').width;
@@ -8,7 +10,7 @@ export const ServiceCategoriesCard = ({items}: any) => {
     <View style={styles.wrapper}>
       {items?.map((item: any, index: number) => {
         const isLastItem = index === items.length - 1;
-        const isLastItemOdd = isLastItem && items.length % 2 !== 0;
+        const isLastItemOdd = isLastItem && items.length % 3 !== 0;
 
         return (
           <View
@@ -36,27 +38,30 @@ const styles = StyleSheet.create({
   wrapper: {
     flexDirection: 'row',
     flexWrap: 'wrap',
-    gap: 12,
+    gap: 8,
     justifyContent: 'space-between',
   },
   container: {
-    width: (screenWidth - 65) / 2, // Accounting for padding and gap
-    backgroundColor: '#fff',
+    width: (screenWidth - 100) / 3, // Accounting for padding and gap
+    //backgroundColor: '#fff',
     borderRadius: 12,
+    backgroundColor: lightTheme.colors.secondaryLight,
+    padding: SPACING.sm,
   },
   fullWidth: {
     width: '100%',
   },
   imageContainer: {
     marginBottom: 8,
+    alignItems: 'center',
   },
   image: {
-    width: '100%',
-    height: 100,
+    width: '70%',
+    height: 75,
     borderRadius: 8,
   },
   textContainer: {
-    padding: 8,
+    padding: 5,
     alignItems: 'center',
     borderWidth: 1,
     borderRadius: 8,
