@@ -1,10 +1,11 @@
 import {AppHeader} from '@components/header/AppHeader';
-import { ImageCarousel } from '@components/ImageCarousel';
+import {ImageCarousel} from '@components/ImageCarousel';
 import Tabs from '@components/ui/Tabs';
 import {PopularServices} from '@features/booking/components/PopularServices';
 import {RecentSales} from '@features/booking/components/RecentSales';
 import {SalesCategories} from '@features/booking/components/SalesCategories';
 import {ServicesCategories} from '@features/booking/components/ServicesCategories';
+import SpecialOffer from '@features/booking/components/SpecialOffer';
 import {lightTheme, SPACING} from '@theme/constants';
 import useTheme from '@theme/useTheme';
 import {navigate} from '@utils/NavigationUtils';
@@ -92,23 +93,22 @@ export function Booking() {
               <PopularServices />
             </View>
           ) : (
-         
-         <View>
-            <SalesCategories />
-            
-            <ImageCarousel
-            images={images}
-            autoPlay={true}
-            autoPlayInterval={5000}
-          />
-            <RecentSales />
-          </View>
+            <View>
+              <SalesCategories />
+
+              <ImageCarousel
+                images={images}
+                autoPlay={true}
+                autoPlayInterval={5000}
+              />
+              <SpecialOffer />
+              <RecentSales />
+            </View>
           )}
 
           {/* <SalesCategories /> */}
 
           {/* <ServicesCategories /> */}
-
         </View>
       </ScrollView>
     </View>
