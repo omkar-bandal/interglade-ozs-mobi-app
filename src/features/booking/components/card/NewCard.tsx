@@ -70,7 +70,7 @@ const styles = StyleSheet.create({
   serviceName: {
     fontSize: 16,
     fontWeight: 'bold',
-    color: '#222',
+    color: lightTheme.colors.text,
     //marginBottom: 4,
     width: '100%',
   },

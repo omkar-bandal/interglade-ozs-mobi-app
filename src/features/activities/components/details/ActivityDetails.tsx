@@ -274,7 +274,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     marginBottom: 16,
-    backgroundColor: lightTheme.colors.lightGray,
+    backgroundColor: lightTheme.components.card.backgroundColor,
     borderRadius: 12,
     padding: 12,
   },
@@ -346,7 +346,7 @@ const styles = StyleSheet.create({
   providerCard: {
     flexDirection: 'row',
     alignItems: 'center',
-    backgroundColor: lightTheme.colors.lightGray,
+    backgroundColor: lightTheme.components.card.backgroundColor,
     borderRadius: 12,
     padding: 12,
     marginBottom: 12,
@@ -406,16 +406,16 @@ const styles = StyleSheet.create({
     fontSize: 15,
   },
   statusDate: {
-    color: lightTheme.colors.gray,
+    color: lightTheme.colors.textSecondary,
     fontSize: 13,
   },
   statusDesc: {
-    color: lightTheme.colors.gray,
+    color: lightTheme.colors.textTertiary,
     fontSize: 13,
     marginTop: 2,
   },
   statusTime: {
-    color: lightTheme.colors.gray,
+    color: lightTheme.colors.textTertiary,
     fontSize: 12,
     marginTop: 2,
   },

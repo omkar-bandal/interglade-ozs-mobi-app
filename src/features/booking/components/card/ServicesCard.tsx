@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-shadow */
 import Button from '@components/ui/Button';
 import {useGetAllServices} from '@hooks/api/service.rq';
 import {SPACING} from '@theme/constants';
@@ -91,7 +92,6 @@ export const ServicesCard = ({service, onReserveClick}: any) => {
               style={styles.button}
               leftIcon={<AntDesign name="wechat" size={16} color="#393872" />}
               onPress={() => handleContactClick(service.id)}
-              
             />
 
             <Button
@@ -100,7 +100,6 @@ export const ServicesCard = ({service, onReserveClick}: any) => {
               size="medium"
               style={styles.button}
               onPress={() => onReserveClick(service.id)}
-
             />
           </View>
         </View>

@@ -1,5 +1,5 @@
 import {useNavigation} from '@react-navigation/native';
-import {SPACING} from '@theme/constants';
+import {lightTheme, SPACING} from '@theme/constants';
 import {navigate} from '@utils/NavigationUtils';
 import React from 'react';
 import {StyleSheet, Text, TouchableOpacity, View} from 'react-native';
@@ -28,7 +28,7 @@ const PostScreen = () => {
           style={styles.subContainer}
           onPress={() => navigate('AddService')}>
           <View style={styles.iconContainer}>
-            <AntDesignIcon color="#C49E00" name="tooloutlined" size={24} />
+            <AntDesignIcon color="#4D948E" name="tooloutlined" size={24} />
             {/* <ToolOutlined /> */}
           </View>
           <Subtitle subtitle={'Offer a Service'} />
@@ -38,7 +38,7 @@ const PostScreen = () => {
           style={styles.subContainer}
           onPress={() => navigate('AddSale')}>
           <View style={styles.iconContainer}>
-            <AntDesignIcon color="#C49E00" name="tooloutlined" size={24} />
+            <AntDesignIcon color="#4D948E" name="tooloutlined" size={24} />
           </View>
           <Subtitle subtitle={'Post a Sale'} />
         </TouchableOpacity>
@@ -46,7 +46,7 @@ const PostScreen = () => {
         <TouchableOpacity onPress={() => navigation.goBack()}>
           <View style={styles.subContainer}>
             <View style={styles.iconContainer}>
-              <AntDesignIcon color="#C49E00" name="arrowleft" size={24} />
+              <AntDesignIcon color="#4D948E" name="arrowleft" size={24} />
             </View>
             <Subtitle subtitle={'Back'} />
           </View>
@@ -69,7 +69,7 @@ const styles = StyleSheet.create({
   boxContainer: {
     marginTop: 50,
     minWidth: 296,
-    backgroundColor: '#FDF6E3',
+    backgroundColor: lightTheme.components.card.backgroundColor,
     borderRadius: 8,
     padding: SPACING.lg,
     display: 'flex',
@@ -78,7 +78,7 @@ const styles = StyleSheet.create({
   subContainer: {
     minWidth: 202,
     borderWidth: 1,
-    borderColor: '#C49E00',
+    borderColor: lightTheme.colors.primary,
     margin: SPACING.md,
     paddingHorizontal: 22,
     paddingVertical: 10,
@@ -119,7 +119,7 @@ const styles = StyleSheet.create({
   },
   subtitle: {
     fontSize: 16,
-    color: '#C49E00',
+    color: lightTheme.colors.primary,
     marginLeft: 12,
   },
 });

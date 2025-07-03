@@ -1,12 +1,13 @@
 /* eslint-disable react-native/no-inline-styles */
 import {AppHeader} from '@components/header/AppHeader';
-import { ImageCarousel } from '@components/ImageCarousel';
+import {ImageCarousel} from '@components/ImageCarousel';
 import Tabs from '@components/ui/Tabs';
 import {PopularServices} from '@features/booking/components/PopularServices';
-import {RecentSales} from '@features/booking/components/RecentSales';
+import Reviews from '@features/booking/components/Reviews';
 import {SalesCategories} from '@features/booking/components/SalesCategories';
 import {ServicesCategories} from '@features/booking/components/ServicesCategories';
 import WhatsNew from '@features/booking/components/WhatsNew';
+import WhyTrustUs from '@features/booking/components/WhyTrustUs';
 import {lightTheme, SPACING} from '@theme/constants';
 import useTheme from '@theme/useTheme';
 import {navigate} from '@utils/NavigationUtils';
@@ -91,26 +92,26 @@ export function Booking() {
           {tabValue === 'services' ? (
             <View>
               <ServicesCategories />
+              <WhatsNew />
               <PopularServices />
             </View>
           ) : (
-         
-         <View>
-            <SalesCategories />
-            
-            <ImageCarousel
-            images={images}
-            autoPlay={true}
-            autoPlayInterval={5000}
-          />
-            <RecentSales />
-          </View>
+            <View>
+              <SalesCategories />
+              <ImageCarousel
+                images={images}
+                autoPlay={true}
+                autoPlayInterval={5000}
+              />
+            </View>
           )}
+
+          <WhyTrustUs />
+          <Reviews />
 
           {/* <SalesCategories /> */}
 
           {/* <ServicesCategories /> */}
-
         </View>
       </ScrollView>
     </View>
