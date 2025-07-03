@@ -1,7 +1,6 @@
-import Typography from '@components/ui/Typography';
-import {SPACING} from '@theme/constants';
+import {FONT_SIZE, SPACING} from '@theme/constants';
 import lightTheme from '@theme/light';
-import {Dimensions, Image, StyleSheet, View} from 'react-native';
+import {Dimensions, Image, StyleSheet, Text, View} from 'react-native';
 
 const screenWidth = Dimensions.get('window').width;
 
@@ -24,8 +23,13 @@ export const ServiceCategoriesCard = ({items}: any) => {
                 }}
               />
             </View>
-            <View style={styles.textContainer}>
+            {/* <View style={styles.textContainer}>
               <Typography variant="caption">{item.name}</Typography>
+            </View> */}
+            <View style={styles.textContainer}>
+              <Text style={styles.title} numberOfLines={1} ellipsizeMode="tail">
+                {item.name}
+              </Text>
             </View>
           </View>
         );
@@ -45,7 +49,7 @@ const styles = StyleSheet.create({
     width: (screenWidth - 100) / 3, // Accounting for padding and gap
     //backgroundColor: '#fff',
     borderRadius: 12,
-    backgroundColor: lightTheme.colors.secondaryLight,
+    backgroundColor: lightTheme.components.card.backgroundColor,
     padding: SPACING.sm,
   },
   fullWidth: {
@@ -54,6 +58,11 @@ const styles = StyleSheet.create({
   imageContainer: {
     marginBottom: 8,
     alignItems: 'center',
+  },
+  title: {
+    fontSize: FONT_SIZE.xs,
+    lineHeight: FONT_SIZE.xs * 1.5,
+    color: lightTheme.colors.text,
   },
   image: {
     width: '70%',

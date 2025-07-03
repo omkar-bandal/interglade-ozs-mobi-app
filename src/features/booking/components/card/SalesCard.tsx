@@ -1,3 +1,4 @@
+import lightTheme from '@theme/light';
 import React from 'react';
 import {Image, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons';
@@ -64,7 +65,7 @@ export const SalesCard = ({
 
 const styles = StyleSheet.create({
   card: {
-    backgroundColor: 'white',
+    backgroundColor: lightTheme.components.card.backgroundColor,
     borderRadius: 12,
     overflow: 'hidden',
     shadowColor: '#000',
