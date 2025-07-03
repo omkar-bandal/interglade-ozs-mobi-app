@@ -3,9 +3,11 @@ import {AppHeader} from '@components/header/AppHeader';
 import {ImageCarousel} from '@components/ImageCarousel';
 import Tabs from '@components/ui/Tabs';
 import {PopularServices} from '@features/booking/components/PopularServices';
+import {RecentSales} from '@features/booking/components/RecentSales';
 import Reviews from '@features/booking/components/Reviews';
 import {SalesCategories} from '@features/booking/components/SalesCategories';
 import {ServicesCategories} from '@features/booking/components/ServicesCategories';
+import SpecialOffer from '@features/booking/components/SpecialOffer';
 import WhatsNew from '@features/booking/components/WhatsNew';
 import WhyTrustUs from '@features/booking/components/WhyTrustUs';
 import {lightTheme, SPACING} from '@theme/constants';
@@ -103,6 +105,16 @@ export function Booking() {
                 autoPlay={true}
                 autoPlayInterval={5000}
               />
+
+              <SalesCategories />
+
+              <ImageCarousel
+                images={images}
+                autoPlay={true}
+                autoPlayInterval={5000}
+              />
+              <SpecialOffer />
+              <RecentSales />
             </View>
           )}
 
