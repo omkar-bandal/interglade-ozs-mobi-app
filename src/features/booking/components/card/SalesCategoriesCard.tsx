@@ -1,5 +1,5 @@
-import Typography from '@components/ui/Typography';
-import {Dimensions, Image, StyleSheet, View} from 'react-native';
+import {FONT_SIZE, lightTheme, SPACING} from '@theme/constants';
+import {Dimensions, Image, StyleSheet, Text, View} from 'react-native';
 
 const screenWidth = Dimensions.get('window').width;
 
@@ -8,7 +8,7 @@ export const SalesCategoriesCard = ({items}: any) => {
     <View style={styles.wrapper}>
       {items?.map((item: any, index: number) => {
         const isLastItem = index === items.length - 1;
-        const isLastItemOdd = isLastItem && items.length % 2 !== 0;
+        const isLastItemOdd = isLastItem && items.length % 3 !== 0;
 
         return (
           <View
@@ -22,8 +22,13 @@ export const SalesCategoriesCard = ({items}: any) => {
                 }}
               />
             </View>
-            <View style={styles.textContainer}>
+            {/* <View style={styles.textContainer} >
               <Typography variant="caption">{item.name}</Typography>
+            </View> */}
+            <View style={styles.textContainer}>
+              <Text style={styles.title} numberOfLines={1} ellipsizeMode="tail">
+                {item.name}
+              </Text>
             </View>
           </View>
         );
@@ -36,23 +41,33 @@ const styles = StyleSheet.create({
   wrapper: {
     flexDirection: 'row',
     flexWrap: 'wrap',
-    gap: 12,
+    gap: 8,
     justifyContent: 'space-between',
+    //backgroundColor: 'red',
   },
   container: {
-    width: (screenWidth - 65) / 2, // Accounting for padding and gap
-    backgroundColor: '#fff',
+    width: (screenWidth - 100) / 3, // Accounting for padding and gap
+    //backgroundColor: '#fff',
     borderRadius: 12,
+    backgroundColor: lightTheme.components.card.backgroundColor,
+    padding: SPACING.sm,
   },
   fullWidth: {
     width: '100%',
   },
   imageContainer: {
     marginBottom: 8,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  title: {
+    fontSize: FONT_SIZE.xs,
+    lineHeight: FONT_SIZE.xs * 1.5,
+    color: lightTheme.colors.text,
   },
   image: {
-    width: '100%',
-    height: 100,
+    width: '75%',
+    height: 75,
     borderRadius: 8,
   },
   textContainer: {

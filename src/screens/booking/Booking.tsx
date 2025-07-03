@@ -1,11 +1,15 @@
+/* eslint-disable react-native/no-inline-styles */
 import {AppHeader} from '@components/header/AppHeader';
 import {ImageCarousel} from '@components/ImageCarousel';
 import Tabs from '@components/ui/Tabs';
 import {PopularServices} from '@features/booking/components/PopularServices';
 import {RecentSales} from '@features/booking/components/RecentSales';
+import Reviews from '@features/booking/components/Reviews';
 import {SalesCategories} from '@features/booking/components/SalesCategories';
 import {ServicesCategories} from '@features/booking/components/ServicesCategories';
 import SpecialOffer from '@features/booking/components/SpecialOffer';
+import WhatsNew from '@features/booking/components/WhatsNew';
+import WhyTrustUs from '@features/booking/components/WhyTrustUs';
 import {lightTheme, SPACING} from '@theme/constants';
 import useTheme from '@theme/useTheme';
 import {navigate} from '@utils/NavigationUtils';
@@ -90,10 +94,18 @@ export function Booking() {
           {tabValue === 'services' ? (
             <View>
               <ServicesCategories />
+              <WhatsNew />
               <PopularServices />
             </View>
           ) : (
             <View>
+              <SalesCategories />
+              <ImageCarousel
+                images={images}
+                autoPlay={true}
+                autoPlayInterval={5000}
+              />
+
               <SalesCategories />
 
               <ImageCarousel
@@ -105,6 +117,9 @@ export function Booking() {
               <RecentSales />
             </View>
           )}
+
+          <WhyTrustUs />
+          <Reviews />
 
           {/* <SalesCategories /> */}
 
@@ -119,14 +134,13 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
   },
-
   tabContainer: {
-    paddingTop: SPACING.md,
+    //paddingTop: SPACING.sm,
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center', // Changed from 'stretch' to 'center'
     paddingHorizontal: SPACING.md,
-    marginVertical: SPACING.sm,
+    //marginVertical: SPACING.sm,
   },
   tabsWrapper: {
     flex: 1,

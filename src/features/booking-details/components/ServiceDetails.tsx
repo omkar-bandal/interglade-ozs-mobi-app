@@ -1,3 +1,4 @@
+/* eslint-disable react-native/no-inline-styles */
 // ServiceDetails.tsx
 import {ActionSheet} from '@components/ActionSheet';
 import {useGetServiceById} from '@hooks/api/service.rq';
@@ -16,11 +17,13 @@ import {ImageCarousel} from '@components/ImageCarousel';
 import Button from '@components/ui/Button';
 import Typography from '@components/ui/Typography';
 import {RecentSales} from '@features/booking/components/RecentSales';
+import Reviews from '@features/booking/components/Reviews';
 import {useActions} from '@hooks/useActions';
 import {useTypedSelector} from '@hooks/useTypedSelector';
-import {SPACING} from '@theme/constants';
+import {lightTheme, SPACING} from '@theme/constants';
 import {navigate} from '@utils/NavigationUtils';
-import Ionicons from 'react-native-vector-icons/Ionicons';
+import AntDesignIcon from 'react-native-vector-icons/AntDesign';
+import {default as Ionicons} from 'react-native-vector-icons/Ionicons';
 
 const ServiceDetails = ({serviceId}: {serviceId: string}) => {
   const {user} = useTypedSelector(state => state.auth);
@@ -125,79 +128,110 @@ const ServiceDetails = ({serviceId}: {serviceId: string}) => {
 
   return (
     <View style={styles.container}>
+      <ImageCarousel
+        images={serviceData?.photos || []}
+        autoPlay={true}
+        autoPlayInterval={5000}
+      />
       <ScrollView>
-        <ImageCarousel
-          images={serviceData?.photos || []}
-          autoPlay={true}
-          autoPlayInterval={5000}
-        />
-
-        <View style={styles.serviceTitleContainer}>
-          <View style={styles.serviceTitle}>
-            <Typography variant="h4" weight="bold" numberOfLines={2}>
-              {serviceData?.title || 'NA'}
-            </Typography>
-          </View>
-
-          <View>
-            <Typography variant="body2">
-              {serviceData?.description || 'NA'}
-            </Typography>
-          </View>
-        </View>
-
-        {/* About Provider Section */}
-        <View style={styles.sectionContainer}>
-          <Typography variant="h5" weight="bold">
-            About Service Provider
-          </Typography>
-          <View style={styles.providerContainer}>
-            <Image
-              source={{uri: serviceData?.provider?.profile_picture_url}}
-              style={styles.providerImage}
-            />
-            <Text
-              style={
-                styles.providerName
-              }>{`${serviceData?.provider?.first_name} ${serviceData?.provider?.last_name}`}</Text>
-          </View>
-        </View>
-
-        <RecentSales />
-
-        {/* Reviews Section */}
-        <View style={styles.sectionContainer}>
-          <Text style={styles.sectionTitle}>Reviews</Text>
-
-          {/* Review Item */}
-          <View style={styles.reviewItem}>
-            <View style={styles.reviewHeader}>
-              <Text style={styles.reviewerName}>Terry Wilson</Text>
-              <Text style={styles.reviewDate}>Dec 12</Text>
+        <View style={styles.detailContainer}>
+          <View style={[styles.serviceTitleContainer]}>
+            <View style={styles.serviceTitle}>
+              <Typography variant="h4" weight="bold" numberOfLines={2}>
+                {serviceData?.title || 'NA'}
+              </Typography>
             </View>
-            {renderStars(5)}
-            <Text style={styles.reviewText}>
-              It is strongly established law that it needs to be fixed by the
-              residents owners of a large development if it gets broken.
-            </Text>
-          </View>
 
-          {/* Repeated Review Item */}
-          <View style={styles.reviewItem}>
-            <View style={styles.reviewHeader}>
-              <Text style={styles.reviewerName}>Vincent Fox</Text>
-              <Text style={styles.reviewDate}>Dec 8</Text>
+            <View>
+              <Typography variant="body2">
+                {serviceData?.description || 'NA'}
+              </Typography>
             </View>
-            {renderStars(4.5)}
-            <Text style={styles.reviewText}>
-              It is strongly established law that it needs to be fixed by the
-              residents owners of a large development if it gets broken.
-            </Text>
+            <Button variant="primary" label="Book Service" size="medium" />
           </View>
-        </View>
 
-        {/* Price and Booking Section */}
+          {/* Action Buttons */}
+          <View style={styles.actionRow}>
+            <View style={styles.actionBox}>
+              <Button
+                variant="secondary"
+                leftIcon={
+                  <AntDesignIcon name="wechat" size={24} color="#393872" />
+                }
+              />
+            </View>
+            <View style={styles.actionBox}>
+              <Button
+                variant="secondary"
+                leftIcon={
+                  <AntDesignIcon name="location" size={24} color="#393872" />
+                }
+              />
+            </View>
+            <View style={styles.actionBox}>
+              <Button
+                variant="secondary"
+                leftIcon={
+                  <AntDesignIcon name="sharealt" size={24} color="#393872" />
+                }
+              />
+            </View>
+          </View>
+
+          {/* About Provider Section */}
+          <View style={styles.sectionContainer}>
+            <Typography variant="h5" weight="bold">
+              About Service Provider
+            </Typography>
+            <View style={styles.providerContainer}>
+              <Image
+                source={{uri: serviceData?.provider?.profile_picture_url}}
+                style={styles.providerImage}
+              />
+              <Text
+                style={
+                  styles.providerName
+                }>{`${serviceData?.provider?.first_name} ${serviceData?.provider?.last_name}`}</Text>
+            </View>
+          </View>
+
+          <RecentSales />
+          <Reviews />
+          {/* Reviews Section */}
+          <View style={styles.sectionContainer}>
+            <Text style={styles.sectionTitle}>Reviews</Text>
+
+            {/* Review Item  */}
+            <View style={styles.reviewItem}>
+              <View style={styles.reviewHeader}>
+                <Text style={styles.reviewerName}>Terry Wilson</Text>
+                <Text style={styles.reviewDate}>Dec 12</Text>
+              </View>
+              {renderStars(5)}
+              <Text style={styles.reviewText}>
+                It is strongly established law that it needs to be fixed by the
+                residents owners of a large development if it gets broken.
+              </Text>
+            </View>
+
+            {/* Repeated Review Item  */}
+            <View style={styles.reviewItem}>
+              <View style={styles.reviewHeader}>
+                <Text style={styles.reviewerName}>Vincent Fox</Text>
+                <Text style={styles.reviewDate}>Dec 8</Text>
+              </View>
+              {renderStars(4.5)}
+              <Text style={styles.reviewText}>
+                It is strongly established law that it needs to be fixed by the
+                residents owners of a large development if it gets broken.
+              </Text>
+            </View>
+          </View>
+
+          {/* Price and Booking Section */}
+        </View>
       </ScrollView>
+
       {user?.id ? (
         <View style={styles.pricingContainer}>
           <View>
@@ -248,6 +282,13 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: '#FFFFFF',
   },
+  detailContainer: {
+    marginTop: 10,
+    paddingTop: SPACING.md,
+    backgroundColor: lightTheme.colors.background,
+    //borderTopLeftRadius: 15,
+    //borderTopRightRadius: 15,
+  },
   centerContainer: {
     flex: 1,
     alignItems: 'center',
@@ -263,6 +304,10 @@ const styles = StyleSheet.create({
   },
   serviceTitleContainer: {
     padding: SPACING.md,
+    marginHorizontal: 15,
+    marginBottom: SPACING.sm,
+    backgroundColor: '#F1FBFB',
+    borderRadius: 10,
   },
   serviceTitle: {
     flexDirection: 'row',
@@ -271,6 +316,10 @@ const styles = StyleSheet.create({
   },
   sectionContainer: {
     padding: SPACING.md,
+    marginHorizontal: 15,
+    marginBottom: SPACING.sm,
+    backgroundColor: '#F1FBFB',
+    borderRadius: 10,
   },
   sectionTitle: {
     fontSize: 16,
@@ -297,6 +346,15 @@ const styles = StyleSheet.create({
     fontSize: 16,
     fontWeight: '500',
     color: '#333333',
+  },
+  actionRow: {
+    flex: 1,
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  actionBox: {
+    padding: SPACING.sm,
   },
   reviewItem: {
     marginBottom: 16,

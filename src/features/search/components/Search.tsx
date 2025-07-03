@@ -1,3 +1,4 @@
+/* eslint-disable react-native/no-inline-styles */
 import {SalesCard} from '@features/booking/components/card/SalesCard';
 import {ServicesCard} from '@features/booking/components/card/ServicesCard';
 import {useSearch} from '@hooks/api/search.rq';
@@ -112,7 +113,7 @@ const Search: React.FC = () => {
           <Text
             style={[
               styles.chipText,
-              {color: activeFilter === 'sales' ? '#FFC163' : theme.colors.text},
+              {color: activeFilter === 'sales' ? '#4D948E' : theme.colors.text},
             ]}>
             Sales
           </Text>
@@ -129,7 +130,7 @@ const Search: React.FC = () => {
               styles.chipText,
               {
                 color:
-                  activeFilter === 'services' ? '#FFC163' : theme.colors.text,
+                  activeFilter === 'services' ? '#4D948E' : theme.colors.text,
               },
             ]}>
             Services
@@ -145,7 +146,7 @@ const Search: React.FC = () => {
 
       {isLoading && (
         <View style={styles.loaderContainer}>
-          <ActivityIndicator size="large" color="#FFC163" />
+          <ActivityIndicator size="large" color="#4D948E" />
         </View>
       )}
 
@@ -206,10 +207,10 @@ const styles = StyleSheet.create({
   },
   activeChip: {
     borderWidth: 1,
-    borderColor: '#FFC163',
+    borderColor: '#4D948E',
   },
   chipText: {
-    fontSize: 12,
+    fontSize: 14,
     fontWeight: '600',
   },
   errorText: {

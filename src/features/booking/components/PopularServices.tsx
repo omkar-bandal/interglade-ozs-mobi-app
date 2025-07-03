@@ -20,7 +20,7 @@ export const PopularServices = (): JSX.Element => {
   }, []);
 
   if (isServicesLoading) {
-    return <ActivityIndicator size="large" color="#FFC163" />;
+    return <ActivityIndicator size="large" color="#4D948E" />;
   }
 
   if (!servicesData?.data?.length) {

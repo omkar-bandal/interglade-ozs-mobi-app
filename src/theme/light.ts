@@ -65,7 +65,7 @@ const lightTheme = {
       disabledTextColor: '#C7C2B8',
     },
     card: {
-      backgroundColor: '#FFFFFF',
+      backgroundColor: '#F1FBFB',
       shadowColor: 'rgba(41, 37, 35, 0.1)',
     },
   },
