@@ -12,7 +12,7 @@ import Icon from 'react-native-vector-icons/Ionicons';
 
 // Assuming you have a navigation utility
 import Button from '@components/ui/Button';
-import {SPACING} from '@theme/constants';
+import {lightTheme, SPACING} from '@theme/constants';
 import {navigate} from '@utils/NavigationUtils';
 
 export const ServicesListScreen = ({
@@ -139,15 +139,19 @@ export const ServicesListScreen = ({
                 size="small"
                 label="Edit"
                 style={styles.editButton}
-                leftIcon={<Icon name="create-outline" size={16} color="#fff" />}
+                leftIcon={
+                  <Icon name="create-outline" size={16} color="#393872" />
+                }
                 onPress={() => onEditService(item)}
               />
               <Button
                 label="Delete"
-                variant="destructive"
+                variant="secondary"
                 size="small"
                 style={styles.deleteButton}
-                leftIcon={<Icon name="trash-outline" size={16} color="#fff" />}
+                leftIcon={
+                  <Icon name="trash-outline" size={16} color="#393872" />
+                }
                 onPress={() => {
                   Alert.alert(
                     'Delete Sale',
@@ -179,8 +183,10 @@ export const ServicesListScreen = ({
         showsVerticalScrollIndicator={false}
         ListEmptyComponent={
           <View style={styles.centerContent}>
-            <Text>“No listings yet. Tap the + to publish your first item!”</Text>
-          </View> 
+            <Text>
+              “No listings yet. Tap the + to publish your first item!”
+            </Text>
+          </View>
         }
       />
     </View>
@@ -190,9 +196,13 @@ export const ServicesListScreen = ({
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    //backgroundColor: 'red',
+    paddingHorizontal: 16,
+    //paddingTop: 10,
   },
   listContainer: {
-    paddingVertical: 10,
+    paddingVertical: 15,
+    // backgroundColor: 'red',
   },
   cardContainer: {
     flexDirection: 'row',
@@ -207,6 +217,7 @@ const styles = StyleSheet.create({
     shadowOffset: {width: 0, height: 2},
     shadowOpacity: 0.1,
     shadowRadius: 4,
+    paddingHorizontal: 16,
   },
   imageCarouselContainer: {
     position: 'relative',
@@ -264,7 +275,7 @@ const styles = StyleSheet.create({
     padding: 16,
   },
   card: {
-    backgroundColor: 'white',
+    backgroundColor: lightTheme.components.card.backgroundColor,
     borderRadius: 12,
     overflow: 'hidden',
     shadowColor: '#000',
@@ -272,7 +283,7 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.1,
     shadowRadius: 4,
     elevation: 3,
-    marginHorizontal: 10,
+    marginHorizontal: 16,
     marginBottom: SPACING.md,
   },
   image: {

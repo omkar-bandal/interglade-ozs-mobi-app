@@ -40,7 +40,7 @@ const MyServices: React.FC = () => {
   if (isLoading) {
     return (
       <View style={styles.centerContent}>
-        <ActivityIndicator size="large" color="#007bff" />
+        <ActivityIndicator size="large" color="#4D948E" />
       </View>
     );
   }

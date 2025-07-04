@@ -184,7 +184,9 @@ export const SalesListScreen = ({sales, onEditSale, onDeleteSale}: any) => {
         showsVerticalScrollIndicator={false}
         ListEmptyComponent={
           <View style={styles.centerContent}>
-            <Text>“No listings yet. Tap the + to publish your first item!”</Text>
+            <Text>
+              “No listings yet. Tap the + to publish your first item!”
+            </Text>
           </View>
         }
       />
@@ -195,6 +197,7 @@ export const SalesListScreen = ({sales, onEditSale, onDeleteSale}: any) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    paddingHorizontal: 16,
   },
   listContainer: {
     paddingVertical: 10,
