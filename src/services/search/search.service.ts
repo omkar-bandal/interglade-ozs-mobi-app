@@ -50,6 +50,7 @@ export class SearchService {
 
     return query;
   }
+
   static applySorting(query: any, sortBy?: string) {
     if (sortBy === 'price-asc') {
       query = query.order('price', {ascending: true});

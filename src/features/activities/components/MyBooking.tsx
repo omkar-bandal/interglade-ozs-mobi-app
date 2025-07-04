@@ -1,61 +1,63 @@
 /* eslint-disable react-native/no-inline-styles */
+import {useGetReservationByUserIdAndStatus} from '@hooks/api/reservation.rq';
+import {useTypedSelector} from '@hooks/useTypedSelector';
 import {useNavigation} from '@react-navigation/native';
 import React from 'react';
 import {ActivityIndicator, Alert, FlatList, StyleSheet} from 'react-native';
 import BookingItem from './BookingItem';
 import EmptyBookingsList from './EmptyBookingList';
 
-const data = {
-  data: [
-    {
-      id: '1',
-      services: {
-        title: 'Hair Spa Treatment',
-        location: 'Bella Salon, Mumbai',
-      },
-      provider: {
-        name: 'Ritika Sharma',
-      },
-      date: '2025-07-05T15:30:00',
-      status: 'confirmed',
-    },
-    {
-      id: '2',
-      services: {
-        title: 'Full Body Massage',
-        location: 'Urban Wellness, Pune',
-      },
-      provider: {
-        name: 'Karan Mehta',
-      },
-      date: '2025-07-08T11:00:00',
-      status: 'pending',
-    },
-    {
-      id: '3',
-      services: {
-        title: 'Manicure & Pedicure',
-        location: 'Nail Spa, Delhi',
-      },
-      provider: {
-        name: 'Ayesha Khan',
-      },
-      date: '2025-07-12T17:45:00',
-      status: 'completed',
-    },
-  ],
-};
+// const data = {
+//   data: [
+//     {
+//       id: '1',
+//       services: {
+//         title: 'Hair Spa Treatment',
+//         location: 'Bella Salon, Mumbai',
+//       },
+//       provider: {
+//         name: 'Ritika Sharma',
+//       },
+//       date: '2025-07-05T15:30:00',
+//       status: 'confirmed',
+//     },
+//     {
+//       id: '2',
+//       services: {
+//         title: 'Full Body Massage',
+//         location: 'Urban Wellness, Pune',
+//       },
+//       provider: {
+//         name: 'Karan Mehta',
+//       },
+//       date: '2025-07-08T11:00:00',
+//       status: 'pending',
+//     },
+//     {
+//       id: '3',
+//       services: {
+//         title: 'Manicure & Pedicure',
+//         location: 'Nail Spa, Delhi',
+//       },
+//       provider: {
+//         name: 'Ayesha Khan',
+//       },
+//       date: '2025-07-12T17:45:00',
+//       status: 'completed',
+//     },
+//   ],
+// };
 
-const MyBookings = ({_tabType}: any) => {
-  // const {user} = useTypedSelector(state => state.auth);
-  // const {data, isLoading} = useGetReservationByUserIdAndStatus(
-  //   user?.id as string,
-  //   tabType,
-  // );
+const MyBookings = ({tabType}: any) => {
+  const {user} = useTypedSelector(state => state.auth);
+  const {data, isLoading} = useGetReservationByUserIdAndStatus(
+    user?.id as string,
+    tabType,
+  );
 
   const navigation = useNavigation<any>();
 
-  const isLoading = false;
+  //const isLoading = false;
 
   // Handle actions
   const handleViewDetails = (id: any) => {
@@ -81,7 +83,7 @@ const MyBookings = ({_tabType}: any) => {
   }
 
   if (isLoading) {
-    return <ActivityIndicator size="large" color="#FFC163" />;
+    return <ActivityIndicator size="large" color="#4D948E" />;
   }
 
   console.log('booking', data);

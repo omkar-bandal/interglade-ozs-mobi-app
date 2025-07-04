@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-shadow */
 import ScreenHeader from '@components/header/ScreenHeader';
 import {ImageCarousel} from '@components/ImageCarousel';
 import Button from '@components/ui/Button';
@@ -21,16 +20,16 @@ const SaleDetailsScreen = ({route}: any) => {
   const {saleId} = route.params;
   const {data, isLoading} = useGetSaleByID(saleId);
 
-  const handleEditSale = (item: any) => {
-    navigate('AddSale', {saleId: item.id});
+  const handleEditSale = (id: any) => {
+    navigate('AddSale', {saleId: id});
   };
 
-  const handleDeleteSale = async (saleId: any) => {
-    // const result = deleteMySale({saleId});
+  const handleDeleteSale = async (id: string) => {
+    // const result = deleteMySale({id});
     // if (result?.status === 204) {
     //   deleteMySale(saleId);
     // }
-    Alert.alert('Delete data', saleId);
+    Alert.alert('Delete data', id);
   };
 
   // const handleShareListing = async () => {

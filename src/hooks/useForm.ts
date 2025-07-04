@@ -22,7 +22,7 @@ interface ValidationSchema {
 interface RegisterOptions {
   validate?: (value: any, values: Record<string, any>) => string | undefined;
   [key: string]: any;
-} 
+}
 
 interface FieldAttributes<T> {
   name: keyof T;

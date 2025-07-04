@@ -10,6 +10,7 @@ import {SPACING} from '@theme/constants';
 import {navigate} from '@utils/NavigationUtils';
 import React, {useState} from 'react';
 import {
+  Alert,
   Image,
   SafeAreaView,
   ScrollView,
@@ -37,6 +38,7 @@ const BookingSummary = () => {
   };
 
   const handleBooking = async () => {
+    setSuccess(true);
     try {
       const reservationData = {
         service_id: cartItem.id,
@@ -50,12 +52,14 @@ const BookingSummary = () => {
       };
       const response = await bookService(reservationData);
       console.log('response', response);
+      Alert.alert('Error', JSON.stringify(response));
       if (response?.status === 201) {
         deleteCart();
         setSuccess(true);
       }
     } catch (error) {
       console.log('error', error);
+      Alert.alert('Error', JSON.stringify(error));
     }
   };
 
