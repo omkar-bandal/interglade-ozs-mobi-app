@@ -197,7 +197,9 @@ export const SalesListScreen = ({sales, onEditSale, onDeleteSale}: any) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    paddingHorizontal: 16,
+    paddingHorizontal: 12,
+    //backgroundColor: 'red',
+    paddingTop: 20,
   },
   listContainer: {
     paddingVertical: 10,
@@ -208,7 +210,7 @@ const styles = StyleSheet.create({
   },
   detailsContainer: {
     flex: 1,
-    paddingVertical: 25,
+    paddingVertical: 15,
     paddingHorizontal: 10,
   },
   titleContainer: {

@@ -1,3 +1,4 @@
+/* eslint-disable react-native/no-inline-styles */
 import lightTheme from '@theme/light';
 import {navigate} from '@utils/NavigationUtils';
 import React from 'react';
@@ -39,7 +40,7 @@ const BookingItem = ({
   date,
   location,
   status,
-  onChat,
+  //onChat,
   onCancel,
   onClose,
   onViewDetails,
@@ -72,11 +73,11 @@ const BookingItem = ({
     <Pressable onPress={() => navigate('ActivityDetails', {reservationId: id})}>
       <View style={containerStyle}>
         <View style={styles.bookingHeader}>
-          <View>
+          <View style={{width: '75%'}}>
             <Text style={styles.bookingTitle}>{title}</Text>
             <Text style={styles.bookingProvider}>{provider}</Text>
           </View>
-          <View style={statusStyle}>
+          <View style={[statusStyle, {width: 'auto'}]}>
             <Text style={styles.statusText}>{statusText}</Text>
           </View>
         </View>
@@ -95,12 +96,12 @@ const BookingItem = ({
           <LocationIcon />
           <Text style={styles.detailText}>{location}</Text>
         </View>
-        {status !== 'pending' || type === 'myBooking' ? (
+        {status === 'pending' && type === 'myBooking' ? (
           <View style={styles.btnCon}>
-            <TouchableOpacity style={styles.viewDetailsButton} onPress={onChat}>
+            {/* <TouchableOpacity style={styles.viewDetailsButton} onPress={onChat}>
               <AntDesignIcon color="#393872" name="wechat" size={20} />
               <Text style={styles.viewDetailsText}>Chat</Text>
-            </TouchableOpacity>
+            </TouchableOpacity> */}
             {type === 'myBooking' ? (
               <TouchableOpacity
                 style={styles.viewDetailsButton}
@@ -165,6 +166,7 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     alignItems: 'flex-start',
     marginBottom: 12,
+    //backgroundColor: 'red',
   },
   bookingTitle: {
     fontSize: 16,

@@ -4,6 +4,7 @@ import useTheme from '@theme/useTheme';
 import {navigate} from '@utils/NavigationUtils';
 import React from 'react';
 import {
+  ActivityIndicator,
   Image,
   ScrollView,
   StyleSheet,
@@ -13,81 +14,82 @@ import {
 } from 'react-native';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 
+import {useGetReservationById} from '@hooks/api/reservation.rq';
 import {SPACING} from '@theme/constants';
 import Complete from '../Complete';
 
-const reservationData = {
-  data: [
-    {
-      id: '101',
-      service: {
-        title: 'Bridal Makeup Trial',
-        location: 'Shimmer Studio, Mumbai',
-        photos: {
-          //image: require('https://randomuser.me/api/portraits/men/44.jpg'),
-        },
-      },
-      provider: {
-        name: 'Priya Deshmukh',
-      },
-      date: '2025-07-03T14:00:00',
-      status: 'pending',
-    },
-    {
-      id: '102',
-      service: {
-        title: 'Hair Styling Session',
-        location: 'Salon One, Pune',
-      },
-      provider: {
-        name: 'Rahul Verma',
-      },
-      date: '2025-07-10T10:30:00',
-      status: 'approved',
-    },
-    {
-      id: '103',
-      service: {
-        title: 'Makeup Consultation',
-        location: 'Beauty Point, Delhi',
-        price: 100,
-      },
-      provider: {
-        name: 'Sana Khan',
-      },
-      date: '2025-07-15T16:15:00',
-      status: 'Completed',
-    },
-  ],
-};
+// const reservationData = {
+//   data: [
+//     {
+//       id: '101',
+//       service: {
+//         title: 'Bridal Makeup Trial',
+//         location: 'Shimmer Studio, Mumbai',
+//         photos: {
+//           //image: require('https://randomuser.me/api/portraits/men/44.jpg'),
+//         },
+//       },
+//       provider: {
+//         name: 'Priya Deshmukh',
+//       },
+//       date: '2025-07-03T14:00:00',
+//       status: 'pending',
+//     },
+//     {
+//       id: '102',
+//       service: {
+//         title: 'Hair Styling Session',
+//         location: 'Salon One, Pune',
+//       },
+//       provider: {
+//         name: 'Rahul Verma',
+//       },
+//       date: '2025-07-10T10:30:00',
+//       status: 'approved',
+//     },
+//     {
+//       id: '103',
+//       service: {
+//         title: 'Makeup Consultation',
+//         location: 'Beauty Point, Delhi',
+//         price: 100,
+//       },
+//       provider: {
+//         name: 'Sana Khan',
+//       },
+//       date: '2025-07-15T16:15:00',
+//       status: 'Completed',
+//     },
+//   ],
+// };
 
 const ActivityDetails = ({reservationId}: any) => {
   const {theme} = useTheme();
 
-  const reservation = reservationData.data.find(
-    reservation => reservation.id === reservationId,
-  );
+  // const reservation = reservationData.data.find(
+  //   reservation => reservation.id === reservationId,
+  // );
 
-  // const {data: reservationData, isLoading} =
-  //   useGetReservationById(reservationId);
+  const {data: reservationData, isLoading} =
+    useGetReservationById(reservationId);
 
-  // if (isLoading) {
-  //   return (
-  //     <View style={styles.centerContainer}>
-  //       <ActivityIndicator size="large" color="#FFC163" />
-  //     </View>
-  //   );
-  // }
+  if (isLoading) {
+    return (
+      <View style={styles.centerContainer}>
+        <ActivityIndicator size="large" color="#4D9472" />
+      </View>
+    );
+  }
 
-  // const reservation = reservationData?.data;
+  const reservation = reservationData?.data;
 
-  // if (!reservation) {
-  //   return (
-  //     <View style={styles.centerContainer}>
-  //       <Text>No reservation found</Text>
-  //     </View>
-  //   );
-  // }
+  if (!reservation) {
+    return (
+      <View style={styles.centerContainer}>
+        <Text>No reservation found</Text>
+      </View>
+    );
+  }
 
   return (
     <View

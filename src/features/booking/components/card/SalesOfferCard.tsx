@@ -1,29 +1,53 @@
-import { lightTheme, SPACING } from '@theme/constants';
+import Button from '@components/ui/Button';
+import {lightTheme, SPACING} from '@theme/constants';
+import {navigate} from '@utils/NavigationUtils';
 import React from 'react';
 import {Image, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
-// import {spacing} from '../../../constants/dimensions';
-// import { colors } from '../../../constants/colors';
 
-type Props = {
-  image: any;
-  title: string;
-  description: string;
-  onBookNow?: () => void;
-};
+const OfferCard = ({sale, onReserveClick}: any) => {
+  // const {data: saleData} = useGetAllSales();
+  //const [selectedSale, setSelectedSale] = useState<string | null>(null);
 
-const OfferCard = ({image, title, description, onBookNow}: Props) => {
+  const handelReserveClick = (saleId: any): void => {
+    // const selectedSale = saleData?.data?.find(
+    //   (sale: any) => sale.id === saleId,
+    // );
+    console.log(saleId);
+    //Alert.alert('Sale Data', JSON.stringify(sale));
+
+    navigate('ServiceDetails', {
+      saleId,
+    });
+  };
+
   return (
-    <View style={styles.card}>
-      <Image source={image} style={styles.image} />
+    <TouchableOpacity
+      key={sale.id}
+      style={styles.card}
+      onPress={() => onReserveClick(sale.id)}>
+      <View>
+        <Image
+          source={{uri: sale.photos[0]}}
+          style={styles.image}
+          resizeMode="cover"
+        />
+        <Text style={styles.title}>{sale.title}</Text>
+        <Text style={styles.discription} numberOfLines={1} ellipsizeMode="tail">
+          {sale.description}
+        </Text>
 
-      <Text style={styles.title}>{title}</Text>
-      <Text style={styles.discription}>{description}</Text>
-
-      {/* Book Now Button */}
-      <TouchableOpacity style={styles.button} onPress={onBookNow}>
-        <Text style={styles.buttonText}>Add</Text>
-      </TouchableOpacity>
-    </View>  
+        {/* Book Now Button */}
+        <View>
+          <Button
+            label="Book"
+            variant="primary"
+            size="medium"
+            style={styles.button}
+            onPress={() => handelReserveClick(sale.id)}
+          />
+        </View>
+      </View>
+    </TouchableOpacity>
   );
 };
 
@@ -63,7 +87,7 @@ const styles = StyleSheet.create({
     backgroundColor: lightTheme.components.button.primaryBackground,
     borderRadius: 6,
     paddingVertical: 10,
-    paddingHorizontal:5,
+    paddingHorizontal: 5,
     marginTop: 4,
   },
   buttonText: {

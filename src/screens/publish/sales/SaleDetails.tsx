@@ -337,7 +337,6 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     gap: 5,
   },
-
   contactButton: {
     alignItems: 'center',
     justifyContent: 'center',

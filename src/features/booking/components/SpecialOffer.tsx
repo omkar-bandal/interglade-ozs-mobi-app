@@ -1,48 +1,83 @@
-import {lightTheme, SPACING} from '@theme/constants';
-import React from 'react';
-import {StyleSheet, Text, View} from 'react-native';
+import Button from '@components/ui/Button';
+import Typography from '@components/ui/Typography';
+import {useGetMySales} from '@hooks/api/sales.rq';
+import {useTypedSelector} from '@hooks/useTypedSelector';
+import {lightTheme} from '@theme/constants';
+import {navigate} from '@utils/NavigationUtils';
+import React, {JSX, useCallback} from 'react';
+import {ActivityIndicator, StyleSheet, View} from 'react-native';
 import OfferCard from './card/SalesOfferCard';
 
-export const SaleOffer = [
-  {
-    id: 1,
-   // image: require('../../assets/bag.png'),
-    title: 'Designer Handbag',
-    description: 'Authentic designer handbag',
-  },
-  {
-    id: 2,
-   // image: require('../../assets/bag.png'),
-    title: 'Designer Handbag',
-    description: 'Authentic designer handbag',
-  },
-  {
-    id: 2,
-   // image: require('../../assets/bag.png'),
-    title: 'Designer Handbag',
-    description: 'Authentic designer handbag',
-  },
-  {
-    id: 2,
-  //  image: require('../../assets/bag.png'),
-    title: 'Designer Handbag',
-    description: 'Authentic designer handbag',
-  },
-];
+// export const SaleOffer = [
+//   {
+//     id: 1,
+//     // image: require('../../assets/bag.png'),
+//     title: 'Designer Handbag',
+//     description: 'Authentic designer handbag',
+//   },
+//   {
+//     id: 2,
+//     // image: require('../../assets/bag.png'),
+//     title: 'Designer Handbag',
+//     description: 'Authentic designer handbag',
+//   },
+//   {
+//     id: 2,
+//     // image: require('../../assets/bag.png'),
+//     title: 'Designer Handbag',
+//     description: 'Authentic designer handbag',
+//   },
+//   {
+//     id: 2,
+//     //  image: require('../../assets/bag.png'),
+//     title: 'Designer Handbag',
+//     description: 'Authentic designer handbag',
+//   },
+// ];
 
-const SpecialOffer = () => {
+export const SpecialOffer = (): JSX.Element => {
+  const {user} = useTypedSelector(state => state.auth);
+  const {data: salesData, isLoading: isSalesLoading} = useGetMySales(
+    user?.id || '',
+  );
+
+  const handleReserveClick = useCallback((saleId: string): void => {
+    navigate('SaerviceDetails', {
+      saleId,
+    });
+  }, []);
+
+  if (isSalesLoading) {
+    return <ActivityIndicator size="large" color="#4D948E" />;
+  }
+
+  if (!salesData?.data?.length) {
+    return (
+      <View style={styles.container}>
+        <Typography variant="h5" weight="bold">
+          No Services Available
+        </Typography>
+      </View>
+    );
+  }
   return (
     <>
-      <View style={styles.headerSection}>
-        <Text style={styles.title}>Special Offer</Text>
+      <View style={styles.sectionHeader}>
+        <Typography variant="h5" weight="bold">
+          Popular Sales
+        </Typography>
+
+        <Button label="See All" size="small" variant="ghost" />
       </View>
       <View style={styles.offercontainer}>
-        {SaleOffer.map((item, index) => (
-          <View key={index} style={styles.offerCardWrapper}>
+        {salesData?.data?.map((sale: any) => (
+          <View key={sale.id} style={styles.offerCardWrapper}>
             <OfferCard
-             image={item}
-              title={item.title}
-              description={item.description}
+              image={sale?.photos[0]}
+              title={sale.title}
+              description={sale.description}
+              sale={sale}
+              onReserveClick={handleReserveClick}
             />
           </View>
         ))}
@@ -54,11 +89,16 @@ const SpecialOffer = () => {
 export default SpecialOffer;
 
 const styles = StyleSheet.create({
-  headerSection: {
-    paddingVertical: SPACING.sm,
-    paddingHorizontal: 15,
+  container: {
+    marginBottom: 20,
   },
-
+  sectionHeader: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    paddingHorizontal: 15,
+    marginBottom: 10,
+  },
   offercontainer: {
     flexDirection: 'row',
     flexWrap: 'wrap',
@@ -67,7 +107,7 @@ const styles = StyleSheet.create({
     marginTop: 20,
   },
   offerCardWrapper: {
-    width: '48%', // ~50% minus margin
+    width: '48%',
   },
   title: {
     fontSize: 17,

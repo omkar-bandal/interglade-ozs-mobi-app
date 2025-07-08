@@ -1,7 +1,10 @@
 /* eslint-disable react-native/no-inline-styles */
 import Button from '@components/ui/Button';
 import Typography from '@components/ui/Typography';
-import {useGetCategoriesByType} from '@hooks/api/category.rq';
+import {
+  useGetAllSubCategoriesByID,
+  useGetCategoriesByType,
+} from '@hooks/api/category.rq';
 import {lightTheme, SPACING} from '@theme/constants';
 import {useState} from 'react';
 import {
@@ -19,7 +22,8 @@ import {ServiceCategoriesCard} from './card/ServiceCategoriesCard';
 export const ServicesCategories = () => {
   const {data, isLoading} = useGetCategoriesByType('service');
   const [modalVisible, setModalVisible] = useState(false);
-  const [selectedCategoryId, setSelectedCategoryId] = useState(null);
+  const [selectedCategoryId, setSelectedCategoryId] = useState<number>();
+  const {data: subCategoriesData, isLoading: isSubCategoriesLoading} = useGetAllSubCategoriesByID(selectedCategoryId ?? 0, 'service');
 
   const categories = data?.data ?? [];
 
@@ -30,6 +34,11 @@ export const ServicesCategories = () => {
   if (isLoading) {
     return <ActivityIndicator size="large" color="#65B0A9" />;
   }
+
+  const handleCategory = (id: any) => {
+    setSelectedCategoryId(id);
+    //Alert.alert(JSON.stringify(subCategoriesData));
+  };
 
   return (
     <View style={styles.container}>
@@ -56,7 +65,7 @@ export const ServicesCategories = () => {
         visible={modalVisible}
         onRequestClose={() => {
           setModalVisible(false);
-          setSelectedCategoryId(null);
+          setSelectedCategoryId(selectedCategory);
         }}>
         <View style={styles.modalContainer}>
           <View style={styles.modalContent}>
@@ -65,7 +74,7 @@ export const ServicesCategories = () => {
                 {categories.map((category: any) => (
                   <Pressable
                     key={category.id}
-                    onPress={() => setSelectedCategoryId(category.id)}
+                    onPress={() => handleCategory(category.id)}
                     style={[
                       styles.categoryItem,
                       selectedCategoryId === category.id &&
@@ -91,18 +100,29 @@ export const ServicesCategories = () => {
                   }
                   onPress={() => {
                     setModalVisible(false);
-                    setSelectedCategoryId(null);
+                    //setSelectedCategoryId(null);
                   }}
                   //style={styles.closeButton}
                 />
               </View>
               <ScrollView>
-                {selectedCategory?.children?.map((sub: any) => (
-                  <Text key={sub.id} style={styles.subcategoryText}>
-                    {sub.name}
-                  </Text>
-                )) || (
-                  <Text style={styles.subcategoryText}>Select a category</Text>
+                {selectedCategory?.children?.length > 0 ? (
+                  selectedCategory.children.map((sub: any) => (
+                    <Text key={sub.id} style={styles.subcategoryText}>
+                      {sub.name}
+                    </Text>
+                  ))
+                ) : (
+                  <>
+                    {/* <Text style={styles.subcategoryText}>
+                      Select a category
+                    </Text> */}
+                    {subCategoriesData?.data?.map((sabCat: any) => (
+                      <Text key={sabCat.id} style={styles.subcategoryText}>
+                        {sabCat.name}
+                      </Text>
+                    ))}
+                  </>
                 )}
               </ScrollView>
             </View>
@@ -174,5 +194,7 @@ const styles = StyleSheet.create({
   subcategoryText: {
     fontSize: 14,
     paddingVertical: 6,
+    //fontWeight: '500',
+    color: lightTheme.colors.textSecondary,
   },
 });

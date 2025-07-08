@@ -1,5 +1,9 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable react-native/no-inline-styles */
-import {useGetReservationByUserIdAndStatus} from '@hooks/api/reservation.rq';
+import {
+  useDeleteReservation,
+  useGetReservationByUserIdAndStatus,
+} from '@hooks/api/reservation.rq';
 import {useTypedSelector} from '@hooks/useTypedSelector';
 import {useNavigation} from '@react-navigation/native';
 import React from 'react';
@@ -55,13 +59,29 @@ const MyBookings = ({tabType}: any) => {
     tabType,
   );
 
+  //const {data, isLoading} = useGetAllReservations();
+  //const [modalVisible, setModalVisible] = useState(false);
   const navigation = useNavigation<any>();
 
   //const isLoading = false;
 
   // Handle actions
+
+  const { mutate: deleteReservation } = useDeleteReservation();
+
+  const handleCancel = (id: any) => {
+    deleteReservation(id, {
+      onSuccess: (data) => {
+        Alert.alert('Deleted', 'Reservation deleted successfully.');
+      },
+      onError: (error: any) => {
+        Alert.alert('Error', error?.message || 'Failed to delete reservation.');
+      },
+    });
+  };
+
   const handleViewDetails = (id: any) => {
-    Alert.alert(`View details for booking ${id}`);
+    //Alert.alert(`View details for booking ${id}`);
     navigation.navigate('ActivityDetails', {
       reservationId: id,
     });
@@ -69,16 +89,32 @@ const MyBookings = ({tabType}: any) => {
 
   function renderBookingItem({item}: any) {
     return (
-      <BookingItem
-        id={item.id}
-        title={item.services?.title}
-        provider={item.provider?.name}
-        date={item.date}
-        location={item.services?.location}
-        status={item.status}
-        onViewDetails={() => handleViewDetails(item.id)}
-        type="myBooking"
-      />
+      <>
+        <BookingItem
+          id={item.id}
+          title={item.services?.title}
+          provider={item.provider?.name}
+          date={item.date}
+          location={item.services?.location}
+          status={item.status}
+          onCancel={() => {
+            Alert.alert(
+              'Cancel Booking',
+              'Are you sure you want to cancel booking?',
+              [
+                {text: 'No', style: 'cancel'},
+                {
+                  text: 'Cancel',
+                  style: 'destructive',
+                  onPress: () => handleCancel(item.id),
+                },
+              ],
+            );
+          }}
+          onViewDetails={() => handleViewDetails(item.id)}
+          type="myBooking"
+        />
+      </>
     );
   }
 

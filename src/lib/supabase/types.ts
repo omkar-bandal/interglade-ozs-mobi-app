@@ -387,7 +387,7 @@ export type Database = {
         };
         Relationships: [];
       };
-      reservations: {
+      reservations_services: {
         Row: {
           address: string | null;
           client_id: string;
@@ -435,7 +435,7 @@ export type Database = {
         };
         Relationships: [
           {
-            foreignKeyName: 'reservations_client_id_fkey';
+            foreignKeyName: 'reservations_services_client_id_fkey';
             columns: ['client_id'];
             isOneToOne: false;
             referencedRelation: 'profiles';
