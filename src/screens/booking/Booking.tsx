@@ -105,14 +105,6 @@ export function Booking() {
                 autoPlay={true}
                 autoPlayInterval={5000}
               />
-
-              <SalesCategories />
-
-              <ImageCarousel
-                images={images}
-                autoPlay={true}
-                autoPlayInterval={5000}
-              />
               <SpecialOffer />
               <RecentSales />
             </View>

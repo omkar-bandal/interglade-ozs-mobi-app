@@ -3,14 +3,14 @@ import {supabase} from '@lib/supabase/supabase';
 export class ReservationService {
   static getAllReservations() {
     return supabase
-      .from('reservations')
+      .from('reservations_services')
       .select('*')
       .order('created_at', {ascending: false});
   }
 
   static getMyReservations(userId: string) {
     return supabase
-      .from('reservations')
+      .from('reservations_services')
       .select('*')
       .eq('client_id', userId)
       .order('created_at', {ascending: false});
@@ -18,7 +18,7 @@ export class ReservationService {
 
   static getReservationById(reservationId: string) {
     return supabase
-      .from('reservations')
+      .from('reservations_services')
       .select(
         `
         id,
@@ -55,24 +55,27 @@ export class ReservationService {
   }
 
   static createReservation(reservation: any): any {
-    return supabase.from('reservations').insert(reservation);
+    return supabase.from('reservations_services').insert(reservation);
   }
 
   static updateReservation(reservation: any, reservationId: string): any {
     console.log('reservation', reservation);
     return supabase
-      .from('reservations')
+      .from('reservations_services')
       .update(reservation)
       .eq('id', reservationId);
   }
 
   static deleteReservation(reservationId: string): any {
-    return supabase.from('reservations').delete().eq('id', reservationId);
+    return supabase
+      .from('reservations_services')
+      .delete()
+      .eq('id', reservationId);
   }
 
   static getReservationByServiceId(serviceId: string) {
     return supabase
-      .from('reservations')
+      .from('reservations_services')
       .select('*')
       .eq('service_id', serviceId)
       .order('created_at', {ascending: false});
@@ -80,7 +83,7 @@ export class ReservationService {
 
   static getReservationByUserId(userId: string) {
     return supabase
-      .from('reservations')
+      .from('reservations_services')
       .select('*')
       .eq('client_id', userId)
       .order('created_at', {ascending: false});
@@ -88,7 +91,7 @@ export class ReservationService {
 
   static getReservationByProviderId(providerId: string) {
     return supabase
-      .from('reservations')
+      .from('reservations_services')
       .select(
         `
         id,
@@ -126,7 +129,7 @@ export class ReservationService {
 
   static getReservationByUserIdAndStatus(userId: string, status: string) {
     const query = supabase
-      .from('reservations')
+      .from('reservations_services')
       .select(
         `
         id,
@@ -168,7 +171,7 @@ export class ReservationService {
     status: string,
   ) {
     const query = supabase
-      .from('reservations')
+      .from('reservations_services')
       .select(
         `
         id,
@@ -206,7 +209,7 @@ export class ReservationService {
 
   static getReservationByStatus(status: string) {
     return supabase
-      .from('reservations')
+      .from('reservations_services')
       .select('*')
       .eq('status', status)
       .order('created_at', {ascending: false});

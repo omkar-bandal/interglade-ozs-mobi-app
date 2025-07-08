@@ -187,12 +187,12 @@ const ServiceDetailsScreen = ({route}: any) => {
             />
           </View>
         </View>
-        <View style={[styles.container, {paddingHorizontal: 16}, {padding: 5}]}>
+        <View style={[styles.container]}>
           <Button
             variant="outline"
             size="medium"
             label="Mark as disable"
-            //style={styles.confirmButton}
+            style={styles.confirmButton}
             leftIcon={<Icon name="create-outline" size={16} color="#393972" />}
             onPress={() => {}}
           />
@@ -380,7 +380,7 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
   },
   confirmButton: {
-    backgroundColor: '#4A90E2',
+    //backgroundColor: '#4A90E2',
     paddingVertical: 14,
     borderRadius: 8,
     alignItems: 'center',

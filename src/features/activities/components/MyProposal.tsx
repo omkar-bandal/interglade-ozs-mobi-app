@@ -1,6 +1,8 @@
 /* eslint-disable react-native/no-inline-styles */
 // import {useGetReservationByProviderIdAndStatus} from '@hooks/api/reservation.rq';
 // import {useTypedSelector} from '@hooks/useTypedSelector';
+import {useGetReservationByProviderId} from '@hooks/api/reservation.rq';
+import {useTypedSelector} from '@hooks/useTypedSelector';
 import {useNavigation} from '@react-navigation/native';
 import React, {useState} from 'react';
 import {
@@ -15,60 +17,60 @@ import BookingItem from './BookingItem';
 import EmptyBookingsList from './EmptyBookingList';
 import Overview from './details/Overview';
 
-const data = {
-  data: [
-    {
-      id: '101',
-      service: {
-        title: 'Bridal Makeup Trial',
-        location: 'Shimmer Studio, Mumbai',
-      },
-      provider: {
-        name: 'Priya Deshmukh',
-      },
-      date: '2025-07-03T14:00:00',
-      status: 'pending',
-    },
-    {
-      id: '102',
-      service: {
-        title: 'Hair Styling Session',
-        location: 'Salon One, Pune',
-      },
-      provider: {
-        name: 'Rahul Verma',
-      },
-      date: '2025-07-10T10:30:00',
-      status: 'approved',
-    },
-    {
-      id: '103',
-      service: {
-        title: 'Makeup Consultation',
-        location: 'Beauty Point, Delhi',
-      },
-      provider: {
-        name: 'Sana Khan',
-      },
-      date: '2025-07-15T16:15:00',
-      status: 'rejected',
-    },
-  ],
-};
+// const data = {
+//   data: [
+//     {
+//       id: '101',
+//       service: {
+//         title: 'Bridal Makeup Trial',
+//         location: 'Shimmer Studio, Mumbai',
+//       },
+//       provider: {
+//         name: 'Priya Deshmukh',
+//       },
+//       date: '2025-07-03T14:00:00',
+//       status: 'pending',
+//     },
+//     {
+//       id: '102',
+//       service: {
+//         title: 'Hair Styling Session',
+//         location: 'Salon One, Pune',
+//       },
+//       provider: {
+//         name: 'Rahul Verma',
+//       },
+//       date: '2025-07-10T10:30:00',
+//       status: 'approved',
+//     },
+//     {
+//       id: '103',
+//       service: {
+//         title: 'Makeup Consultation',
+//         location: 'Beauty Point, Delhi',
+//       },
+//       provider: {
+//         name: 'Sana Khan',
+//       },
+//       date: '2025-07-15T16:15:00',
+//       status: 'rejected',
+//     },
+//   ],
+// };
 
 const SCREEN_HEIGHT = Dimensions.get('window').height;
 
 const MyProposal = ({_tabType}: any) => {
-  // const {user} = useTypedSelector(state => state.auth);
-  // const {data, isLoading} = useGetReservationByProviderIdAndStatus(
-  //   user?.id as string,
-  //   tabType,
-  // );
+  const {user} = useTypedSelector(state => state.auth);
+  const {data, isLoading} = useGetReservationByProviderId(
+    user?.id as string,
+    //tabType,
+  );
 
   const [modalVisible, setModalVisible] = useState(false);
   const navigation = useNavigation<any>();
 
-  const isLoading = false;
+  //const isLoading = false;
   // Handle actions
   const handleClose = (id: any) => {
     setModalVisible(true);
