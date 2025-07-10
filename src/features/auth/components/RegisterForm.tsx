@@ -39,6 +39,7 @@ export default function RegisterForm() {
     });
 
     if (data.user) {
+      formControl.reset();
       await navigate('HomeTab');
       setUser(data.user);
       setSession(data.session);

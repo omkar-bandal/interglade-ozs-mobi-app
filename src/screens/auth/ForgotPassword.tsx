@@ -6,7 +6,7 @@ import {Container} from '@components/ui/Container';
 import Button from '@components/ui/Button';
 import ForgotPasswordForm from '@features/auth/components/ForgotPassword';
 import {FONT_SIZE, SPACING} from '@theme/constants';
-import lightTheme from '@theme/light';
+import darkTheme from '@theme/light';
 import useTheme from '@theme/useTheme';
 import {goBack} from '@utils/NavigationUtils';
 import {Text} from 'react-native';
@@ -64,7 +64,7 @@ const styles = StyleSheet.create({
   headerText: {
     paddingHorizontal: SPACING.md,
     fontSize: FONT_SIZE.lg,
-    color: lightTheme.colors.primary,
+    color: darkTheme.colors.primary,
     fontWeight: '800',
   },
 });

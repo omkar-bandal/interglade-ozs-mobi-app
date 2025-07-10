@@ -5,9 +5,9 @@ import {
   useGetAllSubCategoriesByID,
   useGetPredefineItemsBySubCategroryId,
 } from '@hooks/api/category.rq';
-//import {lightTheme, SPACING} from '@theme/constants';
+//import {darkTheme, SPACING} from '@theme/constants';
 import {FC, useMemo} from 'react';
-import { View } from 'react-native';
+import {View} from 'react-native';
 //import {StyleSheet, View} from 'react-native';
 
 interface StepOneProps {
@@ -115,7 +115,7 @@ export const StepOne: FC<StepOneProps> = ({formControl, style}) => {
 //   container: {
 //     padding: SPACING.sm,
 //     borderWidth: 1,
-//     borderColor: lightTheme.colors.border,
+//     borderColor: darkTheme.colors.border,
 //     borderRadius: 10,
 //   },
 // });

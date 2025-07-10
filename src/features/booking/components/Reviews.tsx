@@ -1,6 +1,6 @@
 import Button from '@components/ui/Button';
 import Typography from '@components/ui/Typography';
-import {SPACING} from '@theme/constants';
+import {darkTheme, SPACING} from '@theme/constants';
 import React from 'react';
 import {StyleSheet, Text, View} from 'react-native';
 import Ionicons from 'react-native-vector-icons/Ionicons';
@@ -113,7 +113,7 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     //borderBottomWidth: 1,
     //borderBottomColor: '#EEEEEE',
-    backgroundColor: '#F1FBFB',
+    backgroundColor: darkTheme.components.card.backgroundColor,
   },
   reviewHeader: {
     flexDirection: 'row',
@@ -123,7 +123,7 @@ const styles = StyleSheet.create({
   reviewerName: {
     fontSize: 14,
     fontWeight: '500',
-    color: '#333333',
+    color: darkTheme.colors.text,
   },
   reviewDate: {
     fontSize: 12,

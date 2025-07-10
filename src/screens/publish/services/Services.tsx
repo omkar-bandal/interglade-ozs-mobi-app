@@ -12,7 +12,7 @@ import Icon from 'react-native-vector-icons/Ionicons';
 
 // Assuming you have a navigation utility
 import Button from '@components/ui/Button';
-import {lightTheme, SPACING} from '@theme/constants';
+import {darkTheme, SPACING} from '@theme/constants';
 import {navigate} from '@utils/NavigationUtils';
 
 export const ServicesListScreen = ({
@@ -275,7 +275,7 @@ const styles = StyleSheet.create({
     padding: 16,
   },
   card: {
-    backgroundColor: lightTheme.components.card.backgroundColor,
+    backgroundColor: darkTheme.components.card.backgroundColor,
     borderRadius: 12,
     overflow: 'hidden',
     shadowColor: '#000',

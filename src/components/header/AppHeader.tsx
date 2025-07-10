@@ -31,7 +31,7 @@ export const AppHeader: React.FC<HeaderProps> = ({
     <SafeAreaView>
       <View style={styles.container}>
         <StatusBar
-          barStyle="dark-content"
+          barStyle="light-content"
           backgroundColor="transparent"
           translucent
         />

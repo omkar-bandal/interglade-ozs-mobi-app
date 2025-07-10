@@ -1,6 +1,5 @@
 import {Dimensions} from 'react-native';
 import darkTheme from './dark';
-import lightTheme from './light';
 
 export const WINDOW_WIDTH = Dimensions.get('window').width;
 export const WINDOW_HEIGHT = Dimensions.get('window').height;
@@ -68,6 +67,6 @@ export const Z_INDEX = {
   tooltip: 50,
 };
 
-export type Theme = typeof lightTheme;
+export type Theme = typeof darkTheme;
 
-export {darkTheme, lightTheme};
+export {darkTheme, darkTheme};

@@ -1,6 +1,6 @@
 import {Container} from '@components/ui/Container';
 import {Heading} from '@features/account/components/Heading';
-import {SPACING} from '@theme/constants';
+import {darkTheme, SPACING} from '@theme/constants';
 import {useState} from 'react';
 import {StyleSheet, Switch, Text, View} from 'react-native';
 
@@ -61,9 +61,10 @@ export function Privacy() {
 
 const styles = StyleSheet.create({
   section: {
+    flex: 1,
     padding: SPACING.sm,
     paddingHorizontal: 16,
-    //backgroundColor: 'red',
+    backgroundColor: darkTheme.colors.background,
   },
   rowWrapper: {
     paddingLeft: 16,

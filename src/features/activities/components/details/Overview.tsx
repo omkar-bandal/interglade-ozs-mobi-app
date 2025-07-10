@@ -1,5 +1,5 @@
 import {useNavigation} from '@react-navigation/native';
-import {FONT_SIZE, lightTheme, SPACING} from '@theme/constants';
+import {darkTheme, FONT_SIZE, SPACING} from '@theme/constants';
 import {StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 import AntDesignIcon from 'react-native-vector-icons/AntDesign';
 
@@ -88,7 +88,7 @@ export default OverviewModal;
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: lightTheme.colors.secondaryLight,
+    backgroundColor: darkTheme.colors.secondaryLight,
     width: '100%',
     height: '100%',
     paddingHorizontal: 16,
@@ -109,17 +109,17 @@ const styles = StyleSheet.create({
   headerText: {
     paddingHorizontal: SPACING.md,
     fontSize: FONT_SIZE.lg,
-    color: lightTheme.colors.primary,
+    color: darkTheme.colors.primary,
     fontWeight: '800',
     padding: SPACING.sm,
   },
   backIcon: {
     height: 20,
     width: 20,
-    tintColor: lightTheme.colors.primary,
+    tintColor: darkTheme.colors.primary,
   },
   card: {
-    backgroundColor: lightTheme.colors.primary,
+    backgroundColor: darkTheme.colors.primary,
     padding: SPACING.sm,
     borderRadius: 10,
   },
@@ -133,7 +133,7 @@ const styles = StyleSheet.create({
   },
   reviewField: {
     borderWidth: 1,
-    borderColor: lightTheme.colors.secondaryLight,
+    borderColor: darkTheme.colors.secondaryLight,
     backgroundColor: '#fff',
     borderRadius: 10,
   },
@@ -149,19 +149,19 @@ const styles = StyleSheet.create({
   outlineBtn: {
     flex: 1,
     borderWidth: 1,
-    borderColor: lightTheme.colors.primary,
+    borderColor: darkTheme.colors.primary,
     borderRadius: 8,
     paddingVertical: 10,
     marginRight: 8,
     alignItems: 'center',
   },
   outlineBtnText: {
-    color: lightTheme.colors.primary,
+    color: darkTheme.colors.primary,
     fontWeight: 'bold',
   },
   primaryBtn: {
     flex: 1,
-    backgroundColor: lightTheme.colors.primary,
+    backgroundColor: darkTheme.colors.primary,
     borderRadius: 8,
     paddingVertical: 10,
     marginLeft: 8,
@@ -179,12 +179,12 @@ const styles = StyleSheet.create({
     alignSelf: 'center',
     padding: SPACING.sm,
     backgroundColor: '#fff',
-    borderColor: lightTheme.colors.primary,
+    borderColor: darkTheme.colors.primary,
     borderWidth: 1,
     borderRadius: 10,
   },
   btnText: {
-    color: lightTheme.colors.primary,
+    color: darkTheme.colors.primary,
     fontSize: 20,
   },
 });

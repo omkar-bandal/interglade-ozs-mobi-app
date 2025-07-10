@@ -1,5 +1,6 @@
 import Button from '@components/ui/Button';
 import Typography from '@components/ui/Typography';
+import darkTheme from '@theme/dark';
 import {goBack} from '@utils/NavigationUtils';
 import React from 'react';
 import {StyleSheet, View} from 'react-native';
@@ -49,6 +50,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'space-between',
     paddingHorizontal: 8,
+    backgroundColor: darkTheme.colors.background,
   },
   btnContainer: {
     flex: 1,
@@ -59,6 +61,7 @@ const styles = StyleSheet.create({
   },
   centerTitle: {
     alignItems: 'center',
+    color: darkTheme.colors.text,
   },
   rightContainer: {
     flex: 1,

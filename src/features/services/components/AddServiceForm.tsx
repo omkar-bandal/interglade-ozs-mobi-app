@@ -7,7 +7,7 @@ import {useCreateService, useUpdateService} from '@hooks/api/service.rq';
 import {useActions} from '@hooks/useActions';
 import useForm from '@hooks/useForm';
 import {useTypedSelector} from '@hooks/useTypedSelector';
-import {lightTheme, SPACING} from '@theme/constants';
+import {darkTheme, SPACING} from '@theme/constants';
 import useTheme from '@theme/useTheme';
 import {uploadFile} from '@utils/upload.utils';
 import {validationServiceFormSchema} from '../utils/validate';
@@ -122,7 +122,7 @@ const styles = StyleSheet.create({
   formContainer: {
     padding: SPACING.sm,
     borderWidth: 1,
-    borderColor: lightTheme.colors.border,
+    borderColor: darkTheme.colors.border,
     borderRadius: 10,
     height: '100%',
     justifyContent: 'center',

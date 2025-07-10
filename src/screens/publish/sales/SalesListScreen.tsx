@@ -1,5 +1,5 @@
 import Button from '@components/ui/Button';
-import {SPACING} from '@theme/constants';
+import {darkTheme, SPACING} from '@theme/constants';
 import {navigate} from '@utils/NavigationUtils';
 import React from 'react';
 import {
@@ -260,7 +260,7 @@ const styles = StyleSheet.create({
     padding: 16,
   },
   card: {
-    backgroundColor: 'white',
+    backgroundColor: darkTheme.components.card.backgroundColor,
     borderRadius: 12,
     overflow: 'hidden',
     shadowColor: '#000',
@@ -302,6 +302,7 @@ const styles = StyleSheet.create({
     fontSize: 16,
     fontWeight: '600',
     marginBottom: 4,
+    color: darkTheme.colors.textSecondary,
   },
   priceContainer: {
     flexDirection: 'row',
@@ -312,6 +313,7 @@ const styles = StyleSheet.create({
     fontSize: 16,
     fontWeight: 'bold',
     marginRight: 8,
+    color: darkTheme.colors.textSecondary,
   },
   providerContainer: {
     flexDirection: 'row',

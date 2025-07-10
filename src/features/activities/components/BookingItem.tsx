@@ -1,5 +1,5 @@
 /* eslint-disable react-native/no-inline-styles */
-import lightTheme from '@theme/light';
+import darkTheme from '@theme/light';
 import {navigate} from '@utils/NavigationUtils';
 import React from 'react';
 import {
@@ -140,7 +140,7 @@ const BookingItem = ({
 
 const styles = StyleSheet.create({
   bookingItem: {
-    backgroundColor: 'white',
+    backgroundColor: darkTheme.components.card.backgroundColor,
     borderRadius: 8,
     padding: 15,
     marginVertical: 8,
@@ -233,12 +233,12 @@ const styles = StyleSheet.create({
   viewDetailsButton: {
     paddingVertical: 5,
     paddingHorizontal: 10,
-    backgroundColor: lightTheme.colors.secondaryLight,
+    backgroundColor: darkTheme.colors.secondaryLight,
     borderRadius: 5,
     flexDirection: 'row',
   },
   viewDetailsText: {
-    color: lightTheme.colors.textSecondary,
+    color: darkTheme.colors.textSecondary,
     fontSize: 12,
     fontWeight: '500',
     paddingHorizontal: 5,

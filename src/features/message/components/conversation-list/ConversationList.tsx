@@ -3,6 +3,7 @@ import {useGetConversationsByUserId} from '@hooks/api/message.rq';
 import {useTypedSelector} from '@hooks/useTypedSelector';
 import {supabase} from '@lib/supabase/supabase';
 import {useIsFocused} from '@react-navigation/native';
+import darkTheme from '@theme/dark';
 import {useEffect, useMemo, useState} from 'react';
 import {
   ActivityIndicator,
@@ -91,7 +92,10 @@ export default function ConversationList() {
 
   return (
     <SafeAreaView style={styles.container}>
-      <StatusBar barStyle="dark-content" backgroundColor="#ffffff" />
+      <StatusBar
+        barStyle="light-content"
+        backgroundColor={darkTheme.colors.background}
+      />
       <View style={styles.header}>
         <Text style={styles.headerTitle}>Conversations</Text>
       </View>
@@ -125,24 +129,24 @@ export default function ConversationList() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#ffffff',
+    backgroundColor: darkTheme.colors.background,
   },
   header: {
     padding: 16,
     borderBottomWidth: 1,
-    borderBottomColor: '#f0f0f0',
+    borderBottomColor: darkTheme.colors.border,
   },
   headerTitle: {
     fontSize: 24,
     fontWeight: 'bold',
-    color: '#333333',
+    color: darkTheme.colors.text,
   },
   searchContainer: {
     paddingHorizontal: 16,
     paddingVertical: 8,
   },
   searchInput: {
-    backgroundColor: '#f5f5f5',
+    backgroundColor: darkTheme.colors.card,
     borderRadius: 8,
     padding: 12,
     fontSize: 16,
@@ -150,9 +154,11 @@ const styles = StyleSheet.create({
   listContent: {
     paddingBottom: 16,
   },
-
-  centerContainer: {flex: 1, alignItems: 'center', justifyContent: 'center'},
-
+  centerContainer: {
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
   emptyContainer: {
     padding: 24,
     alignItems: 'center',

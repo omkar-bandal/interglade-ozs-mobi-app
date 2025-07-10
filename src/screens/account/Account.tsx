@@ -2,6 +2,7 @@
 import {useActions} from '@hooks/useActions';
 import {useTypedSelector} from '@hooks/useTypedSelector';
 import {supabase} from '@lib/supabase/supabase';
+import darkTheme from '@theme/dark';
 import {navigate, resetAndNavigate} from '@utils/NavigationUtils';
 import React from 'react';
 import {
@@ -38,14 +39,19 @@ export default function Account() {
   };
 
   return (
-    <SafeAreaView style={{flex: 1, backgroundColor: '#f8f8f8'}}>
+    <SafeAreaView
+      style={{flex: 1, backgroundColor: darkTheme.colors.background}}>
       <View style={styles.header}>
         <View style={styles.headerAction}>
           <TouchableOpacity
             onPress={() => {
               // handle onPress
             }}>
-            <AntDesignIcon color="#000" name="arrowleft" size={24} />
+            <AntDesignIcon
+              color={darkTheme.colors.border}
+              name="arrowleft"
+              size={24}
+            />
           </TouchableOpacity>
         </View>
 
@@ -84,7 +90,7 @@ export default function Account() {
 
               <View style={styles.profileBody}>
                 <Text style={styles.profileName}>
-                  {user?.user_metadata.name}
+                  {user?.app_metadata?.provider}
                 </Text>
 
                 <Text style={styles.profileHandle}>{user?.email}</Text>
@@ -157,7 +163,7 @@ export default function Account() {
               </TouchableOpacity>
             </View>
 
-            <View style={styles.rowWrapper}>
+            <View style={[styles.rowWrapper, styles.rowLast]}>
               <TouchableOpacity
                 onPress={() => {
                   navigate('Privacy');
@@ -309,7 +315,7 @@ const styles = StyleSheet.create({
   headerTitle: {
     fontSize: 16,
     fontWeight: '600',
-    color: '#000',
+    color: '#bcbcbc',
     flexGrow: 1,
     flexShrink: 1,
     flexBasis: 0,
@@ -318,7 +324,7 @@ const styles = StyleSheet.create({
   /** Content */
   content: {
     paddingHorizontal: 16,
-    //backgroundColor: 'red',
+    backgroundColor: darkTheme.colors.background,
   },
   contentFooter: {
     marginTop: 24,
@@ -354,7 +360,7 @@ const styles = StyleSheet.create({
   /** Profile */
   profile: {
     padding: 12,
-    backgroundColor: '#fff',
+    backgroundColor: darkTheme.components.card.backgroundColor,
     borderRadius: 12,
     flexDirection: 'row',
     alignItems: 'center',
@@ -391,9 +397,9 @@ const styles = StyleSheet.create({
   },
   rowWrapper: {
     paddingLeft: 16,
-    backgroundColor: '#fff',
+    backgroundColor: darkTheme.components.card.backgroundColor,
     borderTopWidth: 1,
-    borderColor: '#f0f0f0',
+    borderColor: darkTheme.colors.border,
   },
   rowFirst: {
     borderTopLeftRadius: 12,
@@ -402,7 +408,7 @@ const styles = StyleSheet.create({
   rowLabel: {
     fontSize: 16,
     letterSpacing: 0.24,
-    color: '#000',
+    color: darkTheme.colors.text,
   },
   rowSpacer: {
     flexGrow: 1,

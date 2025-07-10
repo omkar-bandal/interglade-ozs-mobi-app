@@ -1,7 +1,7 @@
 import Button from '@components/ui/Button';
 import Input from '@components/ui/Input';
 import {useCreateReview} from '@hooks/api/review.rq';
-import lightTheme from '@theme/light';
+import darkTheme from '@theme/light';
 import useTheme from '@theme/useTheme';
 import React, {useState} from 'react';
 import {ScrollView, StyleSheet, TouchableOpacity, View} from 'react-native';
@@ -72,19 +72,19 @@ const styles = StyleSheet.create({
     paddingHorizontal: 20,
   },
   card: {
-    backgroundColor: '#fff',
+    backgroundColor: darkTheme.components.card.backgroundColor,
     borderRadius: 12,
     padding: 16,
     marginBottom: 16,
     borderWidth: 1,
-    borderColor: lightTheme.colors.gray,
+    borderColor: darkTheme.colors.gray,
   },
   starsRow: {
     flexDirection: 'row',
     marginBottom: 10,
   },
   commentBox: {
-    backgroundColor: lightTheme.colors.lightGray,
+    backgroundColor: darkTheme.colors.lightGray,
     borderRadius: 8,
     marginTop: 4,
     flexDirection: 'row',

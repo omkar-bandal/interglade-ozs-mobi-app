@@ -1,5 +1,5 @@
 /* eslint-disable react-native/no-inline-styles */
-import {lightTheme, SPACING} from '@theme/constants';
+import {darkTheme, SPACING} from '@theme/constants';
 import React from 'react';
 import {StyleSheet, Text, View} from 'react-native';
 import AntDesignIcon from 'react-native-vector-icons/AntDesign';
@@ -74,7 +74,7 @@ const styles = StyleSheet.create({
     justifyContent: 'space-evenly',
     paddingHorizontal: 16,
     paddingVertical: 10,
-    backgroundColor: lightTheme.colors.background,
+    backgroundColor: darkTheme.colors.background,
   },
   heading: {
     paddingLeft: SPACING.lg,
@@ -94,7 +94,7 @@ const styles = StyleSheet.create({
   },
   subtitleText: {
     fontSize: 16,
-    color: lightTheme.colors.text,
+    color: darkTheme.colors.text,
     fontWeight: 500,
   },
   cardContainer: {
@@ -105,7 +105,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     padding: 5,
-    backgroundColor: '#F1FbFb',
+    backgroundColor: darkTheme.components.card.backgroundColor,
     marginBottom: 5,
     borderRadius: 8,
   },

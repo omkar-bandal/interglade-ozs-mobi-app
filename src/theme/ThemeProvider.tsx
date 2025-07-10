@@ -1,6 +1,6 @@
 import React, {createContext, useCallback, useEffect, useState} from 'react';
 import {useColorScheme} from 'react-native';
-import {darkTheme, lightTheme, Theme} from './constants';
+import {darkTheme, Theme} from './constants';
 
 type ThemeType = 'light' | 'dark' | 'system';
 
@@ -13,7 +13,7 @@ type ThemeContextType = {
 };
 
 export const ThemeContext = createContext<ThemeContextType>({
-  theme: lightTheme,
+  theme: darkTheme,
   themeType: 'light',
   isDark: false,
   setThemeType: () => {},
@@ -26,18 +26,18 @@ export const ThemeProvider: React.FC<{children: React.ReactNode}> = ({
   const systemColorScheme = useColorScheme();
   const [themeType, setThemeType] = useState<ThemeType>('light');
   const [theme, setTheme] = useState<any>(
-    systemColorScheme === 'dark' ? darkTheme : lightTheme,
+    systemColorScheme === 'dark' ? darkTheme : darkTheme,
   );
 
   // Update theme when themeType or system theme changes
   useEffect(() => {
     // let newTheme: Theme;
-    const newTheme = themeType === 'dark' ? darkTheme : lightTheme;
+    const newTheme = themeType === 'dark' ? darkTheme : darkTheme;
 
     // if (themeType === 'system') {
-    //   newTheme = systemColorScheme === 'dark' ? darkTheme : lightTheme;
+    //   newTheme = systemColorScheme === 'dark' ? darkTheme : darkTheme;
     // } else {
-    //   newTheme = themeType === 'dark' ? darkTheme : lightTheme;
+    //   newTheme = themeType === 'dark' ? darkTheme : darkTheme;
     // }
 
     setTheme(newTheme);

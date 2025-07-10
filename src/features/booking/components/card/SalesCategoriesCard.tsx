@@ -1,4 +1,4 @@
-import {FONT_SIZE, lightTheme, SPACING} from '@theme/constants';
+import {darkTheme, FONT_SIZE, SPACING} from '@theme/constants';
 import {Dimensions, Image, StyleSheet, Text, View} from 'react-native';
 
 const screenWidth = Dimensions.get('window').width;
@@ -43,13 +43,11 @@ const styles = StyleSheet.create({
     flexWrap: 'wrap',
     gap: 8,
     justifyContent: 'space-between',
-    //backgroundColor: 'red',
   },
   container: {
     width: (screenWidth - 100) / 3, // Accounting for padding and gap
-    //backgroundColor: '#fff',
     borderRadius: 12,
-    backgroundColor: lightTheme.components.card.backgroundColor,
+    backgroundColor: darkTheme.components.card.backgroundColor,
     padding: SPACING.sm,
   },
   fullWidth: {
@@ -63,10 +61,10 @@ const styles = StyleSheet.create({
   title: {
     fontSize: FONT_SIZE.xs,
     lineHeight: FONT_SIZE.xs * 1.5,
-    color: lightTheme.colors.text,
+    color: darkTheme.colors.textTertiary,
   },
   image: {
-    width: '75%',
+    width: '70%',
     height: 75,
     borderRadius: 8,
   },
@@ -75,5 +73,6 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     borderWidth: 1,
     borderRadius: 8,
+    borderColor: darkTheme.colors.border,
   },
 });

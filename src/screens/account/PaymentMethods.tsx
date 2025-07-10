@@ -1,7 +1,7 @@
 import {Container} from '@components/ui/Container';
 import {Heading} from '@features/account/components/Heading';
 import {SPACING} from '@theme/constants';
-import lightTheme from '@theme/light';
+import darkTheme from '@theme/light';
 import {useState} from 'react';
 import {StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 import AntDesignIcon from 'react-native-vector-icons/AntDesign';
@@ -32,7 +32,7 @@ export function PaymentMethods() {
                 size={24}
                 color={
                   selected === 'Cash on Delivery'
-                    ? lightTheme.colors.primary
+                    ? darkTheme.colors.primary
                     : '#000'
                 }
               />
@@ -50,9 +50,7 @@ export function PaymentMethods() {
                 }
                 size={24}
                 color={
-                  selected === 'Credit Card'
-                    ? lightTheme.colors.primary
-                    : '#000'
+                  selected === 'Credit Card' ? darkTheme.colors.primary : '#000'
                 }
               />
             </TouchableOpacity>
@@ -71,7 +69,7 @@ export function PaymentMethods() {
                 size={24}
                 color={
                   selected === 'Online Payment'
-                    ? lightTheme.colors.primary
+                    ? darkTheme.colors.primary
                     : '#000'
                 }
               />
@@ -84,31 +82,11 @@ export function PaymentMethods() {
 }
 
 const styles = StyleSheet.create({
-  header: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'space-between',
-    width: '100%',
-    paddingHorizontal: 16,
-  },
-  headerAction: {
-    width: 40,
-    height: 40,
-    alignItems: 'flex-start',
-    justifyContent: 'center',
-  },
-  headerTitle: {
-    fontSize: 16,
-    fontWeight: '600',
-    color: '#000',
-    flexGrow: 1,
-    flexShrink: 1,
-    flexBasis: 0,
-    textAlign: 'center',
-  },
   section: {
+    flex: 1,
     paddingTop: 30,
     padding: SPACING.md,
+    backgroundColor: darkTheme.colors.background,
   },
   rowWrapper: {
     paddingLeft: 16,

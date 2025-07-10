@@ -5,7 +5,7 @@ import {
   useGetAllSubCategoriesByID,
   useGetCategoriesByType,
 } from '@hooks/api/category.rq';
-import {lightTheme, SPACING} from '@theme/constants';
+import {darkTheme, SPACING} from '@theme/constants';
 import {useState} from 'react';
 import {
   ActivityIndicator,
@@ -23,7 +23,8 @@ export const ServicesCategories = () => {
   const {data, isLoading} = useGetCategoriesByType('service');
   const [modalVisible, setModalVisible] = useState(false);
   const [selectedCategoryId, setSelectedCategoryId] = useState<number>();
-  const {data: subCategoriesData, isLoading: isSubCategoriesLoading} = useGetAllSubCategoriesByID(selectedCategoryId ?? 0, 'service');
+  const {data: subCategoriesData, isLoading: isSubCategoriesLoading} =
+    useGetAllSubCategoriesByID(selectedCategoryId ?? 0, 'service');
 
   const categories = data?.data ?? [];
 
@@ -153,13 +154,13 @@ const styles = StyleSheet.create({
   },
   modalContainer: {
     flex: 1,
-    backgroundColor: 'rgba(0,0,0,0.5)',
+    backgroundColor: darkTheme.colors.backgroundInverse,
     justifyContent: 'flex-end',
   },
   modalContent: {
     paddingTop: 10,
     height: '80%',
-    backgroundColor: '#fff',
+    backgroundColor: darkTheme.colors.background,
     flexDirection: 'row',
     borderTopLeftRadius: 16,
     borderTopRightRadius: 16,
@@ -167,7 +168,7 @@ const styles = StyleSheet.create({
   },
   categoryList: {
     width: '40%',
-    backgroundColor: lightTheme.components.card.backgroundColor,
+    backgroundColor: darkTheme.colors.card,
     padding: 10,
   },
   subcategoryList: {
@@ -177,13 +178,14 @@ const styles = StyleSheet.create({
   categoryItem: {
     padding: 10,
     borderBottomWidth: 1,
-    borderBottomColor: '#ddd',
+    borderBottomColor: darkTheme.colors.border,
   },
   selectedCategoryItem: {
-    backgroundColor: lightTheme.colors.white,
+    backgroundColor: darkTheme.colors.white,
   },
   categoryText: {
     fontSize: 16,
+    color: darkTheme.colors.textTertiary,
   },
   subcategoryTitle: {
     fontWeight: 'bold',
@@ -195,6 +197,6 @@ const styles = StyleSheet.create({
     fontSize: 14,
     paddingVertical: 6,
     //fontWeight: '500',
-    color: lightTheme.colors.textSecondary,
+    color: darkTheme.colors.textTertiary,
   },
 });

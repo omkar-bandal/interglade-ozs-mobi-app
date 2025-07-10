@@ -1,9 +1,6 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable react-native/no-inline-styles */
-import {
-  useDeleteReservation,
-  useGetReservationByUserIdAndStatus,
-} from '@hooks/api/reservation.rq';
+import {useGetAllReservations} from '@hooks/api/reservation.rq';
 import {useTypedSelector} from '@hooks/useTypedSelector';
 import {useNavigation} from '@react-navigation/native';
 import React from 'react';
@@ -54,30 +51,27 @@ import EmptyBookingsList from './EmptyBookingList';
 
 const MyBookings = ({tabType}: any) => {
   const {user} = useTypedSelector(state => state.auth);
-  const {data, isLoading} = useGetReservationByUserIdAndStatus(
-    user?.id as string,
-    tabType,
-  );
+  // const {data, isLoading} = useGetReservationByUserIdAndStatus(
+  //   user?.id as string,
+  //   tabType,
+  // );
 
+  const {data, isLoading} = useGetAllReservations();
   //const {data, isLoading} = useGetAllReservations();
-  //const [modalVisible, setModalVisible] = useState(false);
   const navigation = useNavigation<any>();
 
   //const isLoading = false;
 
   // Handle actions
-
-  const { mutate: deleteReservation } = useDeleteReservation();
-
   const handleCancel = (id: any) => {
-    deleteReservation(id, {
-      onSuccess: (data) => {
-        Alert.alert('Deleted', 'Reservation deleted successfully.');
-      },
-      onError: (error: any) => {
-        Alert.alert('Error', error?.message || 'Failed to delete reservation.');
-      },
-    });
+    // useDeleteReservation(id, {
+    //   onSuccess: data => {
+    //     Alert.alert('Deleted', 'Reservation deleted successfully.');
+    //   },
+    //   onError: (error: any) => {
+    //     Alert.alert('Error', error?.message || 'Failed to delete reservation.');
+    //   },
+    // });
   };
 
   const handleViewDetails = (id: any) => {
@@ -138,10 +132,10 @@ const MyBookings = ({tabType}: any) => {
   );
 };
 
+export default MyBookings;
+
 const styles = StyleSheet.create({
   bookingsList: {
     flex: 1,
   },
 });
-
-export default MyBookings;

@@ -1,5 +1,6 @@
 import ScreenHeader from '@components/header/ScreenHeader';
 import Button from '@components/ui/Button';
+import darkTheme from '@theme/dark';
 import React, {useEffect, useState} from 'react';
 import {
   ActivityIndicator,
@@ -282,7 +283,7 @@ const AddressListScreen = ({navigation}: AddressListScreenProps) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#F8F9FA',
+    backgroundColor: darkTheme.colors.background,
   },
   centerContent: {
     justifyContent: 'center',
@@ -351,7 +352,7 @@ const styles = StyleSheet.create({
   },
   defaultBadgeText: {
     fontSize: 12,
-    color: '#FFC163',
+    color: darkTheme.colors.primary,
     fontWeight: '500',
   },
   actionButtons: {
@@ -394,7 +395,7 @@ const styles = StyleSheet.create({
   },
   setDefaultText: {
     fontSize: 14,
-    color: '#FFC163',
+    color: darkTheme.colors.primary,
     fontWeight: '500',
   },
   buttonContainer: {

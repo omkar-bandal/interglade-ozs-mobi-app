@@ -1,6 +1,6 @@
 import {Container} from '@components/ui/Container';
 import {Heading} from '@features/account/components/Heading';
-import {SPACING} from '@theme/constants';
+import {darkTheme, SPACING} from '@theme/constants';
 import {useState} from 'react';
 import {StyleSheet, Switch, Text, View} from 'react-native';
 
@@ -80,32 +80,11 @@ export function Notifications() {
 }
 
 const styles = StyleSheet.create({
-  header: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'space-between',
-    width: '100%',
-    paddingHorizontal: 16,
-  },
-  headerAction: {
-    width: 40,
-    height: 40,
-    alignItems: 'flex-start',
-    justifyContent: 'center',
-  },
-  headerTitle: {
-    fontSize: 16,
-    fontWeight: '600',
-    color: '#000',
-    flexGrow: 1,
-    flexShrink: 1,
-    flexBasis: 0,
-    textAlign: 'center',
-  },
   section: {
+    flex: 1,
     paddingVertical: SPACING.sm,
     paddingHorizontal: SPACING.md,
-    //backgroundColor: 'red',
+    backgroundColor: darkTheme.colors.background,
   },
   rowWrapper: {
     paddingLeft: 16,

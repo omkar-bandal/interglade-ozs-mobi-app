@@ -1,3 +1,4 @@
+import darkTheme from '@theme/dark';
 import {forwardRef} from 'react';
 import {KeyboardTypeOptions, StyleSheet, View} from 'react-native';
 import Input from '../../ui/Input';
@@ -95,7 +96,7 @@ const styles = StyleSheet.create({
   inputLabel: {
     fontSize: 14,
     fontWeight: '500',
-    color: '#333',
+    color: darkTheme.colors.textSecondary,
   },
   requiredStar: {
     color: '#e74c3c',

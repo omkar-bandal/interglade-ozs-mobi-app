@@ -2,7 +2,7 @@ import Button from '@components/ui/Button';
 import Typography from '@components/ui/Typography';
 import {useGetMySales} from '@hooks/api/sales.rq';
 import {useTypedSelector} from '@hooks/useTypedSelector';
-import {lightTheme} from '@theme/constants';
+import {darkTheme} from '@theme/constants';
 import {navigate} from '@utils/NavigationUtils';
 import React, {JSX, useCallback} from 'react';
 import {ActivityIndicator, StyleSheet, View} from 'react-native';
@@ -112,6 +112,6 @@ const styles = StyleSheet.create({
   title: {
     fontSize: 17,
     fontWeight: 700,
-    color: lightTheme.colors.text,
+    color: darkTheme.colors.text,
   },
 });

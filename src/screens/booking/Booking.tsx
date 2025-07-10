@@ -10,7 +10,7 @@ import {ServicesCategories} from '@features/booking/components/ServicesCategorie
 import SpecialOffer from '@features/booking/components/SpecialOffer';
 import WhatsNew from '@features/booking/components/WhatsNew';
 import WhyTrustUs from '@features/booking/components/WhyTrustUs';
-import {lightTheme, SPACING} from '@theme/constants';
+import {darkTheme, SPACING} from '@theme/constants';
 import useTheme from '@theme/useTheme';
 import {navigate} from '@utils/NavigationUtils';
 import {useState} from 'react';
@@ -140,7 +140,7 @@ const styles = StyleSheet.create({
   },
   searchContainer: {
     borderRadius: 8,
-    borderColor: lightTheme.colors.gray,
+    borderColor: darkTheme.colors.gray,
     borderWidth: 1,
     margin: SPACING.md,
   },

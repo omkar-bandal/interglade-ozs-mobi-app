@@ -2,7 +2,7 @@ import Button from '@components/ui/Button';
 import Typography from '@components/ui/Typography';
 import {useGetAllServicesExpectUser} from '@hooks/api/service.rq';
 import {useTypedSelector} from '@hooks/useTypedSelector';
-import {SPACING} from '@theme/constants';
+import {darkTheme, SPACING} from '@theme/constants';
 import {navigate} from '@utils/NavigationUtils';
 import React, {useCallback} from 'react';
 import {
@@ -61,7 +61,6 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     marginVertical: SPACING.md,
-    // backgroundColor: lightTheme.colors.background,
   },
   sectionHeader: {
     flexDirection: 'row',
@@ -72,7 +71,7 @@ const styles = StyleSheet.create({
   },
   cardsContainer: {
     //marginTop: SPACING.sm,
-    backgroundColor: '#FFF',
+    backgroundColor: darkTheme.colors.background,
     paddingVertical: 10,
     paddingHorizontal: 16,
     padding: SPACING.md,

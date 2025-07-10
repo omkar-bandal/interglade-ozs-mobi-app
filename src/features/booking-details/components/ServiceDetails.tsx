@@ -20,7 +20,7 @@ import {RecentSales} from '@features/booking/components/RecentSales';
 import Reviews from '@features/booking/components/Reviews';
 import {useActions} from '@hooks/useActions';
 import {useTypedSelector} from '@hooks/useTypedSelector';
-import {lightTheme, SPACING} from '@theme/constants';
+import {darkTheme, SPACING} from '@theme/constants';
 import {navigate} from '@utils/NavigationUtils';
 import AntDesignIcon from 'react-native-vector-icons/AntDesign';
 import {default as Ionicons} from 'react-native-vector-icons/Ionicons';
@@ -285,7 +285,7 @@ const styles = StyleSheet.create({
   detailContainer: {
     marginTop: 10,
     paddingTop: SPACING.md,
-    backgroundColor: lightTheme.colors.background,
+    backgroundColor: darkTheme.colors.background,
     //borderTopLeftRadius: 15,
     //borderTopRightRadius: 15,
   },

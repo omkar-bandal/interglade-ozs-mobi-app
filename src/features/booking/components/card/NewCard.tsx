@@ -1,13 +1,17 @@
-/* eslint-disable react-native/no-inline-styles */
 import Button from '@components/ui/Button';
-import {lightTheme, SPACING} from '@theme/constants';
+import {darkTheme, SPACING} from '@theme/constants';
 import React from 'react';
 import {Image, StyleSheet, TouchableOpacity, View} from 'react-native';
 import {Text} from 'react-native-gesture-handler';
 
 export function NewCards({service}: {service: any}) {
   return (
-    <View key={service.id} style={[styles.card, {backgroundColor: '#fff'}]}>
+    <View
+      key={service.id}
+      style={[
+        styles.card,
+        {backgroundColor: darkTheme.components.card.backgroundColor},
+      ]}>
       <Image
         source={{uri: service.photos[0]}}
         style={styles.image}
@@ -39,7 +43,7 @@ const styles = StyleSheet.create({
     fontSize: 18,
     fontWeight: '500',
     //fontFamily: fontFamily.Bold,
-    color: lightTheme.colors.text,
+    color: darkTheme.colors.text,
   },
   card: {
     width: 170,
@@ -70,7 +74,7 @@ const styles = StyleSheet.create({
   serviceName: {
     fontSize: 16,
     fontWeight: 'bold',
-    color: lightTheme.colors.text,
+    color: darkTheme.colors.text,
     //marginBottom: 4,
     width: '100%',
   },

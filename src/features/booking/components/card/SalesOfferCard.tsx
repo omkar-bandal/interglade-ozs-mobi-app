@@ -1,5 +1,5 @@
 import Button from '@components/ui/Button';
-import {lightTheme, SPACING} from '@theme/constants';
+import {darkTheme, SPACING} from '@theme/constants';
 import {navigate} from '@utils/NavigationUtils';
 import React from 'react';
 import {Image, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
@@ -84,7 +84,7 @@ const styles = StyleSheet.create({
   },
 
   button: {
-    backgroundColor: lightTheme.components.button.primaryBackground,
+    backgroundColor: darkTheme.components.button.primaryBackground,
     borderRadius: 6,
     paddingVertical: 10,
     paddingHorizontal: 5,

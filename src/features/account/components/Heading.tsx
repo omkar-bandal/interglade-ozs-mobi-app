@@ -1,4 +1,5 @@
 import {useNavigation} from '@react-navigation/native';
+import darkTheme from '@theme/dark';
 import React from 'react';
 import {StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 import AntDesignIcon from 'react-native-vector-icons/AntDesign';
@@ -16,7 +17,11 @@ export const Heading: React.FC<HeadingProps> = ({title}) => {
           onPress={() => {
             navigation.goBack();
           }}>
-          <AntDesignIcon color="#000" name="arrowleft" size={24} />
+          <AntDesignIcon
+            color={darkTheme.colors.text}
+            name="arrowleft"
+            size={24}
+          />
         </TouchableOpacity>
       </View>
       <Text numberOfLines={1} style={styles.headerTitle}>
@@ -33,6 +38,7 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     width: '100%',
     paddingHorizontal: 16,
+    backgroundColor: darkTheme.colors.background,
   },
   headerAction: {
     width: 40,
@@ -43,7 +49,7 @@ const styles = StyleSheet.create({
   headerTitle: {
     fontSize: 16,
     fontWeight: '600',
-    color: '#000',
+    color: darkTheme.colors.text,
     flexGrow: 1,
     flexShrink: 1,
     flexBasis: 0,

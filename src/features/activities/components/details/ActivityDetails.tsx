@@ -1,5 +1,5 @@
 /* eslint-disable react-native/no-inline-styles */
-import lightTheme from '@theme/light';
+import darkTheme from '@theme/light';
 import useTheme from '@theme/useTheme';
 import {navigate} from '@utils/NavigationUtils';
 import React from 'react';
@@ -109,20 +109,21 @@ const ActivityDetails = ({reservationId}: any) => {
           /> */}
           <View style={{flex: 1, marginLeft: 16}}>
             <Text style={styles.serviceTitle}>
-              {reservation?.service?.title || 'Hair Styling Session'}
+              {reservation?.service?.title}
             </Text>
             <View style={styles.ratingRow}>
               <Ionicons name="star" size={16} color={theme.colors.primary} />
+              <Text style={styles.ratingText}>
+                {reservation?.service?.status}
+              </Text>
               <Text style={styles.ratingText}>5.0</Text>
             </View>
-            <Text style={styles.price}>
-              ${reservation?.service?.price || ' 100'}
-            </Text>
+            <Text style={styles.price}>${reservation?.service?.price}</Text>
           </View>
         </View>
 
         {/* Action Buttons */}
-        {reservation?.status === 'completed' && (
+        {reservation?.status === 'completed' || (
           <View style={styles.actionRow}>
             <TouchableOpacity
               style={styles.outlineBtn}
@@ -149,8 +150,7 @@ const ActivityDetails = ({reservationId}: any) => {
           </View> */}
           <View style={{flex: 1, marginLeft: 12}}>
             <Text style={styles.providerName}>
-              {reservation?.provider?.name || 'Sara'}{' '}
-              {reservation?.provider?.name || 'Khan'}
+              {reservation?.provider?.name} {reservation?.provider?.name}
             </Text>
           </View>
           {/* <View style={styles.providerActions}>
@@ -228,7 +228,7 @@ const StatusStep = ({title, date, description, time, active, last}: any) => {
             {
               backgroundColor: active
                 ? theme.colors.primary
-                : theme.colors.lightGray,
+                : theme.colors.secondary,
               borderColor: theme.colors.primary,
             },
           ]}
@@ -257,8 +257,9 @@ const styles = StyleSheet.create({
   },
   container: {
     flex: 1,
-    backgroundColor: '#fff',
-    paddingHorizontal: 20,
+    backgroundColor: darkTheme.colors.background,
+    paddingVertical: 10,
+    paddingHorizontal: 16,
   },
   header: {
     flexDirection: 'row',
@@ -276,7 +277,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     marginBottom: 16,
-    backgroundColor: lightTheme.components.card.backgroundColor,
+    backgroundColor: darkTheme.components.card.backgroundColor,
     borderRadius: 12,
     padding: 12,
   },
@@ -288,7 +289,7 @@ const styles = StyleSheet.create({
   serviceTitle: {
     fontWeight: 'bold',
     fontSize: 16,
-    color: lightTheme.colors.text,
+    color: darkTheme.colors.text,
     marginBottom: 4,
   },
   ratingRow: {
@@ -298,13 +299,13 @@ const styles = StyleSheet.create({
   },
   ratingText: {
     marginLeft: 4,
-    color: lightTheme.colors.gray,
+    color: darkTheme.colors.gray,
     fontWeight: 'bold',
   },
   price: {
     fontWeight: 'bold',
     fontSize: 16,
-    color: lightTheme.colors.primary,
+    color: darkTheme.colors.primary,
   },
   confirmButton: {
     paddingVertical: 10,
@@ -318,19 +319,19 @@ const styles = StyleSheet.create({
   outlineBtn: {
     flex: 1,
     borderWidth: 1,
-    borderColor: lightTheme.colors.primary,
+    borderColor: darkTheme.colors.primary,
     borderRadius: 8,
     paddingVertical: 10,
     marginRight: 8,
     alignItems: 'center',
   },
   outlineBtnText: {
-    color: lightTheme.colors.primary,
+    color: darkTheme.colors.primary,
     fontWeight: 'bold',
   },
   primaryBtn: {
     flex: 1,
-    backgroundColor: lightTheme.colors.primary,
+    backgroundColor: darkTheme.colors.primary,
     borderRadius: 8,
     paddingVertical: 10,
     marginLeft: 8,
@@ -348,7 +349,7 @@ const styles = StyleSheet.create({
   providerCard: {
     flexDirection: 'row',
     alignItems: 'center',
-    backgroundColor: lightTheme.components.card.backgroundColor,
+    backgroundColor: darkTheme.components.card.backgroundColor,
     borderRadius: 12,
     padding: 12,
     marginBottom: 12,
@@ -361,10 +362,10 @@ const styles = StyleSheet.create({
   providerName: {
     fontWeight: 'bold',
     fontSize: 15,
-    color: lightTheme.colors.text,
+    color: darkTheme.colors.text,
   },
   providerRole: {
-    color: lightTheme.colors.gray,
+    color: darkTheme.colors.gray,
     fontSize: 13,
   },
   providerActions: {
@@ -377,7 +378,7 @@ const styles = StyleSheet.create({
     padding: 8,
     marginLeft: 6,
     borderWidth: 1,
-    borderColor: lightTheme.colors.lightGray,
+    borderColor: darkTheme.colors.lightGray,
   },
   statusContainer: {
     marginBottom: 16,
@@ -400,7 +401,7 @@ const styles = StyleSheet.create({
   statusLine: {
     width: 2,
     flex: 1,
-    backgroundColor: lightTheme.colors.lightGray,
+    backgroundColor: darkTheme.colors.lightGray,
     marginTop: 2,
   },
   statusTitle: {
@@ -408,16 +409,16 @@ const styles = StyleSheet.create({
     fontSize: 15,
   },
   statusDate: {
-    color: lightTheme.colors.textSecondary,
+    color: darkTheme.colors.textSecondary,
     fontSize: 13,
   },
   statusDesc: {
-    color: lightTheme.colors.textTertiary,
+    color: darkTheme.colors.textTertiary,
     fontSize: 13,
     marginTop: 2,
   },
   statusTime: {
-    color: lightTheme.colors.textTertiary,
+    color: darkTheme.colors.textTertiary,
     fontSize: 12,
     marginTop: 2,
   },
@@ -427,7 +428,7 @@ const styles = StyleSheet.create({
     marginVertical: 4,
   },
   summaryLabel: {
-    color: lightTheme.colors.gray,
+    color: darkTheme.colors.gray,
     fontSize: 15,
   },
   summaryValue: {
@@ -437,17 +438,17 @@ const styles = StyleSheet.create({
   },
   divider: {
     height: 1,
-    backgroundColor: lightTheme.colors.lightGray,
+    backgroundColor: darkTheme.colors.lightGray,
     marginVertical: 8,
   },
   grandTotalLabel: {
     fontWeight: 'bold',
     fontSize: 16,
-    color: lightTheme.colors.primary,
+    color: darkTheme.colors.primary,
   },
   grandTotalValue: {
     fontWeight: 'bold',
     fontSize: 16,
-    color: lightTheme.colors.primary,
+    color: darkTheme.colors.primary,
   },
 });

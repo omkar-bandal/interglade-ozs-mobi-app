@@ -5,7 +5,7 @@ import {
   useGetAllSubCategoriesByID,
   useGetCategoriesByType,
 } from '@hooks/api/category.rq';
-import {lightTheme, SPACING} from '@theme/constants';
+import {darkTheme, SPACING} from '@theme/constants';
 import {useState} from 'react';
 import {
   ActivityIndicator,
@@ -108,7 +108,7 @@ export const SalesCategories = () => {
               <ScrollView>
                 {selectedCategory?.children?.length > 0 ? (
                   selectedCategory.children.map((sub: any) => (
-                    <Text key={sub.id} style={styles.subcategoryText}>git 
+                    <Text key={sub.id} style={styles.subcategoryText}>
                       {sub.name}
                     </Text>
                   ))
@@ -153,13 +153,13 @@ const styles = StyleSheet.create({
   },
   modalContainer: {
     flex: 1,
-    backgroundColor: 'rgba(0,0,0,0.5)',
+    backgroundColor: darkTheme.colors.backgroundInverse,
     justifyContent: 'flex-end',
   },
   modalContent: {
     paddingTop: 10,
     height: '80%',
-    backgroundColor: '#fff',
+    backgroundColor: darkTheme.colors.background,
     flexDirection: 'row',
     borderTopLeftRadius: 16,
     borderTopRightRadius: 16,
@@ -167,7 +167,7 @@ const styles = StyleSheet.create({
   },
   categoryList: {
     width: '40%',
-    backgroundColor: lightTheme.components.card.backgroundColor,
+    backgroundColor: darkTheme.colors.card,
     padding: 10,
   },
   subcategoryList: {
@@ -177,13 +177,14 @@ const styles = StyleSheet.create({
   categoryItem: {
     padding: 10,
     borderBottomWidth: 1,
-    borderBottomColor: '#ddd',
+    borderBottomColor: darkTheme.colors.border,
   },
   selectedCategoryItem: {
-    backgroundColor: lightTheme.colors.white,
+    backgroundColor: darkTheme.components.card.backgroundColor,
   },
   categoryText: {
     fontSize: 16,
+    color: darkTheme.colors.textTertiary,
   },
   subcategoryTitle: {
     fontWeight: 'bold',
@@ -195,6 +196,6 @@ const styles = StyleSheet.create({
     fontSize: 14,
     paddingVertical: 6,
     //fontWeight: '500',
-    color: lightTheme.colors.textSecondary,
+    color: darkTheme.colors.textTertiary,
   },
 });

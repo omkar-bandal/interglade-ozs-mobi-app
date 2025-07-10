@@ -1,5 +1,5 @@
 import {useNavigation} from '@react-navigation/native';
-import {lightTheme, SPACING} from '@theme/constants';
+import {darkTheme, SPACING} from '@theme/constants';
 import {navigate} from '@utils/NavigationUtils';
 import React from 'react';
 import {StyleSheet, Text, TouchableOpacity, View} from 'react-native';
@@ -69,7 +69,7 @@ const styles = StyleSheet.create({
   boxContainer: {
     marginTop: 50,
     minWidth: 296,
-    backgroundColor: lightTheme.components.card.backgroundColor,
+    backgroundColor: darkTheme.components.card.backgroundColor,
     borderRadius: 8,
     padding: SPACING.lg,
     display: 'flex',
@@ -78,7 +78,7 @@ const styles = StyleSheet.create({
   subContainer: {
     minWidth: 202,
     borderWidth: 1,
-    borderColor: lightTheme.colors.primary,
+    borderColor: darkTheme.colors.primary,
     margin: SPACING.md,
     paddingHorizontal: 22,
     paddingVertical: 10,
@@ -119,7 +119,7 @@ const styles = StyleSheet.create({
   },
   subtitle: {
     fontSize: 16,
-    color: lightTheme.colors.primary,
+    color: darkTheme.colors.primary,
     marginLeft: 12,
   },
 });
