@@ -1,10 +1,13 @@
 import {Container} from '@components/ui/Container';
 import {Heading} from '@features/account/components/Heading';
-import {darkTheme, SPACING} from '@theme/constants';
+import {SPACING} from '@theme/constants';
+import useTheme from '@theme/useTheme';
 import {useState} from 'react';
 import {StyleSheet, Switch, Text, View} from 'react-native';
 
 export function Privacy() {
+  const {theme} = useTheme();
+  const styles = themeStyles(theme);
   const [form, setForm] = useState({
     privateAccount: true,
     locationSharing: false,
@@ -59,55 +62,56 @@ export function Privacy() {
   );
 }
 
-const styles = StyleSheet.create({
-  section: {
-    flex: 1,
-    padding: SPACING.sm,
-    paddingHorizontal: 16,
-    backgroundColor: darkTheme.colors.background,
-  },
-  rowWrapper: {
-    paddingLeft: 16,
-    padding: SPACING.md,
-    backgroundColor: '#fff',
-    borderTopWidth: 1,
-    borderColor: '#f0f0f0',
-  },
-  rowFirst: {
-    borderTopLeftRadius: 12,
-    borderTopRightRadius: 12,
-  },
-  row: {
-    height: 44,
-    width: '100%',
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'flex-start',
-    paddingRight: 12,
-  },
-  rowContent: {
-    flexDirection: 'column',
-    justifyContent: 'flex-start',
-    flexShrink: 1,
-    // flexWrap: 'wrap',
-  },
-  rowLabel: {
-    fontSize: 16,
-    letterSpacing: 0.24,
-    color: '#000',
-  },
-  rowDescription: {
-    fontSize: 14,
-    color: '#666',
-    marginLeft: 8,
-  },
-  rowSpacer: {
-    flexGrow: 1,
-    flexShrink: 1,
-    flexBasis: 0,
-  },
-  rowLast: {
-    borderBottomLeftRadius: 12,
-    borderBottomRightRadius: 12,
-  },
-});
+const themeStyles = (theme: any) =>
+  StyleSheet.create({
+    section: {
+      flex: 1,
+      padding: SPACING.sm,
+      paddingHorizontal: 16,
+      backgroundColor: theme.colors.background,
+    },
+    rowWrapper: {
+      paddingLeft: 16,
+      padding: SPACING.md,
+      backgroundColor: theme.components.card.backgroundColor,
+      borderTopWidth: 1,
+      borderColor: theme.colors.border,
+    },
+    rowFirst: {
+      borderTopLeftRadius: 12,
+      borderTopRightRadius: 12,
+    },
+    row: {
+      height: 44,
+      width: '100%',
+      flexDirection: 'row',
+      alignItems: 'center',
+      justifyContent: 'flex-start',
+      paddingRight: 12,
+    },
+    rowContent: {
+      flexDirection: 'column',
+      justifyContent: 'flex-start',
+      flexShrink: 1,
+      // flexWrap: 'wrap',
+    },
+    rowLabel: {
+      fontSize: 16,
+      letterSpacing: 0.24,
+      color: theme.colors.text,
+    },
+    rowDescription: {
+      fontSize: 14,
+      color: '#666',
+      marginLeft: 8,
+    },
+    rowSpacer: {
+      flexGrow: 1,
+      flexShrink: 1,
+      flexBasis: 0,
+    },
+    rowLast: {
+      borderBottomLeftRadius: 12,
+      borderBottomRightRadius: 12,
+    },
+  });

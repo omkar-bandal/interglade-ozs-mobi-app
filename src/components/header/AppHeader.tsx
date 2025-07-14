@@ -24,11 +24,15 @@ export const AppHeader: React.FC<HeaderProps> = ({
   notificationCount = 0,
   onNotificationPress,
 }) => {
+  //const {themeType} = useTheme();
   const handleAddressPress = () => {
     navigate('Location');
   };
   return (
     <SafeAreaView>
+      {/* <StatusBar
+        barStyle={themeType === 'dark' ? 'light-content' : 'dark-content'}
+      /> */}
       <View style={styles.container}>
         <StatusBar
           barStyle="light-content"

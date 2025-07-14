@@ -1,9 +1,12 @@
-import {darkTheme, FONT_SIZE, SPACING} from '@theme/constants';
+import {FONT_SIZE, SPACING} from '@theme/constants';
+import useTheme from '@theme/useTheme';
 import {Dimensions, Image, StyleSheet, Text, View} from 'react-native';
 
 const screenWidth = Dimensions.get('window').width;
 
 export const SalesCategoriesCard = ({items}: any) => {
+  const {theme} = useTheme();
+  const styles = themeStyles(theme);
   return (
     <View style={styles.wrapper}>
       {items?.map((item: any, index: number) => {
@@ -37,42 +40,43 @@ export const SalesCategoriesCard = ({items}: any) => {
   );
 };
 
-const styles = StyleSheet.create({
-  wrapper: {
-    flexDirection: 'row',
-    flexWrap: 'wrap',
-    gap: 8,
-    justifyContent: 'space-between',
-  },
-  container: {
-    width: (screenWidth - 100) / 3, // Accounting for padding and gap
-    borderRadius: 12,
-    backgroundColor: darkTheme.components.card.backgroundColor,
-    padding: SPACING.sm,
-  },
-  fullWidth: {
-    width: '100%',
-  },
-  imageContainer: {
-    marginBottom: 8,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  title: {
-    fontSize: FONT_SIZE.xs,
-    lineHeight: FONT_SIZE.xs * 1.5,
-    color: darkTheme.colors.textTertiary,
-  },
-  image: {
-    width: '70%',
-    height: 75,
-    borderRadius: 8,
-  },
-  textContainer: {
-    padding: 8,
-    alignItems: 'center',
-    borderWidth: 1,
-    borderRadius: 8,
-    borderColor: darkTheme.colors.border,
-  },
-});
+const themeStyles = (theme: any) =>
+  StyleSheet.create({
+    wrapper: {
+      flexDirection: 'row',
+      flexWrap: 'wrap',
+      gap: 8,
+      justifyContent: 'space-between',
+    },
+    container: {
+      width: (screenWidth - 100) / 3, // Accounting for padding and gap
+      borderRadius: 12,
+      backgroundColor: theme.components.card.backgroundColor,
+      padding: SPACING.sm,
+    },
+    fullWidth: {
+      width: '100%',
+    },
+    imageContainer: {
+      marginBottom: 8,
+      justifyContent: 'center',
+      alignItems: 'center',
+    },
+    title: {
+      fontSize: FONT_SIZE.xs,
+      lineHeight: FONT_SIZE.xs * 1.5,
+      color: theme.colors.textTertiary,
+    },
+    image: {
+      width: '70%',
+      height: 75,
+      borderRadius: 8,
+    },
+    textContainer: {
+      padding: 8,
+      alignItems: 'center',
+      borderWidth: 1,
+      borderRadius: 8,
+      borderColor: theme.colors.border,
+    },
+  });

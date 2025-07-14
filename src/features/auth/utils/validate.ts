@@ -8,5 +8,6 @@ export const validationLoginFormSchema = {
   },
   password: {
     required: {value: true, message: 'Password name is required'},
+    minlength: {value: 6, meassage: 'Password should be at least 6 characters'},
   },
 };

@@ -3,7 +3,7 @@ import {useGetConversationsByUserId} from '@hooks/api/message.rq';
 import {useTypedSelector} from '@hooks/useTypedSelector';
 import {supabase} from '@lib/supabase/supabase';
 import {useIsFocused} from '@react-navigation/native';
-import darkTheme from '@theme/dark';
+import useTheme from '@theme/useTheme';
 import {useEffect, useMemo, useState} from 'react';
 import {
   ActivityIndicator,
@@ -18,6 +18,8 @@ import {SafeAreaView} from 'react-native-safe-area-context';
 import ConversationListItem from './ConversationItem';
 
 export default function ConversationList() {
+  const {theme, themeType} = useTheme();
+  const styles = themeStyles(theme);
   const isFocused = useIsFocused();
   const [searchQuery, setSearchQuery] = useState('');
 
@@ -93,8 +95,7 @@ export default function ConversationList() {
   return (
     <SafeAreaView style={styles.container}>
       <StatusBar
-        barStyle="light-content"
-        backgroundColor={darkTheme.colors.background}
+        barStyle={themeType === 'dark' ? 'light-content' : 'dark-content'}
       />
       <View style={styles.header}>
         <Text style={styles.headerTitle}>Conversations</Text>
@@ -103,6 +104,7 @@ export default function ConversationList() {
         <TextInput
           style={styles.searchInput}
           placeholder="Search conversations..."
+          placeholderTextColor={theme.components.input.placeholderColor}
           value={searchQuery}
           onChangeText={setSearchQuery}
         />
@@ -126,45 +128,48 @@ export default function ConversationList() {
   );
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: darkTheme.colors.background,
-  },
-  header: {
-    padding: 16,
-    borderBottomWidth: 1,
-    borderBottomColor: darkTheme.colors.border,
-  },
-  headerTitle: {
-    fontSize: 24,
-    fontWeight: 'bold',
-    color: darkTheme.colors.text,
-  },
-  searchContainer: {
-    paddingHorizontal: 16,
-    paddingVertical: 8,
-  },
-  searchInput: {
-    backgroundColor: darkTheme.colors.card,
-    borderRadius: 8,
-    padding: 12,
-    fontSize: 16,
-  },
-  listContent: {
-    paddingBottom: 16,
-  },
-  centerContainer: {
-    flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  emptyContainer: {
-    padding: 24,
-    alignItems: 'center',
-  },
-  emptyText: {
-    fontSize: 16,
-    color: '#999999',
-  },
-});
+const themeStyles = (theme: any) =>
+  StyleSheet.create({
+    container: {
+      flex: 1,
+      backgroundColor: theme.colors.background,
+    },
+    header: {
+      padding: 16,
+      borderBottomWidth: 1,
+      borderBottomColor: theme.colors.border,
+    },
+    headerTitle: {
+      fontSize: 24,
+      fontWeight: 'bold',
+      color: theme.colors.text,
+    },
+    searchContainer: {
+      paddingHorizontal: 16,
+      paddingVertical: 8,
+    },
+    searchInput: {
+      backgroundColor: theme.components.input.background,
+      borderRadius: 8,
+      padding: 12,
+      fontSize: 16,
+      borderWidth: 1,
+      borderColor: theme.colors.border,
+    },
+    listContent: {
+      paddingBottom: 16,
+    },
+    centerContainer: {
+      flex: 1,
+      alignItems: 'center',
+      justifyContent: 'center',
+    },
+    emptyContainer: {
+      padding: 24,
+      alignItems: 'center',
+    },
+    emptyText: {
+      fontSize: 16,
+      color: '#999999',
+    },
+  });

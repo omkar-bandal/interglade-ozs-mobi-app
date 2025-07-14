@@ -99,13 +99,15 @@ const styles = StyleSheet.create({
   },
   reviewCount: {
     fontSize: 12,
-    color: '#666',
+    //color: '#666',
     marginLeft: 4,
+    color: darkTheme.colors.textSecondary,
   },
   title: {
     fontSize: 16,
     fontWeight: '600',
     marginBottom: 4,
+    color: darkTheme.colors.textSecondary,
   },
   priceContainer: {
     flexDirection: 'row',
@@ -116,6 +118,7 @@ const styles = StyleSheet.create({
     fontSize: 16,
     fontWeight: 'bold',
     marginRight: 8,
+    color: darkTheme.colors.textSecondary,
   },
   providerContainer: {
     flexDirection: 'row',
@@ -139,6 +142,7 @@ const styles = StyleSheet.create({
   providerName: {
     fontSize: 12,
     fontWeight: '500',
+    color: darkTheme.colors.textSecondary,
   },
   providerRole: {
     fontSize: 10,

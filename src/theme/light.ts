@@ -65,7 +65,7 @@ const darkTheme = {
       disabledTextColor: '#C7C2B8',
     },
     card: {
-      backgroundColor: '#202938',
+      backgroundColor: '#E0F0F0',
       shadowColor: 'rgba(41, 37, 35, 0.1)',
     },
   },

@@ -7,7 +7,7 @@ import {useCreateService, useUpdateService} from '@hooks/api/service.rq';
 import {useActions} from '@hooks/useActions';
 import useForm from '@hooks/useForm';
 import {useTypedSelector} from '@hooks/useTypedSelector';
-import {darkTheme, SPACING} from '@theme/constants';
+import {SPACING} from '@theme/constants';
 import useTheme from '@theme/useTheme';
 import {uploadFile} from '@utils/upload.utils';
 import {validationServiceFormSchema} from '../utils/validate';
@@ -18,6 +18,7 @@ import {Summary} from './add-service-steps/Summary';
 
 export default function AddServiceForm({initialData, serviceId}: any) {
   const {theme} = useTheme();
+  const styles = themeStyles(theme);
   const {user} = useTypedSelector(state => state.auth);
   const {mutateAsync: createService, isPending} = useCreateService();
   const {mutateAsync: updateService, isPending: isUpdatePending} =
@@ -113,24 +114,25 @@ export default function AddServiceForm({initialData, serviceId}: any) {
   );
 }
 
-const styles = StyleSheet.create({
-  form: {
-    flexGrow: 1,
-    flexShrink: 1,
-    flexBasis: 0,
-  },
-  formContainer: {
-    padding: SPACING.sm,
-    borderWidth: 1,
-    borderColor: darkTheme.colors.border,
-    borderRadius: 10,
-    height: '100%',
-    justifyContent: 'center',
-  },
-  formAction: {
-    marginBottom: 4,
-  },
-  input: {
-    marginBottom: 1,
-  },
-});
+const themeStyles = (theme: any) =>
+  StyleSheet.create({
+    form: {
+      flexGrow: 1,
+      flexShrink: 1,
+      flexBasis: 0,
+    },
+    formContainer: {
+      padding: SPACING.sm,
+      borderWidth: 1,
+      borderColor: theme.colors.border,
+      borderRadius: 10,
+      height: '100%',
+      justifyContent: 'center',
+    },
+    formAction: {
+      marginBottom: 4,
+    },
+    input: {
+      marginBottom: 1,
+    },
+  });

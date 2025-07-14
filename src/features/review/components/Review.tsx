@@ -1,7 +1,7 @@
+/* eslint-disable react-native/no-inline-styles */
 import Button from '@components/ui/Button';
 import Input from '@components/ui/Input';
 import {useCreateReview} from '@hooks/api/review.rq';
-import darkTheme from '@theme/light';
 import useTheme from '@theme/useTheme';
 import React, {useState} from 'react';
 import {ScrollView, StyleSheet, TouchableOpacity, View} from 'react-native';
@@ -9,6 +9,7 @@ import Ionicons from 'react-native-vector-icons/Ionicons';
 
 const Review = ({reservationId}: {reservationId: string}) => {
   const {theme} = useTheme();
+  const styles = themeStyles(theme);
   const [rating, setRating] = useState(5);
   const [comment, setComment] = useState('');
 
@@ -50,7 +51,7 @@ const Review = ({reservationId}: {reservationId: string}) => {
           value={comment}
           onChangeText={setComment}
           multiline
-          placeholderTextColor={theme.colors.gray}
+          placeholderTextColor={theme.components.input.placeholderColor}
         />
 
         <Button
@@ -66,41 +67,42 @@ const Review = ({reservationId}: {reservationId: string}) => {
 
 export default Review;
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    paddingHorizontal: 20,
-  },
-  card: {
-    backgroundColor: darkTheme.components.card.backgroundColor,
-    borderRadius: 12,
-    padding: 16,
-    marginBottom: 16,
-    borderWidth: 1,
-    borderColor: darkTheme.colors.gray,
-  },
-  starsRow: {
-    flexDirection: 'row',
-    marginBottom: 10,
-  },
-  commentBox: {
-    backgroundColor: darkTheme.colors.lightGray,
-    borderRadius: 8,
-    marginTop: 4,
-    flexDirection: 'row',
-    alignItems: 'flex-end',
-    paddingHorizontal: 8,
-    paddingVertical: 4,
-  },
-  commentInput: {
-    flex: 1,
-    minHeight: 36,
-    fontSize: 14,
-    color: '#000',
-    paddingVertical: 4,
-  },
-  commentIcon: {
-    marginLeft: 4,
-    marginBottom: 4,
-  },
-});
+const themeStyles = (theme: any) =>
+  StyleSheet.create({
+    container: {
+      flex: 1,
+      paddingHorizontal: 20,
+    },
+    card: {
+      backgroundColor: theme.components.card.backgroundColor,
+      borderRadius: 12,
+      padding: 16,
+      marginBottom: 16,
+      borderWidth: 1,
+      borderColor: theme.colors.gray,
+    },
+    starsRow: {
+      flexDirection: 'row',
+      marginBottom: 10,
+    },
+    commentBox: {
+      backgroundColor: theme.colors.lightGray,
+      borderRadius: 8,
+      marginTop: 4,
+      flexDirection: 'row',
+      alignItems: 'flex-end',
+      paddingHorizontal: 8,
+      paddingVertical: 4,
+    },
+    commentInput: {
+      flex: 1,
+      minHeight: 36,
+      fontSize: 14,
+      color: '#000',
+      paddingVertical: 4,
+    },
+    commentIcon: {
+      marginLeft: 4,
+      marginBottom: 4,
+    },
+  });

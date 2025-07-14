@@ -1,12 +1,20 @@
 import {Container} from '@components/ui/Container';
 import {Heading} from '@features/account/components/Heading';
 import {SPACING} from '@theme/constants';
-import darkTheme from '@theme/light';
+import useTheme from '@theme/useTheme';
 import {useState} from 'react';
-import {StyleSheet, Text, TouchableOpacity, View} from 'react-native';
+import {
+  StatusBar,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  View,
+} from 'react-native';
 import AntDesignIcon from 'react-native-vector-icons/AntDesign';
 
 export function PaymentMethods() {
+  const {theme, themeType} = useTheme();
+  const styles = themeStyles(theme);
   const [selected, setSelected] = useState('');
   const handleSelect = (method: string) => {
     setSelected(method);
@@ -14,6 +22,9 @@ export function PaymentMethods() {
 
   return (
     <Container>
+      <StatusBar
+        barStyle={themeType === 'dark' ? 'light-content' : 'dark-content'}
+      />
       <Heading title="Payment Method" />
 
       <View style={styles.section}>
@@ -32,8 +43,8 @@ export function PaymentMethods() {
                 size={24}
                 color={
                   selected === 'Cash on Delivery'
-                    ? darkTheme.colors.primary
-                    : '#000'
+                    ? theme.colors.primary
+                    : theme.colors.text
                 }
               />
             </TouchableOpacity>
@@ -50,7 +61,9 @@ export function PaymentMethods() {
                 }
                 size={24}
                 color={
-                  selected === 'Credit Card' ? darkTheme.colors.primary : '#000'
+                  selected === 'Credit Card'
+                    ? theme.colors.primary
+                    : theme.colors.text
                 }
               />
             </TouchableOpacity>
@@ -69,8 +82,8 @@ export function PaymentMethods() {
                 size={24}
                 color={
                   selected === 'Online Payment'
-                    ? darkTheme.colors.primary
-                    : '#000'
+                    ? theme.colors.primary
+                    : theme.colors.text
                 }
               />
             </TouchableOpacity>
@@ -81,43 +94,45 @@ export function PaymentMethods() {
   );
 }
 
-const styles = StyleSheet.create({
-  section: {
-    flex: 1,
-    paddingTop: 30,
-    padding: SPACING.md,
-    backgroundColor: darkTheme.colors.background,
-  },
-  rowWrapper: {
-    paddingLeft: 16,
-    backgroundColor: '#fff',
-    borderTopWidth: 1,
-    borderColor: '#f0f0f0',
-  },
-  rowFirst: {
-    borderTopLeftRadius: 12,
-    borderTopRightRadius: 12,
-  },
-  row: {
-    height: 44,
-    width: '100%',
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'flex-start',
-    paddingRight: 12,
-  },
-  rowLabel: {
-    fontSize: 16,
-    letterSpacing: 0.24,
-    color: '#000',
-  },
-  rowSpacer: {
-    flexGrow: 1,
-    flexShrink: 1,
-    flexBasis: 0,
-  },
-  rowLast: {
-    borderBottomLeftRadius: 12,
-    borderBottomRightRadius: 12,
-  },
-});
+const themeStyles = (theme: any) =>
+  StyleSheet.create({
+    section: {
+      flex: 1,
+      //paddingTop: 30,
+      padding: SPACING.md,
+      backgroundColor: theme.colors.background,
+    },
+    rowWrapper: {
+      paddingLeft: 16,
+      padding: SPACING.sm,
+      backgroundColor: theme.components.card.backgroundColor,
+      borderTopWidth: 1,
+      borderBlockColor: theme.colors.border,
+    },
+    rowFirst: {
+      borderTopLeftRadius: 12,
+      borderTopRightRadius: 12,
+    },
+    row: {
+      height: 44,
+      width: '100%',
+      flexDirection: 'row',
+      alignItems: 'center',
+      justifyContent: 'flex-start',
+      paddingRight: 12,
+    },
+    rowLabel: {
+      fontSize: 16,
+      letterSpacing: 0.24,
+      color: theme.colors.text,
+    },
+    rowSpacer: {
+      flexGrow: 1,
+      flexShrink: 1,
+      flexBasis: 0,
+    },
+    rowLast: {
+      borderBottomLeftRadius: 12,
+      borderBottomRightRadius: 12,
+    },
+  });

@@ -1,6 +1,6 @@
 import Button from '@components/ui/Button';
 import Typography from '@components/ui/Typography';
-import darkTheme from '@theme/dark';
+import useTheme from '@theme/useTheme';
 import {goBack} from '@utils/NavigationUtils';
 import React from 'react';
 import {StyleSheet, View} from 'react-native';
@@ -14,13 +14,15 @@ const ScreenHeader = ({
   title: string;
   rightContent?: any;
 }) => {
+  const {theme} = useTheme();
+  const styles = themeStyles(theme);
   return (
     <SafeAreaView>
       <View style={styles.container}>
         <View style={styles.btnContainer}>
           <Button
             variant="ghost"
-            leftIcon={<Icon name="arrow-back" size={24} />}
+            leftIcon={<Icon name="arrow-back" size={24} color={'grey'} />}
             onPress={goBack}
           />
         </View>
@@ -44,27 +46,28 @@ const ScreenHeader = ({
 
 export default ScreenHeader;
 
-const styles = StyleSheet.create({
-  container: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'space-between',
-    paddingHorizontal: 8,
-    backgroundColor: darkTheme.colors.background,
-  },
-  btnContainer: {
-    flex: 1,
-    alignItems: 'flex-start',
-  },
-  titleContainer: {
-    flex: 2,
-  },
-  centerTitle: {
-    alignItems: 'center',
-    color: darkTheme.colors.text,
-  },
-  rightContainer: {
-    flex: 1,
-    alignItems: 'flex-end',
-  },
-});
+const themeStyles = (theme: any) =>
+  StyleSheet.create({
+    container: {
+      flexDirection: 'row',
+      alignItems: 'center',
+      justifyContent: 'space-between',
+      paddingHorizontal: 8,
+      backgroundColor: theme.colors.background,
+    },
+    btnContainer: {
+      flex: 1,
+      alignItems: 'flex-start',
+    },
+    titleContainer: {
+      flex: 2,
+    },
+    centerTitle: {
+      alignItems: 'center',
+      color: theme.colors.text,
+    },
+    rightContainer: {
+      flex: 1,
+      alignItems: 'flex-end',
+    },
+  });

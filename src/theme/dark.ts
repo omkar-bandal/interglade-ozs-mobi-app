@@ -2,13 +2,13 @@ const darkTheme = {
   colors: {
     // Primary colors
     primary: '#80CBC4',
-    primaryLight: '#5EACFF',
+    primaryLight: '#00695C',
     primaryDark: '#0055A6',
 
     // Secondary colors
     secondary: '#7D74FF',
-    //secondaryLight: '#B0ABFF',
-    secondaryLight: '#E9F9F8',
+    //secondaryLight: '#64D2FF',
+    secondaryLight: '#80CBC4',
     secondaryDark: '#5B52CC',
 
     // Accent colors

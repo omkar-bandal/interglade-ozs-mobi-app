@@ -10,7 +10,7 @@ import {ServicesCategories} from '@features/booking/components/ServicesCategorie
 import SpecialOffer from '@features/booking/components/SpecialOffer';
 import WhatsNew from '@features/booking/components/WhatsNew';
 import WhyTrustUs from '@features/booking/components/WhyTrustUs';
-import {darkTheme, SPACING} from '@theme/constants';
+import {SPACING} from '@theme/constants';
 import useTheme from '@theme/useTheme';
 import {navigate} from '@utils/NavigationUtils';
 import {useState} from 'react';
@@ -31,13 +31,17 @@ export function Booking() {
     'https://plus.unsplash.com/premium_photo-1661409505401-f7144407ec74?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MXx8c2VydmljZXxlbnwwfHwwfHx8MA%3D%3D',
   ];
 
+  const themedStyles = styles(theme);
+
   return (
     <View
-      style={[styles.container, {backgroundColor: theme.colors.background}]}>
+      style={[
+        themedStyles.container,
+        {backgroundColor: theme.colors.background},
+      ]}>
+      <AppHeader />
       <ScrollView>
         <View style={{gap: SPACING.md}}>
-          <AppHeader />
-
           {/* <ImageCarousel
             images={images}
             autoPlay={true}
@@ -45,7 +49,7 @@ export function Booking() {
           /> */}
 
           <Pressable
-            style={styles.searchContainer}
+            style={themedStyles.searchContainer}
             onPress={() => {
               navigate('SearchAndFilter');
             }}>
@@ -78,8 +82,8 @@ export function Booking() {
             </View>
           </Pressable>
 
-          <View style={styles.tabContainer}>
-            <View style={styles.tabsWrapper}>
+          <View style={themedStyles.tabContainer}>
+            <View style={themedStyles.tabsWrapper}>
               <Tabs
                 items={[
                   {name: 'Services', value: 'services'},
@@ -122,26 +126,27 @@ export function Booking() {
   );
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-  },
-  tabContainer: {
-    //paddingTop: SPACING.sm,
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center', // Changed from 'stretch' to 'center'
-    paddingHorizontal: SPACING.md,
-    //marginVertical: SPACING.sm,
-  },
-  tabsWrapper: {
-    flex: 1,
-    marginRight: SPACING.sm,
-  },
-  searchContainer: {
-    borderRadius: 8,
-    borderColor: darkTheme.colors.gray,
-    borderWidth: 1,
-    margin: SPACING.md,
-  },
-});
+const styles = (theme: any) =>
+  StyleSheet.create({
+    container: {
+      flex: 1,
+    },
+    tabContainer: {
+      //paddingTop: SPACING.sm,
+      flexDirection: 'row',
+      justifyContent: 'space-between',
+      alignItems: 'center', // Changed from 'stretch' to 'center'
+      paddingHorizontal: SPACING.md,
+      //marginVertical: SPACING.sm,
+    },
+    tabsWrapper: {
+      flex: 1,
+      marginRight: SPACING.sm,
+    },
+    searchContainer: {
+      borderRadius: 8,
+      borderColor: theme.colors.gray,
+      borderWidth: 1,
+      margin: SPACING.md,
+    },
+  });

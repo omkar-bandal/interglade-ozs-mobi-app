@@ -63,7 +63,8 @@ export const Form = ({children, onSubmit, style, formControl}: FormProps) => {
   );
 };
 
-export const FormButton = ({formControl, onPress, ...rest}: any) => {
+export const 
+FormButton = ({formControl, onPress, ...rest}: any) => {
   const handleSubmit =
     formControl && formControl.handleSubmit
       ? formControl.handleSubmit(onPress)

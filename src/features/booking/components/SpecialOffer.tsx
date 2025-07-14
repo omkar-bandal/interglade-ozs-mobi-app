@@ -4,8 +4,8 @@ import {useGetMySales} from '@hooks/api/sales.rq';
 import {useTypedSelector} from '@hooks/useTypedSelector';
 import {darkTheme} from '@theme/constants';
 import {navigate} from '@utils/NavigationUtils';
-import React, {JSX, useCallback} from 'react';
-import {ActivityIndicator, StyleSheet, View} from 'react-native';
+import React, {useCallback} from 'react';
+import {ActivityIndicator, Alert, StyleSheet, View} from 'react-native';
 import OfferCard from './card/SalesOfferCard';
 
 // export const SaleOffer = [
@@ -35,7 +35,7 @@ import OfferCard from './card/SalesOfferCard';
 //   },
 // ];
 
-export const SpecialOffer = (): JSX.Element => {
+export const SpecialOffer = () => {
   const {user} = useTypedSelector(state => state.auth);
   const {data: salesData, isLoading: isSalesLoading} = useGetMySales(
     user?.id || '',
@@ -45,6 +45,7 @@ export const SpecialOffer = (): JSX.Element => {
     navigate('SaerviceDetails', {
       saleId,
     });
+    Alert.alert('Sale data', JSON.stringify(saleId));
   }, []);
 
   if (isSalesLoading) {
@@ -55,11 +56,12 @@ export const SpecialOffer = (): JSX.Element => {
     return (
       <View style={styles.container}>
         <Typography variant="h5" weight="bold">
-          No Services Available
+          No Sales Available
         </Typography>
       </View>
     );
   }
+
   return (
     <>
       <View style={styles.sectionHeader}>
@@ -71,11 +73,9 @@ export const SpecialOffer = (): JSX.Element => {
       </View>
       <View style={styles.offercontainer}>
         {salesData?.data?.map((sale: any) => (
-          <View key={sale.id} style={styles.offerCardWrapper}>
+          <View style={styles.offerCardWrapper}>
             <OfferCard
-              image={sale?.photos[0]}
-              title={sale.title}
-              description={sale.description}
+              key={sale.id}
               sale={sale}
               onReserveClick={handleReserveClick}
             />
@@ -97,7 +97,7 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     alignItems: 'center',
     paddingHorizontal: 15,
-    marginBottom: 10,
+    marginTop: 10,
   },
   offercontainer: {
     flexDirection: 'row',

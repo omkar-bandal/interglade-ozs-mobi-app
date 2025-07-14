@@ -12,7 +12,8 @@ import Icon from 'react-native-vector-icons/Ionicons';
 
 // Assuming you have a navigation utility
 import Button from '@components/ui/Button';
-import {darkTheme, SPACING} from '@theme/constants';
+import {SPACING} from '@theme/constants';
+import useTheme from '@theme/useTheme';
 import {navigate} from '@utils/NavigationUtils';
 
 export const ServicesListScreen = ({
@@ -20,6 +21,8 @@ export const ServicesListScreen = ({
   onEditService,
   onDeleteService,
 }: any) => {
+  const {theme} = useTheme();
+  const styles = themeStyles(theme);
   // const renderServiceCard = ({item}: any) => {
   //   return (
   //     <View style={styles.cardContainer}>
@@ -193,176 +196,177 @@ export const ServicesListScreen = ({
   );
 };
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    //backgroundColor: 'red',
-    paddingHorizontal: 12,
-    paddingTop: 20,
-  },
-  listContainer: {
-    paddingVertical: 15,
-    // backgroundColor: 'red',
-  },
-  cardContainer: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    backgroundColor: '#fff',
-    borderRadius: 15,
-    marginBottom: 15,
-    marginHorizontal: 10,
-    overflow: 'hidden',
-    elevation: 3,
-    shadowColor: '#000',
-    shadowOffset: {width: 0, height: 2},
-    shadowOpacity: 0.1,
-    shadowRadius: 4,
-    paddingHorizontal: 16,
-  },
-  imageCarouselContainer: {
-    position: 'relative',
-    width: '40%',
-  },
-  detailsContainer: {
-    flex: 1,
-    paddingVertical: 25,
-    paddingHorizontal: 10,
-  },
-  titleContainer: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    marginBottom: 10,
-  },
-  titleText: {
-    fontSize: 18,
-    fontWeight: 'bold',
-    flex: 1,
-    marginRight: 10,
-  },
-  priceText: {
-    fontSize: 18,
-    color: '#28a745',
-    fontWeight: 'bold',
-  },
-  descriptionText: {
-    color: '#6c757d',
-    marginBottom: 10,
-  },
-  metaContainer: {
-    marginBottom: 15,
-  },
-  metaText: {
-    color: '#6c757d',
-  },
-  actionContainer: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    gap: 5,
-  },
-  editButton: {
-    flex: 1,
-    width: '48%',
-  },
-  deleteButton: {
-    flex: 1,
-    width: '48%',
-  },
-  centerContent: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    padding: 16,
-  },
-  card: {
-    backgroundColor: darkTheme.components.card.backgroundColor,
-    borderRadius: 12,
-    overflow: 'hidden',
-    shadowColor: '#000',
-    shadowOffset: {width: 0, height: 2},
-    shadowOpacity: 0.1,
-    shadowRadius: 4,
-    elevation: 3,
-    marginHorizontal: 16,
-    marginBottom: SPACING.md,
-  },
-  image: {
-    width: '100%',
-    height: 140,
-  },
-  content: {
-    padding: 12,
-  },
-  ratingContainer: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    marginBottom: 4,
-  },
-  starsRow: {
-    flexDirection: 'row',
-  },
-  reviewCount: {
-    fontSize: 12,
-    color: '#666',
-    marginLeft: 4,
-  },
-  title: {
-    fontSize: 16,
-    fontWeight: '600',
-    marginBottom: 4,
-  },
-  priceContainer: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    marginBottom: 10,
-  },
-  currentPrice: {
-    fontSize: 16,
-    fontWeight: 'bold',
-    marginRight: 8,
-  },
-  originalPrice: {
-    fontSize: 14,
-    color: '#999',
-    textDecorationLine: 'line-through',
-  },
-  providerContainer: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    gap: 10,
-  },
-  providerInfo: {
-    flexDirection: 'row',
-    alignItems: 'center',
-  },
-  providerImage: {
-    width: 32,
-    height: 32,
-    borderRadius: 16,
-    backgroundColor: '#eee',
-    marginRight: 8,
-  },
-  providerDetails: {
-    justifyContent: 'center',
-  },
-  providerName: {
-    fontSize: 14,
-    fontWeight: '500',
-  },
-  providerRole: {
-    fontSize: 12,
-    color: '#777',
-  },
-  addButton: {
-    backgroundColor: '#2196F3',
-    paddingHorizontal: 16,
-    paddingVertical: 8,
-    borderRadius: 6,
-  },
-  addButtonText: {
-    color: 'white',
-    fontSize: 14,
-    fontWeight: '500',
-  },
-});
+const themeStyles = (theme: any) =>
+  StyleSheet.create({
+    container: {
+      flex: 1,
+      //backgroundColor: 'red',
+      paddingHorizontal: 12,
+      paddingTop: 20,
+    },
+    listContainer: {
+      paddingVertical: 15,
+      // backgroundColor: 'red',
+    },
+    cardContainer: {
+      flexDirection: 'row',
+      alignItems: 'center',
+      backgroundColor: '#fff',
+      borderRadius: 15,
+      marginBottom: 15,
+      marginHorizontal: 10,
+      overflow: 'hidden',
+      elevation: 3,
+      shadowColor: '#000',
+      shadowOffset: {width: 0, height: 2},
+      shadowOpacity: 0.1,
+      shadowRadius: 4,
+      paddingHorizontal: 16,
+    },
+    imageCarouselContainer: {
+      position: 'relative',
+      width: '40%',
+    },
+    detailsContainer: {
+      flex: 1,
+      paddingVertical: 25,
+      paddingHorizontal: 10,
+    },
+    titleContainer: {
+      flexDirection: 'row',
+      justifyContent: 'space-between',
+      alignItems: 'center',
+      marginBottom: 10,
+    },
+    titleText: {
+      fontSize: 18,
+      fontWeight: 'bold',
+      flex: 1,
+      marginRight: 10,
+    },
+    priceText: {
+      fontSize: 18,
+      color: '#28a745',
+      fontWeight: 'bold',
+    },
+    descriptionText: {
+      color: '#6c757d',
+      marginBottom: 10,
+    },
+    metaContainer: {
+      marginBottom: 15,
+    },
+    metaText: {
+      color: '#6c757d',
+    },
+    actionContainer: {
+      flexDirection: 'row',
+      justifyContent: 'space-between',
+      gap: 5,
+    },
+    editButton: {
+      flex: 1,
+      width: '48%',
+    },
+    deleteButton: {
+      flex: 1,
+      width: '48%',
+    },
+    centerContent: {
+      flex: 1,
+      justifyContent: 'center',
+      alignItems: 'center',
+      padding: 16,
+    },
+    card: {
+      backgroundColor: theme.components.card.backgroundColor,
+      borderRadius: 12,
+      overflow: 'hidden',
+      shadowColor: '#000',
+      shadowOffset: {width: 0, height: 2},
+      shadowOpacity: 0.1,
+      shadowRadius: 4,
+      elevation: 3,
+      marginHorizontal: 16,
+      marginBottom: SPACING.md,
+    },
+    image: {
+      width: '100%',
+      height: 140,
+    },
+    content: {
+      padding: 12,
+    },
+    ratingContainer: {
+      flexDirection: 'row',
+      alignItems: 'center',
+      marginBottom: 4,
+    },
+    starsRow: {
+      flexDirection: 'row',
+    },
+    reviewCount: {
+      fontSize: 12,
+      color: '#666',
+      marginLeft: 4,
+    },
+    title: {
+      fontSize: 16,
+      fontWeight: '600',
+      marginBottom: 4,
+    },
+    priceContainer: {
+      flexDirection: 'row',
+      alignItems: 'center',
+      marginBottom: 10,
+    },
+    currentPrice: {
+      fontSize: 16,
+      fontWeight: 'bold',
+      marginRight: 8,
+    },
+    originalPrice: {
+      fontSize: 14,
+      color: '#999',
+      textDecorationLine: 'line-through',
+    },
+    providerContainer: {
+      flexDirection: 'row',
+      justifyContent: 'space-between',
+      alignItems: 'center',
+      gap: 10,
+    },
+    providerInfo: {
+      flexDirection: 'row',
+      alignItems: 'center',
+    },
+    providerImage: {
+      width: 32,
+      height: 32,
+      borderRadius: 16,
+      backgroundColor: '#eee',
+      marginRight: 8,
+    },
+    providerDetails: {
+      justifyContent: 'center',
+    },
+    providerName: {
+      fontSize: 14,
+      fontWeight: '500',
+    },
+    providerRole: {
+      fontSize: 12,
+      color: '#777',
+    },
+    addButton: {
+      backgroundColor: '#2196F3',
+      paddingHorizontal: 16,
+      paddingVertical: 8,
+      borderRadius: 6,
+    },
+    addButtonText: {
+      color: 'white',
+      fontSize: 14,
+      fontWeight: '500',
+    },
+  });

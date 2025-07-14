@@ -1,11 +1,14 @@
 import Button from '@components/ui/Button';
 import Typography from '@components/ui/Typography';
-import {darkTheme, SPACING} from '@theme/constants';
+import {SPACING} from '@theme/constants';
+import useTheme from '@theme/useTheme';
 import React from 'react';
 import {StyleSheet, Text, View} from 'react-native';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 
 const Reviews = () => {
+  const {theme} = useTheme();
+  const styles = themeStyles(theme);
   const renderStars = (rating: number) => {
     const stars = [];
     const fullStars = Math.floor(rating);
@@ -89,56 +92,57 @@ const Reviews = () => {
 
 export default Reviews;
 
-const styles = StyleSheet.create({
-  sectionContainer: {
-    padding: SPACING.md,
-  },
-  sectionTitle: {
-    fontSize: 16,
-    fontWeight: 'bold',
-    color: '#333333',
-    marginBottom: 12,
-  },
-  sectionHeader: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    //paddingHorizontal: 15,
-    marginBottom: 10,
-  },
-  reviewItem: {
-    marginBottom: 10,
-    paddingBottom: 16,
-    padding: SPACING.md,
-    borderRadius: 10,
-    //borderBottomWidth: 1,
-    //borderBottomColor: '#EEEEEE',
-    backgroundColor: darkTheme.components.card.backgroundColor,
-  },
-  reviewHeader: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    marginBottom: 4,
-  },
-  reviewerName: {
-    fontSize: 14,
-    fontWeight: '500',
-    color: darkTheme.colors.text,
-  },
-  reviewDate: {
-    fontSize: 12,
-    color: '#999999',
-  },
-  starsContainer: {
-    flexDirection: 'row',
-    marginBottom: 8,
-  },
-  starIcon: {
-    marginRight: 2,
-  },
-  reviewText: {
-    fontSize: 14,
-    color: '#666666',
-    lineHeight: 20,
-  },
-});
+const themeStyles = (theme: any) =>
+  StyleSheet.create({
+    sectionContainer: {
+      padding: SPACING.md,
+    },
+    sectionTitle: {
+      fontSize: 16,
+      fontWeight: 'bold',
+      color: '#333333',
+      marginBottom: 12,
+    },
+    sectionHeader: {
+      flexDirection: 'row',
+      justifyContent: 'space-between',
+      alignItems: 'center',
+      //paddingHorizontal: 15,
+      marginBottom: 10,
+    },
+    reviewItem: {
+      marginBottom: 10,
+      paddingBottom: 16,
+      padding: SPACING.md,
+      borderRadius: 10,
+      //borderBottomWidth: 1,
+      //borderBottomColor: '#EEEEEE',
+      backgroundColor: theme.components.card.backgroundColor,
+    },
+    reviewHeader: {
+      flexDirection: 'row',
+      justifyContent: 'space-between',
+      marginBottom: 4,
+    },
+    reviewerName: {
+      fontSize: 14,
+      fontWeight: '500',
+      color: theme.colors.text,
+    },
+    reviewDate: {
+      fontSize: 12,
+      color: '#999999',
+    },
+    starsContainer: {
+      flexDirection: 'row',
+      marginBottom: 8,
+    },
+    starIcon: {
+      marginRight: 2,
+    },
+    reviewText: {
+      fontSize: 14,
+      color: '#666666',
+      lineHeight: 20,
+    },
+  });

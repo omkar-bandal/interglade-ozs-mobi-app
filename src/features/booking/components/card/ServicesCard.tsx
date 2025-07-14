@@ -1,10 +1,13 @@
 import Button from '@components/ui/Button';
-import {darkTheme, SPACING} from '@theme/constants';
+import {SPACING} from '@theme/constants';
+import useTheme from '@theme/useTheme';
 import React from 'react';
 import {Image, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons';
 
 export const ServicesCard = ({service, onReserveClick}: any) => {
+  const {theme} = useTheme();
+  const styles = themeStyles(theme);
   // const {data: servicesData} = useGetAllServices();
   // const [selectedProviderId, setSelectedProviderId] = useState<string | null>(
   //   null,
@@ -101,100 +104,101 @@ export const ServicesCard = ({service, onReserveClick}: any) => {
   );
 };
 
-const styles = StyleSheet.create({
-  card: {
-    width: '100%',
-    backgroundColor: darkTheme.components.card.backgroundColor,
-    borderRadius: 12,
-    overflow: 'hidden',
-    shadowColor: '#000',
-    shadowOffset: {width: 0, height: 2},
-    shadowOpacity: 0.1,
-    shadowRadius: 4,
-    elevation: 3,
-    marginBottom: 10,
-  },
-  image: {
-    width: '100%',
-    height: 140,
-  },
-  content: {
-    padding: 12,
-  },
-  ratingContainer: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    marginBottom: 4,
-  },
-  starsRow: {
-    flexDirection: 'row',
-  },
-  reviewCount: {
-    fontSize: 12,
-    color: '#666',
-    marginLeft: 4,
-  },
-  title: {
-    fontSize: 16,
-    fontWeight: '600',
-    marginBottom: 4,
-    color: darkTheme.colors.textSecondary,
-  },
-  priceContainer: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    marginBottom: 10,
-  },
-  currentPrice: {
-    fontSize: 16,
-    fontWeight: 'bold',
-    marginRight: 8,
-    color: darkTheme.colors.textSecondary,
-  },
-  originalPrice: {
-    fontSize: 14,
-    color: '#999',
-    textDecorationLine: 'line-through',
-  },
-  providerContainer: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-  },
-  providerInfo: {
-    flexDirection: 'row',
-    alignItems: 'center',
-  },
-  providerImage: {
-    width: 32,
-    height: 32,
-    borderRadius: 16,
-    backgroundColor: '#eee',
-    marginRight: 8,
-  },
-  providerDetails: {
-    justifyContent: 'center',
-  },
-  providerName: {
-    fontSize: 14,
-    fontWeight: '500',
-    color: darkTheme.colors.textTertiary,
-  },
-  providerRole: {
-    fontSize: 12,
-    color: '#777',
-  },
-  actionBtnRow: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    paddingVertical: SPACING.sm,
-  },
-  button: {
-    width: '100%',
-  },
-  addButtonText: {
-    color: 'white',
-    fontSize: 14,
-    fontWeight: '500',
-  },
-});
+const themeStyles = (theme: any) =>
+  StyleSheet.create({
+    card: {
+      width: '100%',
+      backgroundColor: theme.components.card.backgroundColor,
+      borderRadius: 12,
+      overflow: 'hidden',
+      shadowColor: '#000',
+      shadowOffset: {width: 0, height: 2},
+      shadowOpacity: 0.1,
+      shadowRadius: 4,
+      elevation: 3,
+      marginBottom: 10,
+    },
+    image: {
+      width: '100%',
+      height: 140,
+    },
+    content: {
+      padding: 12,
+    },
+    ratingContainer: {
+      flexDirection: 'row',
+      alignItems: 'center',
+      marginBottom: 4,
+    },
+    starsRow: {
+      flexDirection: 'row',
+    },
+    reviewCount: {
+      fontSize: 12,
+      color: '#666',
+      marginLeft: 4,
+    },
+    title: {
+      fontSize: 16,
+      fontWeight: '600',
+      marginBottom: 4,
+      color: theme.colors.textSecondary,
+    },
+    priceContainer: {
+      flexDirection: 'row',
+      alignItems: 'center',
+      marginBottom: 10,
+    },
+    currentPrice: {
+      fontSize: 16,
+      fontWeight: 'bold',
+      marginRight: 8,
+      color: theme.colors.textSecondary,
+    },
+    originalPrice: {
+      fontSize: 14,
+      color: '#999',
+      textDecorationLine: 'line-through',
+    },
+    providerContainer: {
+      flexDirection: 'row',
+      justifyContent: 'space-between',
+      alignItems: 'center',
+    },
+    providerInfo: {
+      flexDirection: 'row',
+      alignItems: 'center',
+    },
+    providerImage: {
+      width: 32,
+      height: 32,
+      borderRadius: 16,
+      backgroundColor: '#eee',
+      marginRight: 8,
+    },
+    providerDetails: {
+      justifyContent: 'center',
+    },
+    providerName: {
+      fontSize: 14,
+      fontWeight: '500',
+      color: theme.colors.textTertiary,
+    },
+    providerRole: {
+      fontSize: 12,
+      color: '#777',
+    },
+    actionBtnRow: {
+      flexDirection: 'row',
+      justifyContent: 'space-between',
+      paddingVertical: SPACING.sm,
+    },
+    button: {
+      width: '100%',
+    },
+    addButtonText: {
+      color: 'white',
+      fontSize: 14,
+      fontWeight: '500',
+    },
+  });

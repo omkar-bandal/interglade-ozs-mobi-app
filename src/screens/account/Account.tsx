@@ -2,12 +2,13 @@
 import {useActions} from '@hooks/useActions';
 import {useTypedSelector} from '@hooks/useTypedSelector';
 import {supabase} from '@lib/supabase/supabase';
-import darkTheme from '@theme/dark';
+import useTheme from '@theme/useTheme';
 import {navigate, resetAndNavigate} from '@utils/NavigationUtils';
 import React from 'react';
 import {
   Image,
   ScrollView,
+  StatusBar,
   StyleSheet,
   Text,
   TouchableOpacity,
@@ -18,6 +19,8 @@ import AntDesignIcon from 'react-native-vector-icons/AntDesign';
 
 export default function Account() {
   //const navigation = useNavigation();
+  const {theme, themeType} = useTheme();
+  const styles = themeStyles(theme);
   const {user} = useTypedSelector(state => state.auth);
   const {resetAuth} = useActions();
   // const [form, setForm] = useState({
@@ -39,21 +42,19 @@ export default function Account() {
   };
 
   return (
-    <SafeAreaView
-      style={{flex: 1, backgroundColor: darkTheme.colors.background}}>
+    <SafeAreaView style={{flex: 1, backgroundColor: theme.colors.background}}>
+      <StatusBar
+        barStyle={themeType === 'dark' ? 'light-content' : 'dark-content'}
+      />
       <View style={styles.header}>
-        <View style={styles.headerAction}>
+        {/* <View style={styles.headerAction}>
           <TouchableOpacity
             onPress={() => {
               // handle onPress
             }}>
-            <AntDesignIcon
-              color={darkTheme.colors.border}
-              name="arrowleft"
-              size={24}
-            />
+            <AntDesignIcon color={'grey'} name="arrowleft" size={24} />
           </TouchableOpacity>
-        </View>
+        </View> */}
 
         <Text numberOfLines={1} style={styles.headerTitle}>
           Settings
@@ -109,9 +110,10 @@ export default function Account() {
               <TouchableOpacity
                 onPress={() => {
                   // handle onPress
+                  navigate('Settings');
                 }}
                 style={styles.row}>
-                <Text style={styles.rowLabel}>Language</Text>
+                <Text style={styles.rowLabel}>App settings</Text>
 
                 <View style={styles.rowSpacer} />
 
@@ -297,138 +299,139 @@ export default function Account() {
   );
 }
 
-const styles = StyleSheet.create({
-  /** Header */
-  header: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'space-between',
-    width: '100%',
-    paddingHorizontal: 16,
-  },
-  headerAction: {
-    width: 40,
-    height: 40,
-    alignItems: 'flex-start',
-    justifyContent: 'center',
-  },
-  headerTitle: {
-    fontSize: 16,
-    fontWeight: '600',
-    color: '#bcbcbc',
-    flexGrow: 1,
-    flexShrink: 1,
-    flexBasis: 0,
-    textAlign: 'center',
-  },
-  /** Content */
-  content: {
-    paddingHorizontal: 16,
-    backgroundColor: darkTheme.colors.background,
-  },
-  contentFooter: {
-    marginTop: 24,
-    fontSize: 13,
-    fontWeight: '500',
-    textAlign: 'center',
-    color: '#a69f9f',
-  },
-  /** Section */
-  section: {
-    paddingVertical: 12,
-  },
-  sectionTitle: {
-    margin: 8,
-    marginLeft: 12,
-    fontSize: 13,
-    letterSpacing: 0.33,
-    fontWeight: '500',
-    color: '#a69f9f',
-    textTransform: 'uppercase',
-  },
-  sectionBody: {
-    borderRadius: 12,
-    shadowColor: '#000',
-    shadowOffset: {
-      width: 0,
-      height: 1,
+const themeStyles = (theme: any) =>
+  StyleSheet.create({
+    /** Header */
+    header: {
+      flexDirection: 'row',
+      alignItems: 'center',
+      justifyContent: 'space-between',
+      width: '100%',
+      paddingHorizontal: 16,
     },
-    shadowOpacity: 0.2,
-    shadowRadius: 1.41,
-    elevation: 2,
-  },
-  /** Profile */
-  profile: {
-    padding: 12,
-    backgroundColor: darkTheme.components.card.backgroundColor,
-    borderRadius: 12,
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'flex-start',
-  },
-  profileAvatar: {
-    width: 60,
-    height: 60,
-    borderRadius: 9999,
-    marginRight: 12,
-  },
-  profileBody: {
-    marginRight: 'auto',
-  },
-  profileName: {
-    fontSize: 18,
-    fontWeight: '600',
-    color: '#292929',
-  },
-  profileHandle: {
-    marginTop: 2,
-    fontSize: 16,
-    fontWeight: '400',
-    color: '#858585',
-  },
-  /** Row */
-  row: {
-    height: 44,
-    width: '100%',
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'flex-start',
-    paddingRight: 12,
-  },
-  rowWrapper: {
-    paddingLeft: 16,
-    backgroundColor: darkTheme.components.card.backgroundColor,
-    borderTopWidth: 1,
-    borderColor: darkTheme.colors.border,
-  },
-  rowFirst: {
-    borderTopLeftRadius: 12,
-    borderTopRightRadius: 12,
-  },
-  rowLabel: {
-    fontSize: 16,
-    letterSpacing: 0.24,
-    color: darkTheme.colors.text,
-  },
-  rowSpacer: {
-    flexGrow: 1,
-    flexShrink: 1,
-    flexBasis: 0,
-  },
-  rowValue: {
-    fontSize: 16,
-    fontWeight: '500',
-    color: '#ababab',
-    marginRight: 4,
-  },
-  rowLast: {
-    borderBottomLeftRadius: 12,
-    borderBottomRightRadius: 12,
-  },
-  rowLabelLogout: {
-    width: '100%',
-    textAlign: 'center',
-    fontWeight: '600',
-    color: '#dc2626',
-  },
-});
+    headerAction: {
+      width: 40,
+      height: 40,
+      alignItems: 'flex-start',
+      justifyContent: 'center',
+    },
+    headerTitle: {
+      fontSize: 16,
+      fontWeight: '600',
+      color: '#bcbcbc',
+      flexGrow: 1,
+      flexShrink: 1,
+      flexBasis: 0,
+      textAlign: 'center',
+    },
+    /** Content */
+    content: {
+      paddingHorizontal: 16,
+      backgroundColor: theme.colors.background,
+    },
+    contentFooter: {
+      marginTop: 24,
+      fontSize: 13,
+      fontWeight: '500',
+      textAlign: 'center',
+      color: '#a69f9f',
+    },
+    /** Section */
+    section: {
+      paddingVertical: 12,
+    },
+    sectionTitle: {
+      margin: 8,
+      marginLeft: 12,
+      fontSize: 13,
+      letterSpacing: 0.33,
+      fontWeight: '500',
+      color: '#a69f9f',
+      textTransform: 'uppercase',
+    },
+    sectionBody: {
+      borderRadius: 12,
+      shadowColor: '#000',
+      shadowOffset: {
+        width: 0,
+        height: 1,
+      },
+      shadowOpacity: 0.2,
+      shadowRadius: 1.41,
+      elevation: 2,
+    },
+    /** Profile */
+    profile: {
+      padding: 12,
+      backgroundColor: theme.components.card.backgroundColor,
+      borderRadius: 12,
+      flexDirection: 'row',
+      alignItems: 'center',
+      justifyContent: 'flex-start',
+    },
+    profileAvatar: {
+      width: 60,
+      height: 60,
+      borderRadius: 9999,
+      marginRight: 12,
+    },
+    profileBody: {
+      marginRight: 'auto',
+    },
+    profileName: {
+      fontSize: 18,
+      fontWeight: '600',
+      color: theme.colors.text,
+    },
+    profileHandle: {
+      marginTop: 2,
+      fontSize: 16,
+      fontWeight: '400',
+      color: '#858585',
+    },
+    /** Row */
+    row: {
+      height: 44,
+      width: '100%',
+      flexDirection: 'row',
+      alignItems: 'center',
+      justifyContent: 'flex-start',
+      paddingRight: 12,
+    },
+    rowWrapper: {
+      paddingLeft: 16,
+      backgroundColor: theme.components.card.backgroundColor,
+      borderTopWidth: 1,
+      borderColor: theme.colors.border,
+    },
+    rowFirst: {
+      borderTopLeftRadius: 12,
+      borderTopRightRadius: 12,
+    },
+    rowLabel: {
+      fontSize: 16,
+      letterSpacing: 0.24,
+      color: theme.colors.text,
+    },
+    rowSpacer: {
+      flexGrow: 1,
+      flexShrink: 1,
+      flexBasis: 0,
+    },
+    rowValue: {
+      fontSize: 16,
+      fontWeight: '500',
+      color: '#ababab',
+      marginRight: 4,
+    },
+    rowLast: {
+      borderBottomLeftRadius: 12,
+      borderBottomRightRadius: 12,
+    },
+    rowLabelLogout: {
+      width: '100%',
+      textAlign: 'center',
+      fontWeight: '600',
+      color: '#dc2626',
+    },
+  });

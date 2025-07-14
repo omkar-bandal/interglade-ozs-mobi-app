@@ -1,5 +1,5 @@
 import React from 'react';
-import {StyleSheet, View} from 'react-native';
+import {Alert, StyleSheet, View} from 'react-native';
 
 import {FormInput} from '@components/auto-form/form-fields/Input';
 import Button from '@components/ui/Button';
@@ -33,12 +33,14 @@ export default function Login() {
     if (data.user) {
       await navigate('Tab', {screen: 'Home'});
       setUser(data.user);
+      Alert.alert('Error', JSON.stringify(data));
       setSession(data.session);
       return;
     }
 
     if (error?.message) {
       console.log('error', error.message);
+      Alert.alert('Error', JSON.stringify(error.message));
     }
   };
 
