@@ -42,6 +42,8 @@ export const RecentSales = () => {
 const styles = StyleSheet.create({
   container: {
     marginBottom: 20,
+    marginTop: 10,
+    //backgroundColor: 'red',
   },
   sectionHeader: {
     flexDirection: 'row',

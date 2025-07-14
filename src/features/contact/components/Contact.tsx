@@ -80,7 +80,7 @@ export const Contact = ({onContactClick, selectedProviderId}: ContactProps) => {
   return (
     <Button
       size="small"
-      leftIcon={<Icon name="chatbubble-outline" size={20} />}
+      leftIcon={<Icon name="chatbubble-outline" size={20} color="#4D948E" />}
       variant="ghost"
       disabled={isConversationLoading || isPending}
       loading={isConversationLoading || isPending}

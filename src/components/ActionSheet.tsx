@@ -1,4 +1,4 @@
-import React, {ReactNode, useEffect, useRef} from 'react';
+import React, {ReactNode, useEffect, useMemo, useRef} from 'react';
 import {
   Animated,
   Dimensions,
@@ -12,6 +12,7 @@ import {
   View,
 } from 'react-native';
 import Button from './ui/Button';
+import useTheme from '@theme/useTheme';
 
 const {height} = Dimensions.get('window');
 
@@ -43,7 +44,9 @@ export const ActionSheet: React.FC<ActionSheetProps> = ({
 }) => {
   const translateY = useRef(new Animated.Value(height)).current;
   const opacity = useRef(new Animated.Value(0)).current;
-
+  const {theme} = useTheme();
+  const styles = useMemo(() => themeStyles(theme), [theme]);
+  //const styles = themeStyles(theme);
   useEffect(() => {
     if (visible) {
       Animated.parallel([
@@ -156,90 +159,93 @@ export const ActionSheet: React.FC<ActionSheetProps> = ({
   );
 };
 
-const styles = StyleSheet.create({
-  container: {
-    position: 'absolute',
-    bottom: 0,
-    left: 0,
-    right: 0,
-  },
-  backdrop: {
-    ...StyleSheet.absoluteFillObject,
-    backgroundColor: 'rgba(0, 0, 0, 0.5)',
-  },
-  sheetContainer: {
-    backgroundColor: 'white',
-    borderTopLeftRadius: 20,
-    borderTopRightRadius: 20,
-    paddingBottom: Platform.OS === 'ios' ? 30 : 20,
-    ...Platform.select({
-      ios: {
-        shadowColor: '#000',
-        shadowOffset: {width: 0, height: -3},
-        shadowOpacity: 0.18,
-        shadowRadius: 5,
-      },
-      android: {
-        elevation: 24,
-      },
-    }),
-  },
-  handle: {
-    alignSelf: 'center',
-    paddingVertical: 12,
-  },
-  indicator: {
-    width: 40,
-    height: 5,
-    borderRadius: 3,
-    backgroundColor: '#DDDDDD',
-  },
-  headerContainer: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    paddingHorizontal: 20,
-    paddingBottom: 16,
-  },
-  titleWrapper: {
-    flex: 1,
-  },
-  title: {
-    fontSize: 18,
-    fontWeight: '600',
-    color: '#000',
-    marginBottom: 8,
-  },
-  message: {
-    fontSize: 14,
-    color: '#666',
-    lineHeight: 20,
-  },
-  optionsContainer: {
-    paddingHorizontal: 16,
-  },
-  option: {
-    paddingVertical: 16,
-    marginHorizontal: 4,
-    borderBottomWidth: StyleSheet.hairlineWidth,
-    borderBottomColor: '#EEEEEE',
-  },
-  lastOption: {
-    borderBottomWidth: 0,
-  },
-  optionContent: {
-    flexDirection: 'row',
-    alignItems: 'center',
-  },
-  iconContainer: {
-    marginRight: 12,
-  },
-  optionText: {
-    fontSize: 16,
-    color: '#007AFF',
-    fontWeight: '500',
-  },
-  destructiveText: {
-    color: '#FF3B30',
-  },
-});
+const themeStyles = (theme: any) =>
+  StyleSheet.create({
+    container: {
+      position: 'absolute',
+      bottom: 0,
+      left: 0,
+      right: 0,
+      //backgroundColor: 'red',
+    },
+    backdrop: {
+      ...StyleSheet.absoluteFillObject,
+      backgroundColor: 'rgba(0, 0, 0, 0.5)',
+    },
+    sheetContainer: {
+      backgroundColor: theme.components.card.backgroundColor,
+      borderTopLeftRadius: 20,
+      borderTopRightRadius: 20,
+      paddingBottom: Platform.OS === 'ios' ? 30 : 20,
+      ...Platform.select({
+        ios: {
+          shadowColor: '#000',
+          shadowOffset: {width: 0, height: -3},
+          shadowOpacity: 0.18,
+          shadowRadius: 5,
+        },
+        android: {
+          elevation: 24,
+        },
+      }),
+    },
+    handle: {
+      alignSelf: 'center',
+      paddingVertical: 12,
+    },
+    indicator: {
+      width: 40,
+      height: 5,
+      borderRadius: 3,
+      backgroundColor: '#DDDDDD',
+    },
+    headerContainer: {
+      flexDirection: 'row',
+      justifyContent: 'space-between',
+      alignItems: 'center',
+      paddingHorizontal: 20,
+      paddingBottom: 16,
+    },
+    titleWrapper: {
+      flex: 1,
+    },
+    title: {
+      fontSize: 18,
+      fontWeight: '600',
+      //color: theme.colors.text,
+      color: theme.colors.text,
+      marginBottom: 8,
+    },
+    message: {
+      fontSize: 14,
+      color: '#fff',
+      lineHeight: 20,
+    },
+    optionsContainer: {
+      paddingHorizontal: 16,
+    },
+    option: {
+      paddingVertical: 16,
+      marginHorizontal: 4,
+      borderBottomWidth: StyleSheet.hairlineWidth,
+      borderBottomColor: '#EEEEEE',
+    },
+    lastOption: {
+      borderBottomWidth: 0,
+    },
+    optionContent: {
+      flexDirection: 'row',
+      alignItems: 'center',
+    },
+    iconContainer: {
+      marginRight: 12,
+    },
+    optionText: {
+      fontSize: 16,
+      color: '#007AFF',
+      fontWeight: '500',
+    },
+    destructiveText: {
+      color: '#FF3B30',
+    },
+  });

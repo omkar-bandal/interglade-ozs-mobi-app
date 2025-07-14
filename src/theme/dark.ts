@@ -1,13 +1,14 @@
 const darkTheme = {
   colors: {
     // Primary colors
-    primary: '#0A84FF',
-    primaryLight: '#5EACFF',
+    primary: '#80CBC4',
+    primaryLight: '#00695C',
     primaryDark: '#0055A6',
 
     // Secondary colors
     secondary: '#7D74FF',
-    secondaryLight: '#B0ABFF',
+    //secondaryLight: '#64D2FF',
+    secondaryLight: '#80CBC4',
     secondaryDark: '#5B52CC',
 
     // Accent colors
@@ -50,7 +51,7 @@ const darkTheme = {
       placeholderColor: '#EBEBF599', // 60% opacity
     },
     button: {
-      primaryBackground: '#0A84FF',
+      primaryBackground: '#80CBC4',
       secondaryBackground: 'transparent',
       disabledBackground: '#38383A',
       textColor: '#FFFFFF',

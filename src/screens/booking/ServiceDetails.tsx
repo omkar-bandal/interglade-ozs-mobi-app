@@ -5,10 +5,10 @@ import {useGetAllServices} from '@hooks/api/service.rq';
 import {useTypedSelector} from '@hooks/useTypedSelector';
 import useTheme from '@theme/useTheme';
 import React, {useCallback, useState} from 'react';
-import {StyleSheet, View} from 'react-native';
+import {StatusBar, StyleSheet, View} from 'react-native';
 
 const ServiceDetailsScreen = ({route}: any) => {
-  const {theme} = useTheme();
+  const {theme, themeType} = useTheme();
   const {serviceId = null} = route?.params || {};
   const {user} = useTypedSelector(state => state.auth);
   const {data: servicesData} = useGetAllServices();
@@ -37,6 +37,9 @@ const ServiceDetailsScreen = ({route}: any) => {
   return (
     <View
       style={[styles.container, {backgroundColor: theme.colors.background}]}>
+      <StatusBar
+        barStyle={themeType === 'dark' ? 'light-content' : 'dark-content'}
+      />
       <ScreenHeader
         title="Service Details"
         rightContent={

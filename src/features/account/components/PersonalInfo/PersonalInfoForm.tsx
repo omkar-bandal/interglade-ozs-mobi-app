@@ -78,6 +78,7 @@ export default PersonalInfoForm;
 const styles = StyleSheet.create({
   form: {
     paddingVertical: SPACING.md,
+
   },
   formAction: {
     marginBottom: SPACING.md,

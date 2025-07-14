@@ -1,4 +1,5 @@
 // TimeSlotPicker.tsx
+import useTheme from '@theme/useTheme';
 import React from 'react';
 import {
   ScrollView,
@@ -82,6 +83,8 @@ const TimeSlotPicker: React.FC<TimeSlotPickerProps> = ({
   availableDays = [],
 }) => {
   const timeSlots = generateTimeSlots(availableDays);
+  const {theme} = useTheme();
+  const styles = themeStyles(theme);
   return (
     <View style={styles.container}>
       <ScrollView>
@@ -146,80 +149,82 @@ const TimeSlotPicker: React.FC<TimeSlotPickerProps> = ({
   );
 };
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    paddingVertical: 8,
-  },
-  sectionTitleContainer: {
-    paddingHorizontal: 16,
-    marginTop: 16,
-    marginBottom: 8,
-  },
-  sectionTitle: {
-    fontSize: 16,
-    fontWeight: 'bold',
-    color: '#333333',
-  },
-  daysContainer: {
-    flexDirection: 'row',
-    paddingLeft: 16,
-    paddingRight: 8,
-    marginBottom: 16,
-  },
-  dayItem: {
-    width: 70,
-    height: 70,
-    borderRadius: 8,
-    backgroundColor: '#F5F5F5',
-    justifyContent: 'center',
-    alignItems: 'center',
-    marginRight: 8,
-  },
-  selectedDayItem: {
-    backgroundColor: '#FFC163',
-  },
-  dayText: {
-    fontSize: 14,
-    fontWeight: '500',
-    color: '#555555',
-  },
-  dateText: {
-    fontSize: 18,
-    fontWeight: 'bold',
-    color: '#333333',
-    marginTop: 4,
-  },
-  selectedDayText: {
-    color: '#FFFFFF',
-  },
-  timeSlotsContainer: {
-    paddingHorizontal: 16,
-    flexDirection: 'row',
-    flexWrap: 'wrap',
-    gap: 10,
-  },
-  timeSlotChip: {
-    paddingHorizontal: 16,
-    paddingVertical: 8,
-    borderRadius: 20,
-    backgroundColor: '#F5F5F5',
-    marginBottom: 10,
-    borderWidth: 1,
-    borderColor: '#E0E0E0',
-  },
-  selectedTimeSlotChip: {
-    backgroundColor: '#FFC163',
-    borderColor: '#FFC163',
-  },
-  timeSlotText: {
-    fontSize: 14,
-    color: '#333333',
-  },
-  selectedTimeSlotText: {
-    color: '#FFFFFF',
-    fontWeight: '500',
-  },
-});
+const themeStyles = (theme: any) =>
+  StyleSheet.create({
+    container: {
+      flex: 1,
+      paddingVertical: 8,
+      //backgroundColor: 'red',
+    },
+    sectionTitleContainer: {
+      paddingHorizontal: 16,
+      marginTop: 16,
+      marginBottom: 8,
+    },
+    sectionTitle: {
+      fontSize: 16,
+      fontWeight: 'bold',
+      color: theme.colors.textSecondary,
+    },
+    daysContainer: {
+      flexDirection: 'row',
+      paddingLeft: 16,
+      paddingRight: 8,
+      marginBottom: 16,
+    },
+    dayItem: {
+      width: 70,
+      height: 70,
+      borderRadius: 8,
+      backgroundColor: '#F5F5F5',
+      justifyContent: 'center',
+      alignItems: 'center',
+      marginRight: 8,
+    },
+    selectedDayItem: {
+      backgroundColor: theme.colors.primary,
+    },
+    dayText: {
+      fontSize: 14,
+      fontWeight: '500',
+      color: '#555555',
+    },
+    dateText: {
+      fontSize: 18,
+      fontWeight: 'bold',
+      color: '#333333',
+      marginTop: 4,
+    },
+    selectedDayText: {
+      color: '#FFFFFF',
+    },
+    timeSlotsContainer: {
+      paddingHorizontal: 16,
+      flexDirection: 'row',
+      flexWrap: 'wrap',
+      gap: 10,
+    },
+    timeSlotChip: {
+      paddingHorizontal: 16,
+      paddingVertical: 8,
+      borderRadius: 20,
+      backgroundColor: '#F5F5F5',
+      marginBottom: 10,
+      borderWidth: 1,
+      borderColor: '#E0E0E0',
+    },
+    selectedTimeSlotChip: {
+      backgroundColor: theme.colors.primary,
+      //borderColor: '#FFC163',
+    },
+    timeSlotText: {
+      fontSize: 14,
+      color: '#333333',
+    },
+    selectedTimeSlotText: {
+      color: '#FFFFFF',
+      fontWeight: '500',
+    },
+  });
 
 export default TimeSlotPicker;

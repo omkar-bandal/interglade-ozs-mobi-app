@@ -1,4 +1,5 @@
 import {useGetGoggleMapAPIKey} from '@hooks/api/location.rq';
+import useTheme from '@theme/useTheme';
 import React, {useMemo, useRef, useState} from 'react';
 import {
   ActivityIndicator,
@@ -36,6 +37,8 @@ interface Prediction {
 }
 
 export const Location: React.FC = () => {
+  //const {theme} = useTheme();
+  //const style = themeStyle(theme);
   const [searchText, setSearchText] = useState<string>('');
   const [predictions, setPredictions] = useState<Prediction[]>([]);
   const [recentLocations, setRecentLocations] = useState<Location[]>([]);
@@ -251,7 +254,8 @@ export const Location: React.FC = () => {
       );
     }
   };
-
+  const {theme} = useTheme();
+  const styles = themeStyles(theme);
   // Render prediction item
   const renderPredictionItem = ({item}: {item: Prediction}) => (
     <TouchableOpacity
@@ -414,149 +418,150 @@ export const Location: React.FC = () => {
   );
 };
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#FFFFFF',
-  },
-  header: {
-    paddingTop: Platform.OS === 'ios' ? 44 : 16,
-    paddingBottom: 12,
-    paddingHorizontal: 16,
-    backgroundColor: '#FFFFFF',
-    borderBottomWidth: 1,
-    borderBottomColor: '#E5E5E5',
-  },
-  headerTitle: {
-    fontSize: 18,
-    fontWeight: '600',
-    color: '#333333',
-  },
-  searchContainer: {
-    paddingHorizontal: 16,
-    paddingVertical: 12,
-    backgroundColor: '#FFFFFF',
-  },
-  searchInputContainer: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    backgroundColor: '#F2F2F2',
-    borderRadius: 12,
-    paddingHorizontal: 12,
-    height: 48,
-  },
-  searchIcon: {
-    width: 20,
-    height: 20,
-    marginRight: 8,
-  },
-  searchInput: {
-    flex: 1,
-    height: 48,
-    fontSize: 16,
-    color: '#333333',
-  },
-  clearButton: {
-    padding: 8,
-  },
-  clearButtonText: {
-    fontSize: 16,
-    color: '#999999',
-  },
-  currentLocationButton: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    marginTop: 12,
-    paddingVertical: 8,
-  },
-  locationIcon: {
-    width: 16,
-    height: 16,
-    marginRight: 8,
-  },
-  currentLocationText: {
-    fontSize: 16,
-    color: '#007AFF',
-  },
-  contentContainer: {
-    flex: 1,
-  },
-  loadingContainer: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    padding: 16,
-  },
-  loadingText: {
-    marginTop: 8,
-    fontSize: 16,
-    color: '#666666',
-  },
-  predictionsContainer: {
-    paddingHorizontal: 16,
-  },
-  predictionItem: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    paddingVertical: 12,
-    borderBottomWidth: 1,
-    borderBottomColor: '#F0F0F0',
-  },
-  predictionIcon: {
-    marginRight: 12,
-  },
-  placeIcon: {
-    width: 24,
-    height: 24,
-  },
-  predictionText: {
-    flex: 1,
-  },
-  recentLocationsContainer: {
-    paddingHorizontal: 16,
-  },
-  sectionTitle: {
-    fontSize: 18,
-    fontWeight: '600',
-    marginTop: 16,
-    marginBottom: 8,
-    color: '#333333',
-  },
-  recentLocationItem: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    paddingVertical: 12,
-    borderBottomWidth: 1,
-    borderBottomColor: '#F0F0F0',
-  },
-  recentLocationIcon: {
-    marginRight: 12,
-  },
-  historyIcon: {
-    width: 24,
-    height: 24,
-  },
-  currentIcon: {
-    width: 24,
-    height: 24,
-  },
-  recentLocationText: {
-    flex: 1,
-  },
-  primaryText: {
-    fontSize: 16,
-    fontWeight: '500',
-    color: '#333333',
-  },
-  secondaryText: {
-    fontSize: 14,
-    color: '#777777',
-    marginTop: 2,
-  },
-  emptyText: {
-    fontSize: 16,
-    color: '#999999',
-    paddingVertical: 16,
-    textAlign: 'center',
-  },
-});
+const themeStyles = (theme: any) =>
+  StyleSheet.create({
+    container: {
+      flex: 1,
+      backgroundColor: '#FFFFFF',
+    },
+    header: {
+      paddingTop: Platform.OS === 'ios' ? 44 : 16,
+      paddingBottom: 12,
+      paddingHorizontal: 16,
+      backgroundColor: '#FFFFFF',
+      borderBottomWidth: 1,
+      borderBottomColor: '#E5E5E5',
+    },
+    headerTitle: {
+      fontSize: 18,
+      fontWeight: '600',
+      color: '#333333',
+    },
+    searchContainer: {
+      paddingHorizontal: 16,
+      paddingVertical: 12,
+      backgroundColor: '#FFFFFF',
+    },
+    searchInputContainer: {
+      flexDirection: 'row',
+      alignItems: 'center',
+      backgroundColor: '#F2F2F2',
+      borderRadius: 12,
+      paddingHorizontal: 12,
+      height: 48,
+    },
+    searchIcon: {
+      width: 20,
+      height: 20,
+      marginRight: 8,
+    },
+    searchInput: {
+      flex: 1,
+      height: 48,
+      fontSize: 16,
+      color: '#333333',
+    },
+    clearButton: {
+      padding: 8,
+    },
+    clearButtonText: {
+      fontSize: 16,
+      color: '#999999',
+    },
+    currentLocationButton: {
+      flexDirection: 'row',
+      alignItems: 'center',
+      marginTop: 12,
+      paddingVertical: 8,
+    },
+    locationIcon: {
+      width: 16,
+      height: 16,
+      marginRight: 8,
+    },
+    currentLocationText: {
+      fontSize: 16,
+      color: '#007AFF',
+    },
+    contentContainer: {
+      flex: 1,
+    },
+    loadingContainer: {
+      flex: 1,
+      justifyContent: 'center',
+      alignItems: 'center',
+      padding: 16,
+    },
+    loadingText: {
+      marginTop: 8,
+      fontSize: 16,
+      color: '#666666',
+    },
+    predictionsContainer: {
+      paddingHorizontal: 16,
+    },
+    predictionItem: {
+      flexDirection: 'row',
+      alignItems: 'center',
+      paddingVertical: 12,
+      borderBottomWidth: 1,
+      borderBottomColor: '#F0F0F0',
+    },
+    predictionIcon: {
+      marginRight: 12,
+    },
+    placeIcon: {
+      width: 24,
+      height: 24,
+    },
+    predictionText: {
+      flex: 1,
+    },
+    recentLocationsContainer: {
+      paddingHorizontal: 16,
+    },
+    sectionTitle: {
+      fontSize: 18,
+      fontWeight: '600',
+      marginTop: 16,
+      marginBottom: 8,
+      color: '#333333',
+    },
+    recentLocationItem: {
+      flexDirection: 'row',
+      alignItems: 'center',
+      paddingVertical: 12,
+      borderBottomWidth: 1,
+      borderBottomColor: '#F0F0F0',
+    },
+    recentLocationIcon: {
+      marginRight: 12,
+    },
+    historyIcon: {
+      width: 24,
+      height: 24,
+    },
+    currentIcon: {
+      width: 24,
+      height: 24,
+    },
+    recentLocationText: {
+      flex: 1,
+    },
+    primaryText: {
+      fontSize: 16,
+      fontWeight: '500',
+      color: '#333333',
+    },
+    secondaryText: {
+      fontSize: 14,
+      color: '#777777',
+      marginTop: 2,
+    },
+    emptyText: {
+      fontSize: 16,
+      color: '#999999',
+      paddingVertical: 16,
+      textAlign: 'center',
+    },
+  });

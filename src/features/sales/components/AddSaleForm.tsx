@@ -4,7 +4,7 @@ import {useCreateSale, useUpdateSale} from '@hooks/api/sales.rq';
 import {useActions} from '@hooks/useActions';
 import useForm from '@hooks/useForm';
 import {useTypedSelector} from '@hooks/useTypedSelector';
-import {lightTheme, SPACING} from '@theme/constants';
+import {SPACING} from '@theme/constants';
 import useTheme from '@theme/useTheme';
 import React, {useState} from 'react';
 import {StyleSheet} from 'react-native';
@@ -17,6 +17,7 @@ import {Summary} from './add-sale-steps/Summary';
 
 export default function AddSaleForm({initialData, saleId}: any) {
   const {theme} = useTheme();
+  const styles = themeStyles(theme);
   const {user} = useTypedSelector(state => state.auth);
   const {mutateAsync: createSale, isPending} = useCreateSale();
   const {mutateAsync: updateSale, isPending: isUpdatePending} = useUpdateSale();
@@ -100,24 +101,25 @@ export default function AddSaleForm({initialData, saleId}: any) {
   );
 }
 
-const styles = StyleSheet.create({
-  form: {
-    flexGrow: 1,
-    flexShrink: 1,
-    flexBasis: 0,
-  },
-  formContainer: {
-    padding: SPACING.sm,
-    borderWidth: 1,
-    borderColor: lightTheme.colors.border,
-    borderRadius: 10,
-    height: '100%',
-    justifyContent: 'center',
-  },
-  // formAction: {
-  //   marginBottom: 4,
-  // },
-  // input: {
-  //   marginBottom: 1,
-  // },
-});
+const themeStyles = (theme: any) =>
+  StyleSheet.create({
+    form: {
+      flexGrow: 1,
+      flexShrink: 1,
+      flexBasis: 0,
+    },
+    formContainer: {
+      padding: SPACING.sm,
+      borderWidth: 1,
+      borderColor: theme.colors.border,
+      borderRadius: 10,
+      height: '100%',
+      justifyContent: 'center',
+    },
+    // formAction: {
+    //   marginBottom: 4,
+    // },
+    // input: {
+    //   marginBottom: 1,
+    // },
+  });

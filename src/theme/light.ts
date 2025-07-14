@@ -1,4 +1,4 @@
-const lightTheme = {
+const darkTheme = {
   colors: {
     // Primary colors - Using your #FFC163 as the primary color
     primary: '#4D948E',
@@ -65,10 +65,10 @@ const lightTheme = {
       disabledTextColor: '#C7C2B8',
     },
     card: {
-      backgroundColor: '#F1FBFB',
+      backgroundColor: '#E0F0F0',
       shadowColor: 'rgba(41, 37, 35, 0.1)',
     },
   },
 };
 
-export default lightTheme;
+export default darkTheme;

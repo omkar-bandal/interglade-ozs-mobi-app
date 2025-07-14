@@ -1,4 +1,5 @@
 import {useActions} from '@hooks/useActions';
+import useTheme from '@theme/useTheme';
 import React, {FC, useEffect} from 'react';
 import {Animated, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons';
@@ -20,6 +21,8 @@ const SuccessScreen: FC<SuccessScreenProps> = ({
   onRedirect,
   buttonText = 'Continue',
 }) => {
+  const {theme} = useTheme();
+  const styles = themeStyles(theme);
   const {setSuccess} = useActions();
   const checkmarkScale = new Animated.Value(0);
   const messageOpacity = new Animated.Value(0);
@@ -94,82 +97,83 @@ const SuccessScreen: FC<SuccessScreenProps> = ({
   );
 };
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: '#FFFFFF',
-    padding: 20,
-  },
-  checkmarkContainer: {
-    width: 80,
-    height: 80,
-    borderRadius: 40,
-    backgroundColor: '#E8F5E9',
-    justifyContent: 'center',
-    alignItems: 'center',
-    marginBottom: 30,
-  },
-  checkmarkCircle: {
-    width: 40,
-    height: 40,
-    position: 'relative',
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  checkmarkKick: {
-    position: 'absolute',
-    width: 3,
-    height: 9,
-    backgroundColor: '#4CAF50',
-    left: 8,
-    top: 18,
-    borderRadius: 1,
-    transform: [{rotate: '-45deg'}],
-  },
-  message: {
-    fontSize: 22,
-    fontWeight: '600',
-    color: '#333333',
-    textAlign: 'center',
-    marginBottom: 30,
-  },
-  redirectContainer: {
-    alignItems: 'center',
-    width: '100%',
-  },
-  redirectText: {
-    fontSize: 16,
-    color: '#757575',
-    marginBottom: 15,
-  },
-  button: {
-    backgroundColor: '#4CAF50',
-    paddingVertical: 12,
-    paddingHorizontal: 30,
-    borderRadius: 25,
-    shadowColor: '#000',
-    shadowOffset: {width: 0, height: 2},
-    shadowOpacity: 0.1,
-    shadowRadius: 4,
-    elevation: 3,
-  },
-  buttonText: {
-    color: 'white',
-    fontSize: 16,
-    fontWeight: '600',
-    textAlign: 'center',
-  },
-  loadingContainer: {
-    flexDirection: 'row',
-    alignItems: 'center',
-  },
-  loadingText: {
-    marginLeft: 10,
-    fontSize: 16,
-    color: '#757575',
-  },
-});
+const themeStyles = (theme: any) =>
+  StyleSheet.create({
+    container: {
+      flex: 1,
+      justifyContent: 'center',
+      alignItems: 'center',
+      backgroundColor: theme.colors.background,
+      padding: 20,
+    },
+    checkmarkContainer: {
+      width: 80,
+      height: 80,
+      borderRadius: 40,
+      backgroundColor: '#E8F5E9',
+      justifyContent: 'center',
+      alignItems: 'center',
+      marginBottom: 30,
+    },
+    checkmarkCircle: {
+      width: 40,
+      height: 40,
+      position: 'relative',
+      justifyContent: 'center',
+      alignItems: 'center',
+    },
+    checkmarkKick: {
+      position: 'absolute',
+      width: 3,
+      height: 9,
+      backgroundColor: '#4CAF50',
+      left: 8,
+      top: 18,
+      borderRadius: 1,
+      transform: [{rotate: '-45deg'}],
+    },
+    message: {
+      fontSize: 22,
+      fontWeight: '600',
+      color: theme.colors.text,
+      textAlign: 'center',
+      marginBottom: 30,
+    },
+    redirectContainer: {
+      alignItems: 'center',
+      width: '100%',
+    },
+    redirectText: {
+      fontSize: 16,
+      color: '#757575',
+      marginBottom: 15,
+    },
+    button: {
+      backgroundColor: '#4CAF50',
+      paddingVertical: 12,
+      paddingHorizontal: 30,
+      borderRadius: 25,
+      shadowColor: '#000',
+      shadowOffset: {width: 0, height: 2},
+      shadowOpacity: 0.1,
+      shadowRadius: 4,
+      elevation: 3,
+    },
+    buttonText: {
+      color: 'white',
+      fontSize: 16,
+      fontWeight: '600',
+      textAlign: 'center',
+    },
+    loadingContainer: {
+      flexDirection: 'row',
+      alignItems: 'center',
+    },
+    loadingText: {
+      marginLeft: 10,
+      fontSize: 16,
+      color: '#757575',
+    },
+  });
 
 export default SuccessScreen;

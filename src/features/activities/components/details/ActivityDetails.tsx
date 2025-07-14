@@ -1,5 +1,4 @@
 /* eslint-disable react-native/no-inline-styles */
-import lightTheme from '@theme/light';
 import useTheme from '@theme/useTheme';
 import {navigate} from '@utils/NavigationUtils';
 import React from 'react';
@@ -65,6 +64,7 @@ import Complete from '../Complete';
 
 const ActivityDetails = ({reservationId}: any) => {
   const {theme} = useTheme();
+  const styles = themeStyles(theme);
 
   // const reservation = reservationData.data.find(
   //   reservation => reservation.id === reservationId,
@@ -109,20 +109,21 @@ const ActivityDetails = ({reservationId}: any) => {
           /> */}
           <View style={{flex: 1, marginLeft: 16}}>
             <Text style={styles.serviceTitle}>
-              {reservation?.service?.title || 'Hair Styling Session'}
+              {reservation?.service?.title}
             </Text>
             <View style={styles.ratingRow}>
               <Ionicons name="star" size={16} color={theme.colors.primary} />
+              <Text style={styles.ratingText}>
+                {reservation?.service?.status}
+              </Text>
               <Text style={styles.ratingText}>5.0</Text>
             </View>
-            <Text style={styles.price}>
-              ${reservation?.service?.price || ' 100'}
-            </Text>
+            <Text style={styles.price}>${reservation?.service?.price}</Text>
           </View>
         </View>
 
         {/* Action Buttons */}
-        {reservation?.status === 'completed' && (
+        {reservation?.status === 'completed' || (
           <View style={styles.actionRow}>
             <TouchableOpacity
               style={styles.outlineBtn}
@@ -149,8 +150,7 @@ const ActivityDetails = ({reservationId}: any) => {
           </View> */}
           <View style={{flex: 1, marginLeft: 12}}>
             <Text style={styles.providerName}>
-              {reservation?.provider?.name || 'Sara'}{' '}
-              {reservation?.provider?.name || 'Khan'}
+              {reservation?.provider?.name} {reservation?.provider?.name}
             </Text>
           </View>
           {/* <View style={styles.providerActions}>
@@ -207,7 +207,7 @@ const ActivityDetails = ({reservationId}: any) => {
         </View>
       </ScrollView>
 
-      {reservation?.status === 'confirmed' && (
+      {reservation?.status !== 'confirmed' && (
         <View style={styles.confirmButton}>
           <Complete id={reservationId} />
         </View>
@@ -218,6 +218,7 @@ const ActivityDetails = ({reservationId}: any) => {
 
 const StatusStep = ({title, date, description, time, active, last}: any) => {
   const {theme} = useTheme();
+  const styles = themeStyles(theme);
 
   return (
     <View style={styles.statusStep}>
@@ -228,7 +229,7 @@ const StatusStep = ({title, date, description, time, active, last}: any) => {
             {
               backgroundColor: active
                 ? theme.colors.primary
-                : theme.colors.lightGray,
+                : theme.colors.secondary,
               borderColor: theme.colors.primary,
             },
           ]}
@@ -249,205 +250,207 @@ const StatusStep = ({title, date, description, time, active, last}: any) => {
 
 export default ActivityDetails;
 
-const styles = StyleSheet.create({
-  centerContainer: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    paddingHorizontal: 20,
-  },
-  header: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    marginTop: 16,
-    marginBottom: 16,
-  },
-  headerTitle: {
-    flex: 1,
-    textAlign: 'center',
-    fontWeight: 'bold',
-    fontSize: 18,
-  },
-  serviceInfo: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    marginBottom: 16,
-    backgroundColor: lightTheme.components.card.backgroundColor,
-    borderRadius: 12,
-    padding: 12,
-  },
-  serviceImage: {
-    width: 60,
-    height: 60,
-    borderRadius: 8,
-  },
-  serviceTitle: {
-    fontWeight: 'bold',
-    fontSize: 16,
-    color: lightTheme.colors.text,
-    marginBottom: 4,
-  },
-  ratingRow: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    marginBottom: 4,
-  },
-  ratingText: {
-    marginLeft: 4,
-    color: lightTheme.colors.gray,
-    fontWeight: 'bold',
-  },
-  price: {
-    fontWeight: 'bold',
-    fontSize: 16,
-    color: lightTheme.colors.primary,
-  },
-  confirmButton: {
-    paddingVertical: 10,
-    paddingHorizontal: 16,
-  },
-  actionRow: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    marginBottom: 20,
-  },
-  outlineBtn: {
-    flex: 1,
-    borderWidth: 1,
-    borderColor: lightTheme.colors.primary,
-    borderRadius: 8,
-    paddingVertical: 10,
-    marginRight: 8,
-    alignItems: 'center',
-  },
-  outlineBtnText: {
-    color: lightTheme.colors.primary,
-    fontWeight: 'bold',
-  },
-  primaryBtn: {
-    flex: 1,
-    backgroundColor: lightTheme.colors.primary,
-    borderRadius: 8,
-    paddingVertical: 10,
-    marginLeft: 8,
-    alignItems: 'center',
-  },
-  primaryBtnText: {
-    color: '#fff',
-    fontWeight: 'bold',
-  },
-  sectionTitle: {
-    fontWeight: 'bold',
-    fontSize: 16,
-    marginVertical: 12,
-  },
-  providerCard: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    backgroundColor: lightTheme.components.card.backgroundColor,
-    borderRadius: 12,
-    padding: 12,
-    marginBottom: 12,
-  },
-  providerImage: {
-    width: 48,
-    height: 48,
-    borderRadius: 24,
-  },
-  providerName: {
-    fontWeight: 'bold',
-    fontSize: 15,
-    color: lightTheme.colors.text,
-  },
-  providerRole: {
-    color: lightTheme.colors.gray,
-    fontSize: 13,
-  },
-  providerActions: {
-    flexDirection: 'row',
-    marginLeft: 8,
-  },
-  iconBtn: {
-    backgroundColor: '#fff',
-    borderRadius: 20,
-    padding: 8,
-    marginLeft: 6,
-    borderWidth: 1,
-    borderColor: lightTheme.colors.lightGray,
-  },
-  statusContainer: {
-    marginBottom: 16,
-  },
-  statusStep: {
-    flexDirection: 'row',
-    marginBottom: 12,
-  },
-  statusIndicatorCol: {
-    alignItems: 'center',
-    marginRight: 12,
-    width: 24,
-  },
-  statusCircle: {
-    width: 14,
-    height: 14,
-    borderRadius: 7,
-    borderWidth: 2,
-  },
-  statusLine: {
-    width: 2,
-    flex: 1,
-    backgroundColor: lightTheme.colors.lightGray,
-    marginTop: 2,
-  },
-  statusTitle: {
-    fontWeight: 'bold',
-    fontSize: 15,
-  },
-  statusDate: {
-    color: lightTheme.colors.textSecondary,
-    fontSize: 13,
-  },
-  statusDesc: {
-    color: lightTheme.colors.textTertiary,
-    fontSize: 13,
-    marginTop: 2,
-  },
-  statusTime: {
-    color: lightTheme.colors.textTertiary,
-    fontSize: 12,
-    marginTop: 2,
-  },
-  summaryRow: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    marginVertical: 4,
-  },
-  summaryLabel: {
-    color: lightTheme.colors.gray,
-    fontSize: 15,
-  },
-  summaryValue: {
-    color: '#000',
-    fontWeight: 'bold',
-    fontSize: 15,
-  },
-  divider: {
-    height: 1,
-    backgroundColor: lightTheme.colors.lightGray,
-    marginVertical: 8,
-  },
-  grandTotalLabel: {
-    fontWeight: 'bold',
-    fontSize: 16,
-    color: lightTheme.colors.primary,
-  },
-  grandTotalValue: {
-    fontWeight: 'bold',
-    fontSize: 16,
-    color: lightTheme.colors.primary,
-  },
-});
+const themeStyles = (theme: any) =>
+  StyleSheet.create({
+    centerContainer: {
+      flex: 1,
+      justifyContent: 'center',
+      alignItems: 'center',
+    },
+    container: {
+      flex: 1,
+      backgroundColor: theme.colors.background,
+      paddingVertical: 10,
+      paddingHorizontal: 16,
+    },
+    header: {
+      flexDirection: 'row',
+      alignItems: 'center',
+      marginTop: 16,
+      marginBottom: 16,
+    },
+    headerTitle: {
+      flex: 1,
+      textAlign: 'center',
+      fontWeight: 'bold',
+      fontSize: 18,
+    },
+    serviceInfo: {
+      flexDirection: 'row',
+      alignItems: 'center',
+      marginBottom: 16,
+      backgroundColor: theme.components.card.backgroundColor,
+      borderRadius: 12,
+      padding: 12,
+    },
+    serviceImage: {
+      width: 60,
+      height: 60,
+      borderRadius: 8,
+    },
+    serviceTitle: {
+      fontWeight: 'bold',
+      fontSize: 16,
+      color: theme.colors.text,
+      marginBottom: 4,
+    },
+    ratingRow: {
+      flexDirection: 'row',
+      alignItems: 'center',
+      marginBottom: 4,
+    },
+    ratingText: {
+      marginLeft: 4,
+      color: theme.colors.gray,
+      fontWeight: 'bold',
+    },
+    price: {
+      fontWeight: 'bold',
+      fontSize: 16,
+      color: theme.colors.primary,
+    },
+    confirmButton: {
+      paddingVertical: 10,
+      paddingHorizontal: 16,
+    },
+    actionRow: {
+      flexDirection: 'row',
+      justifyContent: 'space-between',
+      marginBottom: 20,
+    },
+    outlineBtn: {
+      flex: 1,
+      borderWidth: 1,
+      borderColor: theme.colors.primary,
+      borderRadius: 8,
+      paddingVertical: 10,
+      marginRight: 8,
+      alignItems: 'center',
+    },
+    outlineBtnText: {
+      color: theme.colors.primary,
+      fontWeight: 'bold',
+    },
+    primaryBtn: {
+      flex: 1,
+      backgroundColor: theme.colors.primary,
+      borderRadius: 8,
+      paddingVertical: 10,
+      marginLeft: 8,
+      alignItems: 'center',
+    },
+    primaryBtnText: {
+      color: '#fff',
+      fontWeight: 'bold',
+    },
+    sectionTitle: {
+      fontWeight: 'bold',
+      fontSize: 16,
+      marginVertical: 12,
+    },
+    providerCard: {
+      flexDirection: 'row',
+      alignItems: 'center',
+      backgroundColor: theme.components.card.backgroundColor,
+      borderRadius: 12,
+      padding: 12,
+      marginBottom: 12,
+    },
+    providerImage: {
+      width: 48,
+      height: 48,
+      borderRadius: 24,
+    },
+    providerName: {
+      fontWeight: 'bold',
+      fontSize: 15,
+      color: theme.colors.text,
+    },
+    providerRole: {
+      color: theme.colors.gray,
+      fontSize: 13,
+    },
+    providerActions: {
+      flexDirection: 'row',
+      marginLeft: 8,
+    },
+    iconBtn: {
+      backgroundColor: '#fff',
+      borderRadius: 20,
+      padding: 8,
+      marginLeft: 6,
+      borderWidth: 1,
+      borderColor: theme.colors.lightGray,
+    },
+    statusContainer: {
+      marginBottom: 16,
+    },
+    statusStep: {
+      flexDirection: 'row',
+      marginBottom: 12,
+    },
+    statusIndicatorCol: {
+      alignItems: 'center',
+      marginRight: 12,
+      width: 24,
+    },
+    statusCircle: {
+      width: 14,
+      height: 14,
+      borderRadius: 7,
+      borderWidth: 2,
+    },
+    statusLine: {
+      width: 2,
+      flex: 1,
+      backgroundColor: theme.colors.lightGray,
+      marginTop: 2,
+    },
+    statusTitle: {
+      fontWeight: 'bold',
+      fontSize: 15,
+    },
+    statusDate: {
+      color: theme.colors.textSecondary,
+      fontSize: 13,
+    },
+    statusDesc: {
+      color: theme.colors.textTertiary,
+      fontSize: 13,
+      marginTop: 2,
+    },
+    statusTime: {
+      color: theme.colors.textTertiary,
+      fontSize: 12,
+      marginTop: 2,
+    },
+    summaryRow: {
+      flexDirection: 'row',
+      justifyContent: 'space-between',
+      marginVertical: 4,
+    },
+    summaryLabel: {
+      color: theme.colors.gray,
+      fontSize: 15,
+    },
+    summaryValue: {
+      color: '#000',
+      fontWeight: 'bold',
+      fontSize: 15,
+    },
+    divider: {
+      height: 1,
+      backgroundColor: theme.colors.lightGray,
+      marginVertical: 8,
+    },
+    grandTotalLabel: {
+      fontWeight: 'bold',
+      fontSize: 16,
+      color: theme.colors.primary,
+    },
+    grandTotalValue: {
+      fontWeight: 'bold',
+      fontSize: 16,
+      color: theme.colors.primary,
+    },
+  });

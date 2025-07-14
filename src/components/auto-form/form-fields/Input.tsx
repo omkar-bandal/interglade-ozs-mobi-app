@@ -1,3 +1,4 @@
+import useTheme from '@theme/useTheme';
 import {forwardRef} from 'react';
 import {KeyboardTypeOptions, StyleSheet, View} from 'react-native';
 import Input from '../../ui/Input';
@@ -50,6 +51,8 @@ export const FormInput = forwardRef(
     ref: any,
   ) => {
     // Handle useForm integration
+    const {theme} = useTheme();
+    const styles = themeStyles(theme);
     const inputProps =
       name && formControl.register
         ? formControl.register(name, props.validation)
@@ -84,26 +87,27 @@ export const FormInput = forwardRef(
   },
 );
 
-const styles = StyleSheet.create({
-  inputContainer: {
-    // marginBottom: 16,
-  },
-  labelContainer: {
-    flexDirection: 'row',
-    marginBottom: 8,
-  },
-  inputLabel: {
-    fontSize: 14,
-    fontWeight: '500',
-    color: '#333',
-  },
-  requiredStar: {
-    color: '#e74c3c',
-    fontSize: 14,
-    marginLeft: 4,
-  },
-  disabledInput: {
-    backgroundColor: '#f9f9f9',
-    color: '#999',
-  },
-});
+const themeStyles = (theme: any) =>
+  StyleSheet.create({
+    inputContainer: {
+      // marginBottom: 16,
+    },
+    labelContainer: {
+      flexDirection: 'row',
+      marginBottom: 8,
+    },
+    inputLabel: {
+      fontSize: 14,
+      fontWeight: '500',
+      color: theme.colors.textSecondary,
+    },
+    requiredStar: {
+      color: '#e74c3c',
+      fontSize: 14,
+      marginLeft: 4,
+    },
+    disabledInput: {
+      backgroundColor: '#f9f9f9',
+      color: '#999',
+    },
+  });

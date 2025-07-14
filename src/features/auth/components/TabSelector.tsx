@@ -1,5 +1,5 @@
 import {SPACING} from '@theme/constants';
-import lightTheme from '@theme/light';
+import darkTheme from '@theme/light';
 import React from 'react';
 import {StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 
@@ -20,7 +20,7 @@ const Tab: React.FC<TabProps> = ({selectedTab, onTabSelect}) => {
         <Text
           style={[
             styles.tabText,
-            selectedTab === 'Login' && {color: lightTheme.colors.textSecondary},
+            selectedTab === 'Login' && {color: darkTheme.colors.textSecondary},
           ]}>
           Login
         </Text>
@@ -35,7 +35,7 @@ const Tab: React.FC<TabProps> = ({selectedTab, onTabSelect}) => {
           style={[
             styles.tabText,
             selectedTab === 'SignUp' && {
-              color: lightTheme.colors.textSecondary,
+              color: darkTheme.colors.textSecondary,
             },
           ]}>
           SignUp
@@ -61,17 +61,17 @@ const styles = StyleSheet.create({
     paddingBottom: SPACING.sm,
   },
   tabUnderline: {
-    borderBottomColor: lightTheme.colors.primary,
+    borderBottomColor: darkTheme.colors.primary,
     borderBottomWidth: 4,
     borderStyle: 'solid',
   },
   underline: {
-    borderBottomColor: lightTheme.colors.secondaryLight,
+    borderBottomColor: darkTheme.colors.secondaryLight,
     borderBottomWidth: 1,
   },
   tabText: {
     fontSize: 28,
     fontWeight: '500',
-    color: lightTheme.colors.textTertiary,
+    color: darkTheme.colors.textTertiary,
   },
 });

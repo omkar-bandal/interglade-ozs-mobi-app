@@ -20,12 +20,15 @@ import {RecentSales} from '@features/booking/components/RecentSales';
 import Reviews from '@features/booking/components/Reviews';
 import {useActions} from '@hooks/useActions';
 import {useTypedSelector} from '@hooks/useTypedSelector';
-import {lightTheme, SPACING} from '@theme/constants';
+import {SPACING} from '@theme/constants';
+import useTheme from '@theme/useTheme';
 import {navigate} from '@utils/NavigationUtils';
 import AntDesignIcon from 'react-native-vector-icons/AntDesign';
 import {default as Ionicons} from 'react-native-vector-icons/Ionicons';
 
 const ServiceDetails = ({serviceId}: {serviceId: string}) => {
+  const {theme} = useTheme();
+  const styles = themeStyles(theme);
   const {user} = useTypedSelector(state => state.auth);
   const {data, isLoading} = useGetServiceById(serviceId);
   const [isTimeSlotModalVisible, setTimeSlotModalVisible] = useState(false);
@@ -37,7 +40,7 @@ const ServiceDetails = ({serviceId}: {serviceId: string}) => {
   if (isLoading) {
     return (
       <View style={styles.centerContainer}>
-        <ActivityIndicator size="large" color="#FFC163" />
+        <ActivityIndicator size="large" color="#4D948E" />
       </View>
     );
   }
@@ -277,181 +280,186 @@ const ServiceDetails = ({serviceId}: {serviceId: string}) => {
   );
 };
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#FFFFFF',
-  },
-  detailContainer: {
-    marginTop: 10,
-    paddingTop: SPACING.md,
-    backgroundColor: lightTheme.colors.background,
-    //borderTopLeftRadius: 15,
-    //borderTopRightRadius: 15,
-  },
-  centerContainer: {
-    flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  serviceHeader: {
-    marginBottom: 16,
-  },
-  serviceImage: {
-    width: '100%',
-    height: 200,
-    resizeMode: 'cover',
-  },
-  serviceTitleContainer: {
-    padding: SPACING.md,
-    marginHorizontal: 15,
-    marginBottom: SPACING.sm,
-    backgroundColor: '#F1FBFB',
-    borderRadius: 10,
-  },
-  serviceTitle: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-  },
-  sectionContainer: {
-    padding: SPACING.md,
-    marginHorizontal: 15,
-    marginBottom: SPACING.sm,
-    backgroundColor: '#F1FBFB',
-    borderRadius: 10,
-  },
-  sectionTitle: {
-    fontSize: 16,
-    fontWeight: 'bold',
-    color: '#333333',
-    marginBottom: 12,
-  },
-  descriptionText: {
-    fontSize: 14,
-    color: '#666666',
-    lineHeight: 20,
-  },
-  providerContainer: {
-    flexDirection: 'row',
-    alignItems: 'center',
-  },
-  providerImage: {
-    width: 40,
-    height: 40,
-    borderRadius: 20,
-    marginRight: 12,
-  },
-  providerName: {
-    fontSize: 16,
-    fontWeight: '500',
-    color: '#333333',
-  },
-  actionRow: {
-    flex: 1,
-    flexDirection: 'row',
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  actionBox: {
-    padding: SPACING.sm,
-  },
-  reviewItem: {
-    marginBottom: 16,
-    paddingBottom: 16,
-    borderBottomWidth: 1,
-    borderBottomColor: '#EEEEEE',
-  },
-  reviewHeader: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    marginBottom: 4,
-  },
-  reviewerName: {
-    fontSize: 14,
-    fontWeight: '500',
-    color: '#333333',
-  },
-  reviewDate: {
-    fontSize: 12,
-    color: '#999999',
-  },
-  starsContainer: {
-    flexDirection: 'row',
-    marginBottom: 8,
-  },
-  starIcon: {
-    marginRight: 2,
-  },
-  reviewText: {
-    fontSize: 14,
-    color: '#666666',
-    lineHeight: 20,
-  },
-  contactButtonsContainer: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    padding: 16,
-    borderBottomWidth: 1,
-    borderBottomColor: '#EEEEEE',
-  },
-  contactButton: {
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  contactButtonIcon: {
-    marginBottom: 4,
-  },
-  contactButtonLabel: {
-    fontSize: 12,
-    color: '#666666',
-  },
-  pricingContainer: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    padding: 16,
-    borderTopWidth: 1,
-    borderTopColor: '#EEEEEE',
-    backgroundColor: '#FFFFFF',
-  },
-  priceLabel: {
-    fontSize: 12,
-    color: '#999999',
-  },
-  priceValue: {
-    fontSize: 18,
-    fontWeight: 'bold',
-    color: '#333333',
-  },
-  bookButton: {
-    backgroundColor: '#4A90E2',
-    paddingVertical: 12,
-    paddingHorizontal: 24,
-    borderRadius: 8,
-  },
-  bookButtonText: {
-    color: '#FFFFFF',
-    fontSize: 16,
-    fontWeight: 'bold',
-  },
-  confirmButton: {
-    backgroundColor: '#4A90E2',
-    paddingVertical: 14,
-    borderRadius: 8,
-    alignItems: 'center',
-    marginHorizontal: 16,
-    marginTop: 16,
-    marginBottom: 16,
-  },
-  confirmButtonText: {
-    color: '#FFFFFF',
-    fontSize: 16,
-    fontWeight: 'bold',
-  },
-  disabledButton: {
-    backgroundColor: '#CCCCCC',
-  },
-});
+const themeStyles = (theme: any) =>
+  StyleSheet.create({
+    container: {
+      flex: 1,
+      backgroundColor: theme.colors.background,
+    },
+    detailContainer: {
+      marginTop: 10,
+      paddingTop: SPACING.md,
+      backgroundColor: theme.colors.background,
+      //borderTopLeftRadius: 15,
+      //borderTopRightRadius: 15,
+    },
+    centerContainer: {
+      flex: 1,
+      alignItems: 'center',
+      justifyContent: 'center',
+    },
+    serviceHeader: {
+      marginBottom: 16,
+    },
+    serviceImage: {
+      width: '100%',
+      height: 200,
+      resizeMode: 'cover',
+    },
+    serviceTitleContainer: {
+      padding: SPACING.md,
+      marginHorizontal: 15,
+      marginBottom: SPACING.sm,
+      //backgroundColor: '#F1FBFB',
+      borderRadius: 10,
+    },
+    serviceTitle: {
+      flexDirection: 'row',
+      justifyContent: 'space-between',
+      alignItems: 'center',
+    },
+    sectionContainer: {
+      padding: SPACING.md,
+      marginHorizontal: 15,
+      marginBottom: SPACING.sm,
+      backgroundColor: theme.components.card.backgroundColor,
+      borderRadius: 10,
+    },
+    sectionTitle: {
+      fontSize: 16,
+      fontWeight: 'bold',
+      color: theme.colors.textSecondary,
+      marginBottom: 12,
+    },
+    descriptionText: {
+      fontSize: 14,
+      color: '#666666',
+      lineHeight: 20,
+    },
+    providerContainer: {
+      flexDirection: 'row',
+      alignItems: 'center',
+    },
+    providerImage: {
+      width: 40,
+      height: 40,
+      borderRadius: 20,
+      marginRight: 12,
+    },
+    providerName: {
+      fontSize: 16,
+      fontWeight: '500',
+      color: theme.colors.textSecondary,
+    },
+    actionRow: {
+      flex: 1,
+      flexDirection: 'row',
+      justifyContent: 'center',
+      alignItems: 'center',
+    },
+    actionBox: {
+      padding: SPACING.sm,
+    },
+    reviewItem: {
+      marginBottom: 16,
+      paddingBottom: 16,
+      borderBottomWidth: 1,
+      borderBottomColor: '#EEEEEE',
+    },
+    reviewHeader: {
+      flexDirection: 'row',
+      justifyContent: 'space-between',
+      marginBottom: 4,
+    },
+    reviewerName: {
+      fontSize: 14,
+      fontWeight: '500',
+      color: theme.colors.textSecondary,
+    },
+    reviewDate: {
+      fontSize: 12,
+      color: '#999999',
+    },
+    starsContainer: {
+      flexDirection: 'row',
+      marginBottom: 8,
+    },
+    starIcon: {
+      marginRight: 2,
+    },
+    reviewText: {
+      fontSize: 14,
+      color: '#666666',
+      lineHeight: 20,
+    },
+    contactButtonsContainer: {
+      flexDirection: 'row',
+      justifyContent: 'space-between',
+      padding: 16,
+      borderBottomWidth: 1,
+      //borderBottomColor: '#EEEEEE',
+      backgroundColor: theme.colors.background,
+    },
+    contactButton: {
+      alignItems: 'center',
+      justifyContent: 'center',
+    },
+    contactButtonIcon: {
+      marginBottom: 4,
+    },
+    contactButtonLabel: {
+      fontSize: 12,
+      color: '#666666',
+    },
+    pricingContainer: {
+      flexDirection: 'row',
+      justifyContent: 'space-between',
+      alignItems: 'center',
+      padding: 16,
+      borderTopWidth: 1,
+      //borderTopColor: '#EEEEEE',
+      borderColor: theme.colors.border,
+      //backgroundColor: '#FFFFFF',
+      backgroundColor: theme.colors.background,
+    },
+    priceLabel: {
+      fontSize: 12,
+      color: '#999999',
+    },
+    priceValue: {
+      fontSize: 18,
+      fontWeight: 'bold',
+      //color: '#333333',
+      color: theme.colors.textSecondary,
+    },
+    bookButton: {
+      backgroundColor: '#4A90E2',
+      paddingVertical: 12,
+      paddingHorizontal: 24,
+      borderRadius: 8,
+    },
+    bookButtonText: {
+      color: '#FFFFFF',
+      fontSize: 16,
+      fontWeight: 'bold',
+    },
+    confirmButton: {
+      backgroundColor: '#4A90E2',
+      paddingVertical: 14,
+      borderRadius: 8,
+      alignItems: 'center',
+      marginHorizontal: 16,
+      marginTop: 16,
+      marginBottom: 16,
+    },
+    confirmButtonText: {
+      color: '#FFFFFF',
+      fontSize: 16,
+      fontWeight: 'bold',
+    },
+    disabledButton: {
+      backgroundColor: '#CCCCCC',
+    },
+  });
 
 export default ServiceDetails;

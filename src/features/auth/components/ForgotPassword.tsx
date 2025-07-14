@@ -6,7 +6,7 @@ import {useActions} from '@hooks/useActions';
 import useForm from '@hooks/useForm';
 import {useNavigation} from '@react-navigation/native';
 import {EmailRequestParams} from '@services/auth/auth.model';
-import {FONT_SIZE, lightTheme, SPACING} from '@theme/constants';
+import {darkTheme, FONT_SIZE, SPACING} from '@theme/constants';
 import {navigate} from '@utils/NavigationUtils';
 import React, {useRef, useState} from 'react';
 import {
@@ -34,7 +34,7 @@ export default function ForgotPasswordForm() {
   const handleLogin = async ({email}: EmailRequestParams) => {
     const {data, error} = await forgotPassword({
       email: email,
-  });
+    });
 
     if (data.user) {
       await navigate('HomeTab');
@@ -51,7 +51,7 @@ export default function ForgotPasswordForm() {
   const navigation = useNavigation();
 
   const [currentStep, setCurrentStep] = useState(1);
- // const [email, setEmail] = useState('');
+  // const [email, setEmail] = useState('');
   const [otp, setOtp] = useState(['', '', '', '']);
   const [newPassword, setNewPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
@@ -254,10 +254,10 @@ export default function ForgotPasswordForm() {
 
   const renderSuccessStep = () => (
     <View style={styles.successContainer}>
-      <Text style={styles.titleText || {color: lightTheme.colors.primary}}>
+      <Text style={styles.titleText || {color: darkTheme.colors.primary}}>
         All Set.
       </Text>
-      <Text style={styles.titleText || {color: lightTheme.colors.primary}}>
+      <Text style={styles.titleText || {color: darkTheme.colors.primary}}>
         Your password has been updated!!
       </Text>
 
@@ -308,7 +308,7 @@ const styles = StyleSheet.create({
   titleText: {
     fontSize: 20,
     fontWeight: '600',
-    color: lightTheme.colors.textTertiary,
+    color: darkTheme.colors.textTertiary,
     marginBottom: SPACING.md,
   },
   form: {
@@ -365,11 +365,11 @@ const styles = StyleSheet.create({
     borderColor: '#C49E00',
   },
   otpInputFilled: {
-    backgroundColor: lightTheme.colors.primary,
+    backgroundColor: darkTheme.colors.primary,
     color: 'white',
   },
   submitButton: {
-    backgroundColor: lightTheme.colors.primary,
+    backgroundColor: darkTheme.colors.primary,
     paddingVertical: SPACING.md,
     borderRadius: 8,
     alignItems: 'center',
@@ -388,7 +388,7 @@ const styles = StyleSheet.create({
     marginTop: SPACING.md,
   },
   resendText: {
-    color: lightTheme.colors.primaryDark,
+    color: darkTheme.colors.primaryDark,
     fontSize: FONT_SIZE.md,
     textDecorationLine: 'underline',
   },

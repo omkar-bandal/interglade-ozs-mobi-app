@@ -1,4 +1,4 @@
-import {lightTheme, SPACING} from '@theme/constants';
+import {darkTheme, SPACING} from '@theme/constants';
 import useTheme from '@theme/useTheme';
 import React, {
   Children,
@@ -183,7 +183,7 @@ const styles = StyleSheet.create({
   progressFill: {
     position: 'absolute',
     height: '100%',
-    backgroundColor: lightTheme.colors.primary,
+    backgroundColor: darkTheme.colors.primary,
     borderRadius: 5,
     zIndex: 2,
   },

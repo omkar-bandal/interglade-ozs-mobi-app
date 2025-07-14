@@ -2,6 +2,7 @@ import Tabs from '@components/ui/Tabs';
 import {SPACING} from '@theme/constants';
 import React, {useState} from 'react';
 import {StyleSheet, View} from 'react-native';
+
 import MyBookings from './MyBooking';
 import MyProposal from './MyProposal';
 

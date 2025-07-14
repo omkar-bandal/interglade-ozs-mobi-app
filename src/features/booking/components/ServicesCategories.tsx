@@ -5,7 +5,8 @@ import {
   useGetAllSubCategoriesByID,
   useGetCategoriesByType,
 } from '@hooks/api/category.rq';
-import {lightTheme, SPACING} from '@theme/constants';
+import {SPACING} from '@theme/constants';
+import useTheme from '@theme/useTheme';
 import {useState} from 'react';
 import {
   ActivityIndicator,
@@ -20,10 +21,13 @@ import AntDesignIcon from 'react-native-vector-icons/AntDesign';
 import {ServiceCategoriesCard} from './card/ServiceCategoriesCard';
 
 export const ServicesCategories = () => {
+  const {theme} = useTheme();
+  const styles = themeStyles(theme);
   const {data, isLoading} = useGetCategoriesByType('service');
   const [modalVisible, setModalVisible] = useState(false);
   const [selectedCategoryId, setSelectedCategoryId] = useState<number>();
-  const {data: subCategoriesData, isLoading: isSubCategoriesLoading} = useGetAllSubCategoriesByID(selectedCategoryId ?? 0, 'service');
+  const {data: subCategoriesData, isLoading: isSubCategoriesLoading} =
+    useGetAllSubCategoriesByID(selectedCategoryId ?? 0, 'service');
 
   const categories = data?.data ?? [];
 
@@ -96,7 +100,8 @@ export const ServicesCategories = () => {
                   variant="outline"
                   size="small"
                   leftIcon={
-                    <AntDesignIcon name="close" size={14} color="#393872" />
+                    <AntDesignIcon name="close" size={14} color="#00695C" />
+                    //color="#393872"
                   }
                   onPress={() => {
                     setModalVisible(false);
@@ -133,68 +138,70 @@ export const ServicesCategories = () => {
   );
 };
 
-const styles = StyleSheet.create({
-  container: {
-    paddingHorizontal: SPACING.md,
-  },
-  services: {
-    flexDirection: 'row',
-    flexWrap: 'wrap',
-    gap: 5,
-    justifyContent: 'center',
-    paddingVertical: SPACING.sm,
-  },
-  sectionHeader: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    //paddingHorizontal: 15,
-    marginBottom: 10,
-  },
-  modalContainer: {
-    flex: 1,
-    backgroundColor: 'rgba(0,0,0,0.5)',
-    justifyContent: 'flex-end',
-  },
-  modalContent: {
-    paddingTop: 10,
-    height: '80%',
-    backgroundColor: '#fff',
-    flexDirection: 'row',
-    borderTopLeftRadius: 16,
-    borderTopRightRadius: 16,
-    overflow: 'hidden',
-  },
-  categoryList: {
-    width: '40%',
-    backgroundColor: lightTheme.components.card.backgroundColor,
-    padding: 10,
-  },
-  subcategoryList: {
-    width: '60%',
-    padding: 10,
-  },
-  categoryItem: {
-    padding: 10,
-    borderBottomWidth: 1,
-    borderBottomColor: '#ddd',
-  },
-  selectedCategoryItem: {
-    backgroundColor: lightTheme.colors.white,
-  },
-  categoryText: {
-    fontSize: 16,
-  },
-  subcategoryTitle: {
-    fontWeight: 'bold',
-    marginBottom: 10,
-    fontSize: 16,
-    color: '#393872',
-  },
-  subcategoryText: {
-    fontSize: 14,
-    paddingVertical: 6,
-    //fontWeight: '500',
-    color: lightTheme.colors.textSecondary,
-  },
-});
+const themeStyles = (theme: any) =>
+  StyleSheet.create({
+    container: {
+      paddingHorizontal: SPACING.md,
+    },
+    services: {
+      flexDirection: 'row',
+      flexWrap: 'wrap',
+      gap: 5,
+      justifyContent: 'center',
+      paddingVertical: SPACING.sm,
+    },
+    sectionHeader: {
+      flexDirection: 'row',
+      justifyContent: 'space-between',
+      alignItems: 'center',
+      //paddingHorizontal: 15,
+      marginBottom: 10,
+    },
+    modalContainer: {
+      flex: 1,
+      backgroundColor: 'rgba(0, 0, 0, 0.5)',
+      justifyContent: 'flex-end',
+    },
+    modalContent: {
+      paddingTop: 10,
+      height: '80%',
+      backgroundColor: theme.colors.background,
+      flexDirection: 'row',
+      borderTopLeftRadius: 16,
+      borderTopRightRadius: 16,
+      overflow: 'hidden',
+    },
+    categoryList: {
+      width: '40%',
+      backgroundColor: theme.components.card.backgroundColor,
+      padding: 10,
+    },
+    subcategoryList: {
+      width: '60%',
+      padding: 10,
+    },
+    categoryItem: {
+      padding: 10,
+      borderBottomWidth: 1,
+      borderBottomColor: theme.colors.border,
+    },
+    selectedCategoryItem: {
+      backgroundColor: theme.colors.primaryLight,
+    },
+    categoryText: {
+      fontSize: 16,
+      color: theme.colors.textTertiary,
+    },
+    subcategoryTitle: {
+      fontWeight: 'bold',
+      marginBottom: 10,
+      fontSize: 16,
+      color: theme.colors.primary,
+    },
+    subcategoryText: {
+      fontSize: 14,
+      paddingVertical: 6,
+      //fontWeight: '500',
+      color: theme.colors.textTertiary,
+    },
+  });

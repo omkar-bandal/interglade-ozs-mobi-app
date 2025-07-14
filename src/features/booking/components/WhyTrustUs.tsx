@@ -1,5 +1,6 @@
 /* eslint-disable react-native/no-inline-styles */
-import {lightTheme, SPACING} from '@theme/constants';
+import {SPACING} from '@theme/constants';
+import useTheme from '@theme/useTheme';
 import React from 'react';
 import {StyleSheet, Text, View} from 'react-native';
 import AntDesignIcon from 'react-native-vector-icons/AntDesign';
@@ -32,6 +33,8 @@ export const data = [
 ];
 
 export default function WhyTrustUs() {
+  const {theme} = useTheme();
+  const styles = themeStyles(theme);
   return (
     <View style={styles.container}>
       <View style={{display: 'flex', flexDirection: 'column'}}>
@@ -68,64 +71,65 @@ export default function WhyTrustUs() {
   );
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: 'space-evenly',
-    paddingHorizontal: 16,
-    paddingVertical: 10,
-    backgroundColor: lightTheme.colors.background,
-  },
-  heading: {
-    paddingLeft: SPACING.lg,
-    justifyContent: 'center',
-    alignItems: 'center',
-    marginBottom: 10,
-  },
-  headingText: {
-    fontSize: 22,
-    fontWeight: 'bold',
-    color: '#7688B3',
-  },
-  subtitle: {
-    paddingLeft: SPACING.lg,
-    alignItems: 'center',
-    marginBottom: 20,
-  },
-  subtitleText: {
-    fontSize: 16,
-    color: lightTheme.colors.text,
-    fontWeight: 500,
-  },
-  cardContainer: {
-    paddingVertical: 10,
-    //backgroundColor: 'red',
-  },
-  card: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    padding: 5,
-    backgroundColor: '#F1FbFb',
-    marginBottom: 5,
-    borderRadius: 8,
-  },
-  iconCon: {
-    height: 60,
-    width: 60,
-    margin: SPACING.sm,
-    borderRadius: 10,
-    backgroundColor: '#B4EBE6',
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  cardTitle: {
-    fontWeight: 500,
-    fontSize: 16,
-    color: '#393872',
-  },
-  cardText: {
-    fontWeight: 400,
-    fontSize: 14,
-    color: '#6A6A6A',
-  },
-});
+const themeStyles = (theme: any) =>
+  StyleSheet.create({
+    container: {
+      flex: 1,
+      justifyContent: 'space-evenly',
+      paddingHorizontal: 16,
+      paddingVertical: 10,
+      backgroundColor: theme.colors.background,
+    },
+    heading: {
+      paddingLeft: SPACING.lg,
+      justifyContent: 'center',
+      alignItems: 'center',
+      marginBottom: 10,
+    },
+    headingText: {
+      fontSize: 22,
+      fontWeight: 'bold',
+      color: '#7688B3',
+    },
+    subtitle: {
+      paddingLeft: SPACING.lg,
+      alignItems: 'center',
+      marginBottom: 20,
+    },
+    subtitleText: {
+      fontSize: 16,
+      color: theme.colors.text,
+      fontWeight: 500,
+    },
+    cardContainer: {
+      paddingVertical: 10,
+      //backgroundColor: 'red',
+    },
+    card: {
+      flexDirection: 'row',
+      alignItems: 'center',
+      padding: 5,
+      backgroundColor: theme.components.card.backgroundColor,
+      marginBottom: 5,
+      borderRadius: 8,
+    },
+    iconCon: {
+      height: 60,
+      width: 60,
+      margin: SPACING.sm,
+      borderRadius: 10,
+      backgroundColor: '#B4EBE6',
+      justifyContent: 'center',
+      alignItems: 'center',
+    },
+    cardTitle: {
+      fontWeight: 500,
+      fontSize: 16,
+      color: '#393872',
+    },
+    cardText: {
+      fontWeight: 400,
+      fontSize: 14,
+      color: '#6A6A6A',
+    },
+  });

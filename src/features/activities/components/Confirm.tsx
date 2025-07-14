@@ -1,7 +1,7 @@
 import Button from '@components/ui/Button';
 import {useUpdateReservation} from '@hooks/api/reservation.rq';
 import {SPACING} from '@theme/constants';
-import lightTheme from '@theme/light';
+import darkTheme from '@theme/light';
 import React, {useState} from 'react';
 import {Modal, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 
@@ -71,7 +71,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   modalCard: {
-    backgroundColor: lightTheme.colors.background,
+    backgroundColor: darkTheme.colors.background,
     position: 'absolute',
     padding: 20,
     borderRadius: 12,
@@ -92,7 +92,7 @@ const styles = StyleSheet.create({
     width: '100%',
   },
   noButton: {
-    backgroundColor: lightTheme.colors.lightGray,
+    backgroundColor: darkTheme.colors.lightGray,
     paddingVertical: SPACING.sm,
     paddingHorizontal: 25,
     borderRadius: 30,
@@ -100,11 +100,11 @@ const styles = StyleSheet.create({
     borderColor: '#ccc',
   },
   noText: {
-    color: lightTheme.colors.textButton,
+    color: darkTheme.colors.textButton,
     fontWeight: '600',
   },
   yesButton: {
-    backgroundColor: lightTheme.colors.primaryDark,
+    backgroundColor: darkTheme.colors.primaryDark,
     paddingVertical: SPACING.sm,
     paddingHorizontal: 25,
     borderRadius: 30,

@@ -1,9 +1,12 @@
 import ScreenHeader from '@components/header/ScreenHeader';
 import ActivityDetails from '@features/activities/components/details/ActivityDetails';
+import useTheme from '@theme/useTheme';
 import React from 'react';
 import {StyleSheet, View} from 'react-native';
 
 export const ActivityDetailsScreen = ({route}: any) => {
+  const {theme} = useTheme();
+  const styles = themeStyles(theme);
   const {reservationId} = route?.params;
 
   return (
@@ -14,9 +17,10 @@ export const ActivityDetailsScreen = ({route}: any) => {
   );
 };
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#f5f5f5',
-  },
-});
+const themeStyles = (theme: any) =>
+  StyleSheet.create({
+    container: {
+      flex: 1,
+      backgroundColor: theme.colors.background,
+    },
+  });

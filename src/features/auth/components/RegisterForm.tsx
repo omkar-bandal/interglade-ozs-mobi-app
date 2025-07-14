@@ -8,7 +8,7 @@ import useForm from '@hooks/useForm';
 import {RegisterRequestParams} from '@services/auth/auth.model';
 import {navigate} from '@utils/NavigationUtils';
 import React from 'react';
-import {StyleSheet, View} from 'react-native';
+import {Alert, StyleSheet, View} from 'react-native';
 import {validationLoginFormSchema} from '../utils/validate';
 
 export default function RegisterForm() {
@@ -39,6 +39,8 @@ export default function RegisterForm() {
     });
 
     if (data.user) {
+      formControl.reset();
+      Alert.alert('Error', JSON.stringify(data));
       await navigate('HomeTab');
       setUser(data.user);
       setSession(data.session);
@@ -47,6 +49,7 @@ export default function RegisterForm() {
 
     if (error?.message) {
       console.log('error', error.message);
+      Alert.alert('Error', JSON.stringify(error.message));
     }
   };
 

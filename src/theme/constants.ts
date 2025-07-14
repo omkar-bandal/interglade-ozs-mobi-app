@@ -68,6 +68,6 @@ export const Z_INDEX = {
   tooltip: 50,
 };
 
-export type Theme = typeof lightTheme;
+export type Theme = typeof darkTheme;
 
 export {darkTheme, lightTheme};

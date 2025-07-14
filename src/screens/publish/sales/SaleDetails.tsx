@@ -3,6 +3,7 @@ import {ImageCarousel} from '@components/ImageCarousel';
 import Button from '@components/ui/Button';
 import {useGetSaleByID} from '@hooks/api/sales.rq';
 import {SPACING} from '@theme/constants';
+import useTheme from '@theme/useTheme';
 import {navigate} from '@utils/NavigationUtils';
 import React from 'react';
 import {
@@ -17,6 +18,8 @@ import Icon from 'react-native-vector-icons/Ionicons';
 
 const SaleDetailsScreen = ({route}: any) => {
   // Assuming sale data is passed via route params
+  const {theme} = useTheme();
+  const styles = themeStyles(theme);
   const {saleId} = route.params;
   const {data, isLoading} = useGetSaleByID(saleId);
 
@@ -226,143 +229,147 @@ const SaleDetailsScreen = ({route}: any) => {
 
 export default SaleDetailsScreen;
 
-const styles = StyleSheet.create({
-  subCon: {
-    paddingHorizontal: SPACING.md,
-    paddingVertical: SPACING.sm,
-  },
-  headingText: {
-    fontWeight: '600',
-    fontSize: 18,
-    marginBottom: 4,
-    color: '#000',
-  },
-  subtitle: {
-    fontSize: 14,
-    fontWeight: '400',
-    color: 'grey',
-  },
-  rowCon: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    paddingHorizontal: SPACING.md,
-    paddingVertical: SPACING.sm,
-  },
-  iconCon: {
-    height: 40,
-    width: 40,
-    backgroundColor: '#f2f2f2',
-    borderRadius: 8,
-    justifyContent: 'center',
-    alignItems: 'center',
-    marginRight: SPACING.md,
-  },
-  locationText: {
-    fontSize: 16,
-    fontWeight: '400',
-    color: '#333',
-  },
-  actions: {
-    flexDirection: 'row',
-    justifyContent: 'space-evenly',
-    paddingHorizontal: SPACING.md,
-    paddingVertical: SPACING.sm,
-  },
-  container: {
-    flex: 1,
-    backgroundColor: '#FFFFFF',
-  },
-  centerContainer: {
-    flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  serviceHeader: {
-    marginBottom: 16,
-  },
-  serviceImage: {
-    width: '100%',
-    height: 200,
-    resizeMode: 'cover',
-  },
-  serviceTitleContainer: {
-    padding: SPACING.md,
-  },
-  serviceTitle: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-  },
-  sectionContainer: {
-    padding: SPACING.md,
-    flexDirection: 'row',
-  },
-  sectionTitle: {
-    fontSize: 16,
-    fontWeight: 'bold',
-    color: '#333333',
-    marginBottom: 12,
-  },
-  descriptionText: {
-    fontSize: 14,
-    color: '#666666',
-    lineHeight: 20,
-  },
-  icon: {
-    height: 40,
-    width: 40,
-    backgroundColor: '#E0F0F0',
-    borderRadius: 5,
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  providerContainer: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    paddingHorizontal: 16,
-  },
-  providerImage: {
-    width: 40,
-    height: 40,
-    borderRadius: 20,
-    marginRight: 12,
-  },
-  providerName: {
-    fontSize: 16,
-    fontWeight: '500',
-    color: '#333333',
-  },
-  providerDetails: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    gap: 5,
-  },
-  contactButton: {
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  contactButtonIcon: {
-    marginBottom: 4,
-  },
-  contactButtonLabel: {
-    fontSize: 12,
-    color: '#666666',
-  },
-  confirmButton: {
-    //backgroundColor: '#4A90E2',
-    paddingVertical: 12,
-    borderRadius: 8,
-    alignItems: 'center',
-    marginHorizontal: 16,
-    marginTop: 16,
-    marginBottom: 16,
-  },
-  editButton: {
-    flex: 1,
-    width: '48%',
-  },
-  deleteButton: {
-    flex: 1,
-    width: '48%',
-  },
-});
+const themeStyles = (theme: any) =>
+  StyleSheet.create({
+    subCon: {
+      paddingHorizontal: SPACING.md,
+      paddingVertical: SPACING.sm,
+    },
+    headingText: {
+      fontWeight: '600',
+      fontSize: 18,
+      marginBottom: 4,
+      //color: '#000',
+      color: theme.colors.text,
+    },
+    subtitle: {
+      fontSize: 14,
+      fontWeight: '400',
+      //color: 'grey',
+      color: theme.colors.textSecondary,
+    },
+    rowCon: {
+      flexDirection: 'row',
+      alignItems: 'center',
+      paddingHorizontal: SPACING.md,
+      paddingVertical: SPACING.sm,
+    },
+    iconCon: {
+      height: 40,
+      width: 40,
+      backgroundColor: '#f2f2f2',
+      borderRadius: 8,
+      justifyContent: 'center',
+      alignItems: 'center',
+      marginRight: SPACING.md,
+    },
+    locationText: {
+      fontSize: 16,
+      fontWeight: '400',
+      //color: '#333',
+      color: theme.colors.textTertiary,
+    },
+    actions: {
+      flexDirection: 'row',
+      justifyContent: 'space-evenly',
+      paddingHorizontal: SPACING.md,
+      paddingVertical: SPACING.sm,
+    },
+    container: {
+      flex: 1,
+      backgroundColor: theme.colors.background,
+    },
+    centerContainer: {
+      flex: 1,
+      alignItems: 'center',
+      justifyContent: 'center',
+    },
+    serviceHeader: {
+      marginBottom: 16,
+    },
+    serviceImage: {
+      width: '100%',
+      height: 200,
+      resizeMode: 'cover',
+    },
+    serviceTitleContainer: {
+      padding: SPACING.md,
+    },
+    serviceTitle: {
+      flexDirection: 'row',
+      justifyContent: 'space-between',
+      alignItems: 'center',
+    },
+    sectionContainer: {
+      padding: SPACING.md,
+      flexDirection: 'row',
+    },
+    sectionTitle: {
+      fontSize: 16,
+      fontWeight: 'bold',
+      color: '#333333',
+      marginBottom: 12,
+    },
+    descriptionText: {
+      fontSize: 14,
+      color: '#666666',
+      lineHeight: 20,
+    },
+    icon: {
+      height: 40,
+      width: 40,
+      backgroundColor: '#E0F0F0',
+      borderRadius: 5,
+      alignItems: 'center',
+      justifyContent: 'center',
+    },
+    providerContainer: {
+      flexDirection: 'row',
+      alignItems: 'center',
+      paddingHorizontal: 16,
+    },
+    providerImage: {
+      width: 40,
+      height: 40,
+      borderRadius: 20,
+      marginRight: 12,
+    },
+    providerName: {
+      fontSize: 16,
+      fontWeight: '500',
+      color: '#333333',
+    },
+    providerDetails: {
+      flexDirection: 'row',
+      justifyContent: 'space-between',
+      gap: 5,
+    },
+    contactButton: {
+      alignItems: 'center',
+      justifyContent: 'center',
+    },
+    contactButtonIcon: {
+      marginBottom: 4,
+    },
+    contactButtonLabel: {
+      fontSize: 12,
+      color: '#666666',
+    },
+    confirmButton: {
+      //backgroundColor: '#4A90E2',
+      paddingVertical: 12,
+      borderRadius: 8,
+      alignItems: 'center',
+      marginHorizontal: 16,
+      marginTop: 16,
+      marginBottom: 16,
+    },
+    editButton: {
+      flex: 1,
+      width: '48%',
+    },
+    deleteButton: {
+      flex: 1,
+      width: '48%',
+    },
+  });
