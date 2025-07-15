@@ -123,7 +123,7 @@ const ActivityDetails = ({reservationId}: any) => {
         </View>
 
         {/* Action Buttons */}
-        {reservation?.status === 'completed' || (
+        {reservation?.status === 'completed' && (
           <View style={styles.actionRow}>
             <TouchableOpacity
               style={styles.outlineBtn}
@@ -207,7 +207,7 @@ const ActivityDetails = ({reservationId}: any) => {
         </View>
       </ScrollView>
 
-      {reservation?.status !== 'confirmed' && (
+      {reservation?.status === 'completed' && (
         <View style={styles.confirmButton}>
           <Complete id={reservationId} />
         </View>

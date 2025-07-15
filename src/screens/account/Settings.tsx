@@ -1,9 +1,15 @@
-import {Container} from '@components/ui/Container';
 import {Heading} from '@features/account/components/Heading';
 import {SPACING} from '@theme/constants';
 import useTheme from '@theme/useTheme';
-import {useState} from 'react';
-import {StyleSheet, Switch, Text, View} from 'react-native';
+import React, {useState} from 'react';
+import {
+  SafeAreaView,
+  StatusBar,
+  StyleSheet,
+  Switch,
+  Text,
+  View,
+} from 'react-native';
 
 export function Settings() {
   const {theme, themeType, setThemeType} = useTheme();
@@ -21,7 +27,10 @@ export function Settings() {
 
   const styles = themeStyles(theme);
   return (
-    <Container>
+    <SafeAreaView style={{flex: 1, backgroundColor: theme.colors.background}}>
+      <StatusBar
+        barStyle={themeType === 'dark' ? 'light-content' : 'dark-content'}
+      />
       <Heading title="App Settings" />
       <View style={styles.section}>
         <View style={[styles.rowWrapper, styles.rowFirst]}>
@@ -73,14 +82,14 @@ export function Settings() {
           </View>
         </View>
       </View>
-    </Container>
+    </SafeAreaView>
   );
 }
 
 const themeStyles = (theme: any) =>
   StyleSheet.create({
     section: {
-      flex: 1,
+      //flex: 1,
       paddingVertical: SPACING.sm,
       paddingHorizontal: SPACING.md,
       backgroundColor: theme.colors.background,

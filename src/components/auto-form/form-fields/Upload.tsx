@@ -1,4 +1,5 @@
 import Button from '@components/ui/Button';
+import useTheme from '@theme/useTheme';
 import React, {useEffect, useState} from 'react';
 import {
   Alert,
@@ -58,6 +59,8 @@ export const FormSingleImageUpload: React.FC<SingleImageUploadProps> = ({
     null,
   );
 
+  const {theme} = useTheme();
+  const styles = themeStyles(theme);
   // Handle form control integration
   const imageProps =
     name && formControl.register
@@ -261,6 +264,9 @@ export const FormMultiImageUpload: React.FC<MultiImageUploadProps> = ({
   const [selectedImages, setSelectedImages] = useState<(string | FileType)[]>(
     [],
   );
+
+  const {theme} = useTheme();
+  const styles = themeStyles(theme);
   // Handle form control integration
   const imageProps =
     name && formControl.register
@@ -374,115 +380,116 @@ export const FormMultiImageUpload: React.FC<MultiImageUploadProps> = ({
 };
 
 // Styles
-const styles = StyleSheet.create({
-  imageUploadContainer: {
-    marginBottom: 16,
-  },
-  labelContainer: {
-    flexDirection: 'row',
-    marginBottom: 8,
-  },
-  inputLabel: {
-    fontSize: 14,
-    fontWeight: '500',
-    color: '#333',
-  },
-  requiredStar: {
-    color: '#e74c3c',
-    fontSize: 14,
-    marginLeft: 4,
-  },
-  imageUploadActions: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    marginBottom: 8,
-  },
-  cameraButton: {
-    flex: 0.48,
-    height: 48,
-    backgroundColor: '#2ecc71',
-    borderRadius: 8,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  libraryButton: {
-    flex: 1,
-    height: 48,
-    backgroundColor: '#3498db',
-    borderRadius: 8,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  buttonText: {
-    color: '#fff',
-    fontSize: 16,
-    fontWeight: '600',
-  },
-  selectedImageContainer: {
-    backgroundColor: '#f0f0f0',
-    borderRadius: 8,
-    marginTop: 8,
-    overflow: 'hidden',
-  },
-  previewImage: {
-    width: '100%',
-    height: 200,
-  },
-  imageDetailContainer: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'space-between',
-    padding: 10,
-  },
-  selectedImageName: {
-    flex: 1,
-    marginRight: 10,
-    fontSize: 14,
-  },
-  clearButton: {
-    padding: 5,
-  },
-  clearButtonText: {
-    color: '#e74c3c',
-    fontSize: 16,
-    fontWeight: 'bold',
-  },
-  errorText: {
-    color: '#e74c3c',
-    fontSize: 12,
-    marginTop: 4,
-  },
-  selectedImagesContainer: {
-    flexDirection: 'row',
-    flexWrap: 'wrap',
-    marginTop: 8,
-  },
-  thumbnailContainer: {
-    position: 'relative',
-    width: 80,
-    height: 80,
-    margin: 4,
-    borderRadius: 8,
-    overflow: 'hidden',
-  },
-  thumbnailImage: {
-    width: '100%',
-    height: '100%',
-  },
-  thumbnailRemoveButton: {
-    position: 'absolute',
-    top: 4,
-    right: 4,
-    backgroundColor: 'rgba(0,0,0,0.5)',
-    borderRadius: 12,
-    width: 24,
-    height: 24,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  thumbnailRemoveText: {
-    color: 'white',
-    fontSize: 14,
-    fontWeight: 'bold',
-  },
-});
+const themeStyles = (theme: any) =>
+  StyleSheet.create({
+    imageUploadContainer: {
+      marginBottom: 16,
+    },
+    labelContainer: {
+      flexDirection: 'row',
+      marginBottom: 8,
+    },
+    inputLabel: {
+      fontSize: 14,
+      fontWeight: '500',
+      color: theme.colors.text,
+    },
+    requiredStar: {
+      color: '#e74c3c',
+      fontSize: 14,
+      marginLeft: 4,
+    },
+    imageUploadActions: {
+      flexDirection: 'row',
+      justifyContent: 'space-between',
+      marginBottom: 8,
+    },
+    cameraButton: {
+      flex: 0.48,
+      height: 48,
+      backgroundColor: '#2ecc71',
+      borderRadius: 8,
+      justifyContent: 'center',
+      alignItems: 'center',
+    },
+    libraryButton: {
+      flex: 1,
+      height: 48,
+      backgroundColor: '#3498db',
+      borderRadius: 8,
+      justifyContent: 'center',
+      alignItems: 'center',
+    },
+    buttonText: {
+      color: '#fff',
+      fontSize: 16,
+      fontWeight: '600',
+    },
+    selectedImageContainer: {
+      backgroundColor: '#f0f0f0',
+      borderRadius: 8,
+      marginTop: 8,
+      overflow: 'hidden',
+    },
+    previewImage: {
+      width: '100%',
+      height: 200,
+    },
+    imageDetailContainer: {
+      flexDirection: 'row',
+      alignItems: 'center',
+      justifyContent: 'space-between',
+      padding: 10,
+    },
+    selectedImageName: {
+      flex: 1,
+      marginRight: 10,
+      fontSize: 14,
+    },
+    clearButton: {
+      padding: 5,
+    },
+    clearButtonText: {
+      color: '#e74c3c',
+      fontSize: 16,
+      fontWeight: 'bold',
+    },
+    errorText: {
+      color: '#e74c3c',
+      fontSize: 12,
+      marginTop: 4,
+    },
+    selectedImagesContainer: {
+      flexDirection: 'row',
+      flexWrap: 'wrap',
+      marginTop: 8,
+    },
+    thumbnailContainer: {
+      position: 'relative',
+      width: 80,
+      height: 80,
+      margin: 4,
+      borderRadius: 8,
+      overflow: 'hidden',
+    },
+    thumbnailImage: {
+      width: '100%',
+      height: '100%',
+    },
+    thumbnailRemoveButton: {
+      position: 'absolute',
+      top: 4,
+      right: 4,
+      backgroundColor: 'rgba(0,0,0,0.5)',
+      borderRadius: 12,
+      width: 24,
+      height: 24,
+      justifyContent: 'center',
+      alignItems: 'center',
+    },
+    thumbnailRemoveText: {
+      color: 'white',
+      fontSize: 14,
+      fontWeight: 'bold',
+    },
+  });

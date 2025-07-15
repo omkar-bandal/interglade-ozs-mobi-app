@@ -1,4 +1,5 @@
 import {SPACING} from '@theme/constants';
+import useTheme from '@theme/useTheme';
 import React from 'react';
 import {Image, ScrollView, StyleSheet, Text, View} from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons';
@@ -20,6 +21,8 @@ interface SummaryProps {
 }
 
 export const Summary: React.FC<SummaryProps> = ({formData}) => {
+  const {theme} = useTheme();
+  const styles = themeStyles(theme);
   // Get the location from either service_area or location field
   const displayLocation =
     formData.service_area || formData.location || 'No location specified';
@@ -122,83 +125,84 @@ export const Summary: React.FC<SummaryProps> = ({formData}) => {
   );
 };
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    padding: SPACING.sm,
-  },
-  card: {
-    backgroundColor: '#FFFFFF',
-    borderRadius: 12,
-    marginBottom: SPACING.sm,
-    shadowColor: '#000',
-    shadowOffset: {width: 0, height: 2},
-    shadowOpacity: 0.1,
-    shadowRadius: 4,
-    elevation: 3,
-  },
-  cardHeader: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    padding: 15,
-    borderBottomWidth: 1,
-    borderBottomColor: '#F0F0F0',
-  },
-  cardHeaderText: {
-    marginLeft: 10,
-    fontSize: 16,
-    fontWeight: '600',
-    color: '#333',
-  },
-  cardContent: {
-    padding: 15,
-  },
-  titleText: {
-    fontSize: 18,
-    fontWeight: 'bold',
-    color: '#333',
-    marginBottom: 5,
-  },
-  subtitleText: {
-    fontSize: 14,
-    color: '#666',
-  },
-  descriptionText: {
-    fontSize: 15,
-    color: '#555',
-    lineHeight: 22,
-  },
-  priceConditionRow: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    marginBottom: 10,
-  },
-  labelText: {
-    fontSize: 15,
-    color: '#666',
-    fontWeight: '500',
-  },
-  valueText: {
-    fontSize: 16,
-    color: '#333',
-    fontWeight: '600',
-  },
-  conditionText: {
-    fontSize: 15,
-    fontWeight: '600',
-  },
-  locationText: {
-    fontSize: 15,
-    color: '#555',
-  },
-  imageGallery: {
-    paddingHorizontal: 15,
-    paddingBottom: 15,
-  },
-  galleryImage: {
-    width: 100,
-    height: 100,
-    borderRadius: 10,
-    marginRight: 10,
-  },
-});
+const themeStyles = (theme: any) =>
+  StyleSheet.create({
+    container: {
+      flex: 1,
+      padding: SPACING.sm,
+    },
+    card: {
+      backgroundColor: theme.colors.card,
+      borderRadius: 12,
+      marginBottom: SPACING.sm,
+      shadowColor: '#000',
+      shadowOffset: {width: 0, height: 2},
+      shadowOpacity: 0.1,
+      shadowRadius: 4,
+      elevation: 3,
+    },
+    cardHeader: {
+      flexDirection: 'row',
+      alignItems: 'center',
+      padding: 15,
+      borderBottomWidth: 1,
+      borderBottomColor: theme.colors.border,
+    },
+    cardHeaderText: {
+      marginLeft: 10,
+      fontSize: 16,
+      fontWeight: '600',
+      color: theme.colors.text,
+    },
+    cardContent: {
+      padding: 15,
+    },
+    titleText: {
+      fontSize: 18,
+      fontWeight: 'bold',
+      color: theme.colors.textSecondary,
+      marginBottom: 5,
+    },
+    subtitleText: {
+      fontSize: 14,
+      color: theme.colors.textSecondary,
+    },
+    descriptionText: {
+      fontSize: 15,
+      color: theme.colors.textSecondary,
+      lineHeight: 22,
+    },
+    priceConditionRow: {
+      flexDirection: 'row',
+      justifyContent: 'space-between',
+      marginBottom: 10,
+    },
+    labelText: {
+      fontSize: 15,
+      color: theme.colors.textSecondary,
+      fontWeight: '500',
+    },
+    valueText: {
+      fontSize: 16,
+      color: theme.colors.textSecondary,
+      fontWeight: '600',
+    },
+    conditionText: {
+      fontSize: 15,
+      fontWeight: '600',
+    },
+    locationText: {
+      fontSize: 15,
+      color: theme.colors.textSecondary,
+    },
+    imageGallery: {
+      paddingHorizontal: 15,
+      paddingBottom: 15,
+    },
+    galleryImage: {
+      width: 100,
+      height: 100,
+      borderRadius: 10,
+      marginRight: 10,
+    },
+  });

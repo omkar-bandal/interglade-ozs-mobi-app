@@ -39,6 +39,7 @@ const MultiStep: React.FC<MultiStepProps> = ({
   submitButton,
 }) => {
   const {theme} = useTheme();
+  const styles = themeStyles(theme);
   const [currentStep, setCurrentStep] = useState(0);
   const progressWidth = useRef(new Animated.Value(0)).current;
 
@@ -159,66 +160,67 @@ const MultiStep: React.FC<MultiStepProps> = ({
   );
 };
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    padding: 20,
-    backgroundColor: '#F5F5F5',
-  },
-  progressContainer: {
-    marginBottom: 30,
-    borderWidth: 1,
-    borderColor: '#E0E0E0',
-    borderRadius: 10,
-    padding: SPACING.sm,
-  },
-  progressTrack: {
-    marginTop: 15,
-    height: 10,
-    backgroundColor: '#E0E0E0',
-    borderRadius: 5,
-    position: 'relative',
-    overflow: 'visible',
-  },
-  progressFill: {
-    position: 'absolute',
-    height: '100%',
-    backgroundColor: darkTheme.colors.primary,
-    borderRadius: 5,
-    zIndex: 2,
-  },
-  progressDot: {
-    width: 16,
-    height: 16,
-    borderRadius: 8,
-    position: 'absolute',
-    top: -3,
-    zIndex: 3,
-    borderWidth: 2,
-    borderColor: 'white',
-    shadowColor: '#000',
-    shadowOffset: {width: 0, height: 2},
-    shadowOpacity: 0.1,
-    shadowRadius: 2,
-    elevation: 3,
-  },
-  progressText: {
-    textAlign: 'center',
-    marginTop: 10,
-    color: '#333',
-    fontSize: 14,
-  },
-  stepContent: {
-    flex: 1,
-    justifyContent: 'center',
-  },
-  buttonContainer: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    marginTop: 20,
-    gap: 5,
-  },
-});
+const themeStyles = (theme: any) =>
+  StyleSheet.create({
+    container: {
+      flex: 1,
+      padding: 20,
+      backgroundColor: theme.colors.background,
+    },
+    progressContainer: {
+      marginBottom: 30,
+      borderWidth: 1,
+      borderColor: theme.colors.border,
+      borderRadius: 10,
+      padding: SPACING.sm,
+    },
+    progressTrack: {
+      marginTop: 15,
+      height: 10,
+      backgroundColor: '#E0E0E0',
+      borderRadius: 5,
+      position: 'relative',
+      overflow: 'visible',
+    },
+    progressFill: {
+      position: 'absolute',
+      height: '100%',
+      backgroundColor: darkTheme.colors.primary,
+      borderRadius: 5,
+      zIndex: 2,
+    },
+    progressDot: {
+      width: 16,
+      height: 16,
+      borderRadius: 8,
+      position: 'absolute',
+      top: -3,
+      zIndex: 3,
+      borderWidth: 2,
+      borderColor: 'white',
+      shadowColor: '#000',
+      shadowOffset: {width: 0, height: 2},
+      shadowOpacity: 0.1,
+      shadowRadius: 2,
+      elevation: 3,
+    },
+    progressText: {
+      textAlign: 'center',
+      marginTop: 10,
+      color: theme.colors.text,
+      fontSize: 14,
+    },
+    stepContent: {
+      flex: 1,
+      justifyContent: 'center',
+    },
+    buttonContainer: {
+      flexDirection: 'row',
+      justifyContent: 'space-between',
+      marginTop: 20,
+      gap: 5,
+    },
+  });
 
 // Export both MultiStep and Step
 export {MultiStep, Step};

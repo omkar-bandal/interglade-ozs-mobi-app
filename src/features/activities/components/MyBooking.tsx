@@ -1,6 +1,8 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable react-native/no-inline-styles */
-import {useGetAllReservations} from '@hooks/api/reservation.rq';
+import {
+  useDeleteReservation,
+  useGetReservationByUserIdAndStatus,
+} from '@hooks/api/reservation.rq';
 import {useTypedSelector} from '@hooks/useTypedSelector';
 import {useNavigation} from '@react-navigation/native';
 import React from 'react';
@@ -51,31 +53,30 @@ import EmptyBookingsList from './EmptyBookingList';
 
 const MyBookings = ({tabType}: any) => {
   const {user} = useTypedSelector(state => state.auth);
-  // const {data, isLoading} = useGetReservationByUserIdAndStatus(
-  //   user?.id as string,
-  //   tabType,
-  // );
-
-  const {data, isLoading} = useGetAllReservations();
-  //const {data, isLoading} = useGetAllReservations();
+  const {data, isLoading} = useGetReservationByUserIdAndStatus(
+    user?.id as string,
+    tabType,
+  );
   const navigation = useNavigation<any>();
-
-  //const isLoading = false;
+  const {mutate: deleteReservation} = useDeleteReservation();
 
   // Handle actions
+
   const handleCancel = (id: any) => {
-    // useDeleteReservation(id, {
-    //   onSuccess: data => {
-    //     Alert.alert('Deleted', 'Reservation deleted successfully.');
-    //   },
-    //   onError: (error: any) => {
-    //     Alert.alert('Error', error?.message || 'Failed to delete reservation.');
-    //   },
-    // });
+    deleteReservation(id, {
+      onSuccess: () => {
+        Alert.alert('Success', 'Booking cancelled successfully.');
+        // Optional: refetch reservation list here if needed
+      },
+      onError: (error: any) => {
+        Alert.alert('Error', 'Failed to cancel booking. Please try again.');
+        console.error(error);
+      },
+    });
   };
 
   const handleViewDetails = (id: any) => {
-    //Alert.alert(`View details for booking ${id}`);
+    Alert.alert(`View details for booking ${id}`);
     navigation.navigate('ActivityDetails', {
       reservationId: id,
     });

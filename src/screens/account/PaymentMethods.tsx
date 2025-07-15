@@ -1,9 +1,9 @@
-import {Container} from '@components/ui/Container';
 import {Heading} from '@features/account/components/Heading';
 import {SPACING} from '@theme/constants';
 import useTheme from '@theme/useTheme';
 import {useState} from 'react';
 import {
+  SafeAreaView,
   StatusBar,
   StyleSheet,
   Text,
@@ -21,7 +21,7 @@ export function PaymentMethods() {
   };
 
   return (
-    <Container>
+    <SafeAreaView style={{flex: 1, backgroundColor: theme.colors.background}}>
       <StatusBar
         barStyle={themeType === 'dark' ? 'light-content' : 'dark-content'}
       />
@@ -90,7 +90,7 @@ export function PaymentMethods() {
           </View>
         </View>
       </View>
-    </Container>
+    </SafeAreaView>
   );
 }
 

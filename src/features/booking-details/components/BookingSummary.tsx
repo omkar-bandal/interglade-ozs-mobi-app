@@ -11,7 +11,6 @@ import useTheme from '@theme/useTheme';
 import {navigate} from '@utils/NavigationUtils';
 import React, {useState} from 'react';
 import {
-  Alert,
   Image,
   SafeAreaView,
   ScrollView,
@@ -55,14 +54,14 @@ const BookingSummary = () => {
       };
       const response = await bookService(reservationData);
       console.log('response', response);
-      Alert.alert('Response', JSON.stringify(response));
+      //Alert.alert('Response', JSON.stringify(response));
       if (response?.status === 201) {
         deleteCart();
         setSuccess(true);
       }
     } catch (error) {
       console.log('error', error);
-      Alert.alert('Error', JSON.stringify(error));
+      //Alert.alert('Error', JSON.stringify(error));
     }
   };
 

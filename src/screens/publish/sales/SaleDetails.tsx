@@ -111,7 +111,7 @@ const SaleDetailsScreen = ({route}: any) => {
           </View> */}
 
         <View style={styles.subCon}>
-          <Text style={styles.headingText}>Home HairDresser</Text>
+          <Text style={styles.headingText}>{salesData.title}</Text>
           <Text style={styles.subtitle}>
             {salesData?.title || 'Category : Services - HairDresser'}
           </Text>
@@ -128,12 +128,14 @@ const SaleDetailsScreen = ({route}: any) => {
 
         <View style={styles.subCon}>
           <Text style={styles.headingText}>Description</Text>
-          <Text style={styles.descriptionText}>
-            Lorem ipsum dolor, sit amet consectetur adipisicing elit. Officia at
-            cupiditate consectetur doloribus iste numquam deserunt, inventore
-            quibusdam labore adipisci assumenda reiciendis nam vero molestiae
-            atque modi porro similique maiores?
-          </Text>
+          <Text style={styles.descriptionText}>{salesData.description}</Text>
+        </View>
+
+        <View style={styles.rowCon}>
+          <View style={styles.iconCon}>
+            <Icon name="star" size={24} color="#393872" />
+          </View>
+          <Text style={styles.locationText}>{salesData?.price}</Text>
         </View>
 
         <View style={styles.rowCon}>
@@ -141,15 +143,8 @@ const SaleDetailsScreen = ({route}: any) => {
             <Icon name="star" size={24} color="#393872" />
           </View>
           <Text style={styles.locationText}>
-            {salesData?.price || '₹500/hour'}
+            {salesData.availability || 'All day'}
           </Text>
-        </View>
-
-        <View style={styles.rowCon}>
-          <View style={styles.iconCon}>
-            <Icon name="star" size={24} color="#393872" />
-          </View>
-          <Text style={styles.locationText}>All Day</Text>
         </View>
 
         <View style={styles.subCon}>
@@ -160,7 +155,7 @@ const SaleDetailsScreen = ({route}: any) => {
           <View style={styles.iconCon}>
             <Icon name="star" size={24} color="#393872" />
           </View>
-          <Text style={styles.locationText}>128 Views</Text>
+          <Text style={styles.locationText}>{salesData.reviews || '128 Views'}</Text>
         </View>
 
         <View style={styles.rowCon}>

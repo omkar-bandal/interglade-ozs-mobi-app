@@ -1,5 +1,5 @@
 /* eslint-disable react-native/no-inline-styles */
-import darkTheme from '@theme/light';
+import useTheme from '@theme/useTheme';
 import {navigate} from '@utils/NavigationUtils';
 import React from 'react';
 import {
@@ -15,11 +15,15 @@ import Confirm from './Confirm';
 import Decline from './Decline';
 
 // Vector Icons components
-const CalendarIcon = () => (
-  <View style={styles.icon}>
-    <Ionicons name="calendar-outline" size={20} color="#666" />
-  </View>
-);
+const CalendarIcon = () => {
+  const {theme} = useTheme();
+  const styles = themeStyles(theme);
+  return (
+    <View style={styles.icon}>
+      <Ionicons name="calendar-outline" size={20} color="#666" />
+    </View>
+  );
+};
 
 // const ClockIcon = () => (
 //   <View style={styles.icon}>
@@ -27,11 +31,15 @@ const CalendarIcon = () => (
 //   </View>
 // );
 
-const LocationIcon = () => (
-  <View style={styles.icon}>
-    <Ionicons name="location-outline" size={20} color="#666" />
-  </View>
-);
+const LocationIcon = () => {
+  const {theme} = useTheme();
+  const styles = themeStyles(theme);
+  return (
+    <View style={styles.icon}>
+      <Ionicons name="location-outline" size={20} color="#666" />
+    </View>
+  );
+};
 
 const BookingItem = ({
   id,
@@ -44,9 +52,11 @@ const BookingItem = ({
   onCancel,
   onClose,
   onViewDetails,
-  type = 'myPropsal',
+  type,
 }: any) => {
   // Set styles based on status
+  const {theme} = useTheme();
+  const styles = themeStyles(theme);
   let containerStyle = styles.bookingItem;
   let statusStyle = styles.statusReserved;
   let statusText = 'Reserved';
@@ -96,13 +106,13 @@ const BookingItem = ({
           <LocationIcon />
           <Text style={styles.detailText}>{location}</Text>
         </View>
-        {status === 'pending' && type === 'myBooking' ? (
+        {type === 'myBooking' ? (
           <View style={styles.btnCon}>
             {/* <TouchableOpacity style={styles.viewDetailsButton} onPress={onChat}>
               <AntDesignIcon color="#393872" name="wechat" size={20} />
               <Text style={styles.viewDetailsText}>Chat</Text>
             </TouchableOpacity> */}
-            {type === 'myBooking' ? (
+            {status === 'pending' ? (
               <TouchableOpacity
                 style={styles.viewDetailsButton}
                 onPress={onCancel}>
@@ -124,155 +134,163 @@ const BookingItem = ({
               <Text style={styles.viewDetailsText}>View Details</Text>
             </TouchableOpacity>
           </View>
-        ) : null}
-
-        {(status === 'reserved' || status === 'pending') &&
-          type === 'myPropsal' && (
+        ) : (
+          (status === 'reserved' || status === 'pending') && (
             <View style={styles.actionButtons}>
               <Decline id={id} />
               <Confirm id={id} />
             </View>
-          )}
+          )
+        )}
+
+        {/* {type === 'myProposal' &&
+          (status === 'reserved' || status === 'pending') && (
+            <View style={styles.actionButtons}>
+              <Decline id={id} />
+              <Confirm id={id} />
+            </View>
+          )} */}
       </View>
     </Pressable>
   );
 };
 
-const styles = StyleSheet.create({
-  bookingItem: {
-    backgroundColor: darkTheme.components.card.backgroundColor,
-    borderRadius: 8,
-    padding: 15,
-    marginVertical: 8,
-  },
-  bookingItemConfirmed: {
-    backgroundColor: 'white',
-    borderRadius: 8,
-    padding: 15,
-    marginVertical: 8,
-    borderWidth: 1,
-    borderColor: '#8BC34A', // Success green color for confirmed items
-  },
-  bookingItemDeclined: {
-    backgroundColor: 'white',
-    borderRadius: 8,
-    padding: 15,
-    marginVertical: 8,
-    borderWidth: 1,
-    borderColor: '#F44336', // Decline red color for declined items
-  },
-  bookingHeader: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'flex-start',
-    marginBottom: 12,
-    //backgroundColor: 'red',
-  },
-  bookingTitle: {
-    fontSize: 16,
-    fontWeight: 'bold',
-    color: '#333',
-  },
-  bookingProvider: {
-    fontSize: 14,
-    color: '#666',
-    marginTop: 2,
-  },
-  statusReserved: {
-    backgroundColor: '#D4E157',
-    paddingHorizontal: 8,
-    paddingVertical: 3,
-    borderRadius: 4,
-  },
-  statusPending: {
-    backgroundColor: '#FFB74D',
-    paddingHorizontal: 8,
-    paddingVertical: 3,
-    borderRadius: 4,
-  },
-  statusConfirmed: {
-    backgroundColor: '#8BC34A',
-    paddingHorizontal: 8,
-    paddingVertical: 3,
-    borderRadius: 4,
-  },
-  statusDeclined: {
-    backgroundColor: '#F44336',
-    paddingHorizontal: 8,
-    paddingVertical: 3,
-    borderRadius: 4,
-  },
-  statusText: {
-    color: 'white',
-    fontSize: 12,
-    fontWeight: '500',
-  },
-  bookingDetail: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    marginBottom: 8,
-  },
-  bookingDetailLocation: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'space-between',
-    marginBottom: 12,
-  },
-  icon: {
-    marginRight: 8,
-  },
-  detailText: {
-    fontSize: 14,
-    color: '#666',
-    flex: 1,
-  },
-  btnCon: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-  },
-  viewDetailsButton: {
-    paddingVertical: 5,
-    paddingHorizontal: 10,
-    backgroundColor: darkTheme.colors.secondaryLight,
-    borderRadius: 5,
-    flexDirection: 'row',
-  },
-  viewDetailsText: {
-    color: darkTheme.colors.textSecondary,
-    fontSize: 12,
-    fontWeight: '500',
-    paddingHorizontal: 5,
-  },
-  actionButtons: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    marginTop: 8,
-    gap: 5,
-  },
-  declineButton: {
-    flex: 1,
-    paddingVertical: 10,
-    alignItems: 'center',
-    borderWidth: 1,
-    borderColor: '#ddd',
-    borderRadius: 8,
-    marginRight: 8,
-  },
-  declineButtonText: {
-    color: '#666',
-  },
-  confirmButton: {
-    flex: 1,
-    paddingVertical: 10,
-    alignItems: 'center',
-    backgroundColor: '#8BC34A',
-    borderRadius: 8,
-    marginLeft: 8,
-  },
-  confirmButtonText: {
-    color: 'white',
-    fontWeight: '500',
-  },
-});
+const themeStyles = (theme: any) =>
+  StyleSheet.create({
+    bookingItem: {
+      backgroundColor: theme.components.card.backgroundColor,
+      borderRadius: 8,
+      padding: 15,
+      marginVertical: 8,
+    },
+    bookingItemConfirmed: {
+      backgroundColor: 'white',
+      borderRadius: 8,
+      padding: 15,
+      marginVertical: 8,
+      borderWidth: 1,
+      borderColor: '#8BC34A', // Success green color for confirmed items
+    },
+    bookingItemDeclined: {
+      backgroundColor: 'white',
+      borderRadius: 8,
+      padding: 15,
+      marginVertical: 8,
+      borderWidth: 1,
+      borderColor: '#F44336', // Decline red color for declined items
+    },
+    bookingHeader: {
+      flexDirection: 'row',
+      justifyContent: 'space-between',
+      alignItems: 'flex-start',
+      marginBottom: 12,
+      //backgroundColor: 'red',
+    },
+    bookingTitle: {
+      fontSize: 16,
+      fontWeight: 'bold',
+      color: '#333',
+    },
+    bookingProvider: {
+      fontSize: 14,
+      color: '#666',
+      marginTop: 2,
+    },
+    statusReserved: {
+      backgroundColor: '#D4E157',
+      paddingHorizontal: 8,
+      paddingVertical: 3,
+      borderRadius: 4,
+    },
+    statusPending: {
+      backgroundColor: '#FFB74D',
+      paddingHorizontal: 8,
+      paddingVertical: 3,
+      borderRadius: 4,
+    },
+    statusConfirmed: {
+      backgroundColor: '#8BC34A',
+      paddingHorizontal: 8,
+      paddingVertical: 3,
+      borderRadius: 4,
+    },
+    statusDeclined: {
+      backgroundColor: '#F44336',
+      paddingHorizontal: 8,
+      paddingVertical: 3,
+      borderRadius: 4,
+    },
+    statusText: {
+      color: 'white',
+      fontSize: 12,
+      fontWeight: '500',
+    },
+    bookingDetail: {
+      flexDirection: 'row',
+      alignItems: 'center',
+      marginBottom: 8,
+    },
+    bookingDetailLocation: {
+      flexDirection: 'row',
+      alignItems: 'center',
+      justifyContent: 'space-between',
+      marginBottom: 12,
+    },
+    icon: {
+      marginRight: 8,
+    },
+    detailText: {
+      fontSize: 14,
+      color: '#666',
+      flex: 1,
+    },
+    btnCon: {
+      flexDirection: 'row',
+      justifyContent: 'space-between',
+    },
+    viewDetailsButton: {
+      paddingVertical: 5,
+      paddingHorizontal: 10,
+      backgroundColor: theme.colors.primary,
+      borderRadius: 5,
+      flexDirection: 'row',
+    },
+    viewDetailsText: {
+      color: theme.colors.textSecondary,
+      fontSize: 12,
+      fontWeight: '500',
+      paddingHorizontal: 5,
+    },
+    actionButtons: {
+      flexDirection: 'row',
+      justifyContent: 'space-between',
+      marginTop: 8,
+      gap: 5,
+    },
+    declineButton: {
+      flex: 1,
+      paddingVertical: 10,
+      alignItems: 'center',
+      borderWidth: 1,
+      borderColor: '#ddd',
+      borderRadius: 8,
+      marginRight: 8,
+    },
+    declineButtonText: {
+      color: '#666',
+    },
+    confirmButton: {
+      flex: 1,
+      paddingVertical: 10,
+      alignItems: 'center',
+      backgroundColor: '#8BC34A',
+      borderRadius: 8,
+      marginLeft: 8,
+    },
+    confirmButtonText: {
+      color: 'white',
+      fontWeight: '500',
+    },
+  });
 
 export default BookingItem;

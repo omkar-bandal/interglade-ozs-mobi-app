@@ -34,7 +34,14 @@ const WhatsNew = () => {
           Whats New?
         </Typography>
 
-        <Button label="See All" size="small" variant="ghost" />
+        <Button
+          label="See All"
+          size="small"
+          variant="ghost"
+          onPress={() => {
+            navigate('SearchAndFilter');
+          }}
+        />
       </View>
       <View style={styles.cardsContainer}>
         <ScrollView horizontal showsHorizontalScrollIndicator={false}>

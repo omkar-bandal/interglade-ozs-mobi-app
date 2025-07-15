@@ -35,8 +35,7 @@ const PostScreen = () => {
     <View style={styles.conatiner}>
       {/* <SaleForms/> */}
       <StatusBar
-        barStyle={themeType === 'dark' ? 'dark-content' : 'light-content'}
-        backgroundColor={themeType === 'dark' ? '#fff' : '#000'}
+        barStyle={themeType === 'dark' ? 'light-content' : 'dark-content'}
       />
 
       <Heading heading={'What would you like to publish?'} />
@@ -46,7 +45,7 @@ const PostScreen = () => {
           style={styles.subContainer}
           onPress={() => navigate('AddService')}>
           <View style={styles.iconContainer}>
-            <AntDesignIcon color="#4D948E" name="tooloutlined" size={24} />
+            <AntDesignIcon color="#4D948E" name="setting" size={24} />
             {/* <ToolOutlined /> */}
           </View>
           <Subtitle subtitle={'Offer a Service'} />
@@ -56,7 +55,7 @@ const PostScreen = () => {
           style={styles.subContainer}
           onPress={() => navigate('AddSale')}>
           <View style={styles.iconContainer}>
-            <AntDesignIcon color="#4D948E" name="tooloutlined" size={24} />
+            <AntDesignIcon color="#4D948E" name="shoppingcart" size={24} />
           </View>
           <Subtitle subtitle={'Post a Sale'} />
         </TouchableOpacity>
@@ -79,11 +78,13 @@ export default PostScreen;
 var themeStyles = (theme: any) =>
   StyleSheet.create({
     conatiner: {
-      width: '100%',
-      height: '100%',
+      flex: 1,
+      // width: '100%',
+      // height: '100%',
       padding: SPACING.xxl,
       justifyContent: 'center',
       alignItems: 'center',
+      backgroundColor: theme.colors.background,
     },
     boxContainer: {
       marginTop: 50,
@@ -104,35 +105,17 @@ var themeStyles = (theme: any) =>
       borderRadius: 5,
       display: 'flex',
       flexDirection: 'row',
-      justifyContent: 'space-evenly',
-      alignItems: 'center',
       gap: 24,
-      backgroundColor: '#FFFFFF',
+      backgroundColor: theme.colors.card,
     },
-    // subBackContainer: {
-    //   width: 112,
-    //   borderWidth: 1,
-    //   borderColor: '#C49E00',
-    //   margin: SPACING.md,
-    //   paddingHorizontal: 22,
-    //   paddingVertical: 8,
-    //   borderRadius: 5,
-    //   display: 'flex',
-    //   flexDirection: 'row',
-    //   justifyContent: 'center',
-    //   alignItems: 'center',
-    //   gap: 10,
-    //   backgroundColor: '#FFFFFF',
-    // },
     iconContainer: {
       height: SPACING.lg,
       width: SPACING.lg,
-      // marginRight: spacing.sm,
     },
     heading: {
       fontSize: 22,
       fontWeight: 'bold',
-      color: '#333',
+      color: theme.colors.text,
       textAlign: 'center',
       marginBottom: 16,
     },

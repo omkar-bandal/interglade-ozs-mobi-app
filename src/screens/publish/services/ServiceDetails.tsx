@@ -93,7 +93,7 @@ const ServiceDetailsScreen = ({route}: any) => {
         </View> */}
 
         <View style={styles.subCon}>
-          <Text style={styles.headingText}>Home HairDresser</Text>
+          <Text style={styles.headingText}>{serviceData?.title}</Text>
           <Text style={styles.subtitle}>
             {serviceData?.title || 'Category : Services - HairDresser'}
           </Text>

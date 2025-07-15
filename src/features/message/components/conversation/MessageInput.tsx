@@ -1,4 +1,5 @@
 import Button from '@components/ui/Button';
+import useTheme from '@theme/useTheme';
 import React, {useState} from 'react';
 import {
   KeyboardAvoidingView,
@@ -18,6 +19,8 @@ const MessageInput: React.FC<MessageInputProps> = ({
   onSendMessage,
   loading = false,
 }) => {
+  const {theme} = useTheme();
+  const styles = themeStyles(theme);
   const [message, setMessage] = useState<string>('');
 
   const handleSend = (): void => {
@@ -35,6 +38,7 @@ const MessageInput: React.FC<MessageInputProps> = ({
         <TextInput
           style={styles.textInput}
           placeholder="Type a message..."
+          placeholderTextColor={theme.colors.textSecondary}
           value={message}
           onChangeText={(text: string) => setMessage(text)}
           multiline
@@ -50,41 +54,43 @@ const MessageInput: React.FC<MessageInputProps> = ({
   );
 };
 
-const styles = StyleSheet.create({
-  inputContainer: {
-    flexDirection: 'row',
-    padding: 10,
-    backgroundColor: '#ffffff',
-    borderTopWidth: 1,
-    borderTopColor: '#f0f0f0',
-    alignItems: 'center',
-  },
-  textInput: {
-    flex: 1,
-    backgroundColor: '#f5f5f5',
-    borderRadius: 20,
-    paddingHorizontal: 16,
-    paddingVertical: 10,
-    maxHeight: 100,
-    fontSize: 16,
-  },
-  sendButton: {
-    marginLeft: 10,
-    paddingVertical: 8,
-    paddingHorizontal: 16,
-    backgroundColor: '#2196F3',
-    borderRadius: 20,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  disabledSendButton: {
-    backgroundColor: '#cccccc',
-  },
-  sendButtonText: {
-    color: '#ffffff',
-    fontWeight: '600',
-    fontSize: 14,
-  },
-});
+const themeStyles = (theme: any) =>
+  StyleSheet.create({
+    inputContainer: {
+      flexDirection: 'row',
+      padding: 10,
+      backgroundColor: theme.components.input.background,
+      borderTopWidth: 1,
+      borderTopColor: theme.colors.border,
+      alignItems: 'center',
+    },
+    textInput: {
+      flex: 1,
+      color: theme.colors.textSecondary,
+      backgroundColor: theme.components.input.background,
+      borderRadius: 20,
+      paddingHorizontal: 16,
+      paddingVertical: 10,
+      maxHeight: 100,
+      fontSize: 16,
+    },
+    sendButton: {
+      marginLeft: 10,
+      paddingVertical: 8,
+      paddingHorizontal: 16,
+      backgroundColor: theme.colors.primary,
+      borderRadius: 20,
+      justifyContent: 'center',
+      alignItems: 'center',
+    },
+    disabledSendButton: {
+      backgroundColor: '#cccccc',
+    },
+    sendButtonText: {
+      color: theme.colors.text,
+      fontWeight: '600',
+      fontSize: 14,
+    },
+  });
 
 export default MessageInput;

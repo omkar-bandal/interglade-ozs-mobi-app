@@ -6,6 +6,7 @@ import useForm from '@hooks/useForm';
 import {useTypedSelector} from '@hooks/useTypedSelector';
 import {SPACING} from '@theme/constants';
 import useTheme from '@theme/useTheme';
+import {uploadFile} from '@utils/upload.utils';
 import React, {useState} from 'react';
 import {StyleSheet} from 'react-native';
 import {validationLoginFormSchema} from '../utils/validate';
@@ -27,6 +28,23 @@ export default function AddSaleForm({initialData, saleId}: any) {
 
   const handleComplete = async () => {
     const {values} = formControl;
+
+    const uploadedPhotos: string[] = [];
+    for (const file of values.photos) {
+      if (typeof file === 'string') {
+        uploadedPhotos.push(file);
+      } else {
+        try {
+          const publicUrl = await uploadFile(file);
+          if (publicUrl) {
+            uploadedPhotos.push(publicUrl);
+          }
+        } catch (error: any) {
+          console.log('Upload error', error);
+        }
+      }
+    }
+
     setFormError('');
     const saleData = {
       seller_id: user?.id,
@@ -36,11 +54,12 @@ export default function AddSaleForm({initialData, saleId}: any) {
       condition: values.condition,
       location: values.location,
       // photos: values.photos || [],
-      photos: [
-        'https://wrcluqeamjnzjmpwxiet.supabase.co/storage/v1/object/public/service_photos/0f795369-6a59-483d-a75a-c07de416961f.png',
-        'https://wrcluqeamjnzjmpwxiet.supabase.co/storage/v1/object/public/service_photos/91d182c5-8d20-425d-a399-046c88fb27d7.jfif',
-        'https://wrcluqeamjnzjmpwxiet.supabase.co/storage/v1/object/public/service_photos/d3e651ca-c81a-4f65-a0e7-e00ffa409f4d.jpg',
-      ],
+      photos: uploadedPhotos,
+      // photos: [
+      //   'https://wrcluqeamjnzjmpwxiet.supabase.co/storage/v1/object/public/service_photos/0f795369-6a59-483d-a75a-c07de416961f.png',
+      //   'https://wrcluqeamjnzjmpwxiet.supabase.co/storage/v1/object/public/service_photos/91d182c5-8d20-425d-a399-046c88fb27d7.jfif',
+      //   'https://wrcluqeamjnzjmpwxiet.supabase.co/storage/v1/object/public/service_photos/d3e651ca-c81a-4f65-a0e7-e00ffa409f4d.jpg',
+      // ],
       category_id: parseInt(values.category),
       subcategory_id: parseInt(values.subcategory),
       items: values.items || [],

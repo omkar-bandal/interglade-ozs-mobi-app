@@ -40,14 +40,21 @@ export const PopularServices = (): JSX.Element => {
           Popular Services
         </Typography>
 
-        <Button label="See All" size="small" variant="ghost" />
+        <Button
+          label="See All"
+          size="small"
+          variant="ghost"
+          onPress={() => {
+            navigate('SearchAndFilter');
+          }}
+        />
       </View>
 
       <ScrollView
         //   horizontal
         //   showsHorizontalScrollIndicator={false}
         style={styles.horizontalScrollView}>
-        {servicesData?.data?.map((service: any) => (
+        {servicesData?.data?.slice(0, 10).map((service: any) => (
           <ServicesCard
             key={service.id}
             service={service}

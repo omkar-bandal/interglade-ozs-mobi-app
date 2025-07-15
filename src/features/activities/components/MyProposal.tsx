@@ -1,7 +1,7 @@
 /* eslint-disable react-native/no-inline-styles */
 // import {useGetReservationByProviderIdAndStatus} from '@hooks/api/reservation.rq';
 // import {useTypedSelector} from '@hooks/useTypedSelector';
-import {useGetReservationByProviderId} from '@hooks/api/reservation.rq';
+import {useGetReservationByProviderIdAndStatus} from '@hooks/api/reservation.rq';
 import {useTypedSelector} from '@hooks/useTypedSelector';
 import {useNavigation} from '@react-navigation/native';
 import React, {useState} from 'react';
@@ -60,11 +60,11 @@ import Overview from './details/Overview';
 
 const SCREEN_HEIGHT = Dimensions.get('window').height;
 
-const MyProposal = ({_tabType}: any) => {
+const MyProposal = ({tabType}: any) => {
   const {user} = useTypedSelector(state => state.auth);
-  const {data, isLoading} = useGetReservationByProviderId(
+  const {data, isLoading} = useGetReservationByProviderIdAndStatus(
     user?.id as string,
-    //tabType,
+    tabType,
   );
 
   const [modalVisible, setModalVisible] = useState(false);

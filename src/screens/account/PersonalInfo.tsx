@@ -1,14 +1,16 @@
 /* eslint-disable react-native/no-inline-styles */
-import {Container} from '@components/ui/Container';
 import {Heading} from '@features/account/components/Heading';
 import PersonalInfoForm from '@features/account/components/PersonalInfo/PersonalInfoForm';
 import useTheme from '@theme/useTheme';
-import {View} from 'react-native';
+import {SafeAreaView, StatusBar, View} from 'react-native';
 
 export function PersonalInfo() {
-  const {theme} = useTheme();
+  const {theme, themeType} = useTheme();
   return (
-    <Container>
+    <SafeAreaView style={{flex: 1, backgroundColor: theme.colors.background}}>
+      <StatusBar
+        barStyle={themeType === 'dark' ? 'light-content' : 'dark-content'}
+      />
       <Heading title="Personal Information" />
       <View
         style={{
@@ -19,6 +21,6 @@ export function PersonalInfo() {
         }}>
         <PersonalInfoForm />
       </View>
-    </Container>
+    </SafeAreaView>
   );
 }

@@ -306,10 +306,11 @@ export const Location: React.FC = () => {
       keyboardVerticalOffset={Platform.OS === 'ios' ? 64 : 0}>
       <View style={styles.searchContainer}>
         <View style={styles.searchInputContainer}>
-          <Icon name="search" size={16} />
+          <Icon name="search" size={16} color={'#E0E0E0'} />
           <TextInput
             style={styles.searchInput}
             placeholder="Search for a location"
+            placeholderTextColor={theme.components.input.placeholderColor}
             value={searchText}
             onChangeText={handleSearchChange}
             autoCapitalize="none"
@@ -422,15 +423,15 @@ const themeStyles = (theme: any) =>
   StyleSheet.create({
     container: {
       flex: 1,
-      backgroundColor: '#FFFFFF',
+      backgroundColor: theme.colors.background,
     },
     header: {
       paddingTop: Platform.OS === 'ios' ? 44 : 16,
       paddingBottom: 12,
       paddingHorizontal: 16,
-      backgroundColor: '#FFFFFF',
+      backgroundColor: 'red',
       borderBottomWidth: 1,
-      borderBottomColor: '#E5E5E5',
+      borderBottomColor: theme.colors.border,
     },
     headerTitle: {
       fontSize: 18,
@@ -440,13 +441,15 @@ const themeStyles = (theme: any) =>
     searchContainer: {
       paddingHorizontal: 16,
       paddingVertical: 12,
-      backgroundColor: '#FFFFFF',
+      backgroundColor: theme.components.input,
     },
     searchInputContainer: {
       flexDirection: 'row',
       alignItems: 'center',
-      backgroundColor: '#F2F2F2',
+      backgroundColor: theme.components.input.backgorund,
       borderRadius: 12,
+      borderWidth: 0.1,
+      borderColor: theme.components.border,
       paddingHorizontal: 12,
       height: 48,
     },
@@ -481,7 +484,7 @@ const themeStyles = (theme: any) =>
     },
     currentLocationText: {
       fontSize: 16,
-      color: '#007AFF',
+      color: theme.colors.text,
     },
     contentContainer: {
       flex: 1,

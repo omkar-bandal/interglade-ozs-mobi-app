@@ -1,19 +1,30 @@
-import {Container} from '@components/ui/Container';
 import {Heading} from '@features/account/components/Heading';
 import {SPACING} from '@theme/constants';
 import useTheme from '@theme/useTheme';
 import {useState} from 'react';
-import {StyleSheet, Switch, Text, View} from 'react-native';
+import {
+  SafeAreaView,
+  StatusBar,
+  StyleSheet,
+  Switch,
+  Text,
+  View,
+} from 'react-native';
 
 export function Privacy() {
-  const {theme} = useTheme();
+  const {theme, themeType} = useTheme();
   const styles = themeStyles(theme);
   const [form, setForm] = useState({
     privateAccount: true,
     locationSharing: false,
   });
   return (
-    <Container>
+    <SafeAreaView style={{flex: 1, backgroundColor: theme.colors.background}}>
+      <StatusBar
+        barStyle={themeType === 'dark' ? 'light-content' : 'dark-content'}
+        //backgroundColor="#white"
+        // translucent
+      />
       <Heading title="Privacy" />
 
       <View style={styles.section}>
@@ -58,7 +69,7 @@ export function Privacy() {
           </View>
         </View>
       </View>
-    </Container>
+    </SafeAreaView>
   );
 }
 

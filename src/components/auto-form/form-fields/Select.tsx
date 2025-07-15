@@ -1,4 +1,5 @@
 import Button from '@components/ui/Button';
+import useTheme from '@theme/useTheme';
 import {forwardRef, useCallback, useState} from 'react';
 import {
   Modal,
@@ -51,6 +52,8 @@ export const FormSelect = forwardRef(
     ref: any,
   ) => {
     const [isOpen, setIsOpen] = useState(false);
+    const {theme} = useTheme();
+    const styles = themeStyles(theme);
 
     // Handle useForm integration
     let selectValue = selectedValue;
@@ -215,120 +218,121 @@ export const FormSelect = forwardRef(
   },
 );
 
-const styles = StyleSheet.create({
-  errorText: {
-    color: '#e74c3c',
-    fontSize: 12,
-    marginTop: 4,
-  },
-  labelContainer: {
-    flexDirection: 'row',
-    marginBottom: 8,
-  },
-  inputLabel: {
-    fontSize: 14,
-    fontWeight: '500',
-    color: '#333',
-  },
-  requiredStar: {
-    color: '#e74c3c',
-    fontSize: 14,
-    marginLeft: 4,
-  },
-  errorInput: {
-    borderColor: '#e74c3c',
-  },
-  selectContainer: {
-    marginBottom: 16,
-  },
-  selectButton: {
-    height: 48,
-    borderWidth: 1,
-    borderColor: '#ddd',
-    borderRadius: 8,
-    paddingHorizontal: 16,
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'space-between',
-    backgroundColor: '#fff',
-  },
-  selectButtonText: {
-    fontSize: 16,
-    color: '#333',
-    flex: 1,
-    marginRight: 10,
-  },
-  placeholderText: {
-    color: '#A0A0A0',
-  },
-  dropdownIcon: {
-    fontSize: 14,
-    color: '#777',
-  },
-  modalOverlay: {
-    flex: 1,
-    backgroundColor: 'rgba(0, 0, 0, 0.5)',
-    justifyContent: 'flex-end', // This ensures content is aligned to the bottom
-  },
-  backdropTouchable: {
-    flex: 1,
-  },
-  bottomSheetContainer: {
-    backgroundColor: '#FFFFFF',
-    borderTopLeftRadius: 16,
-    borderTopRightRadius: 16,
-    maxHeight: '70%',
-  },
-  bottomSheetHeader: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    paddingHorizontal: 16,
-    paddingVertical: 12,
-    borderBottomWidth: 1,
-    borderBottomColor: '#f0f0f0',
-  },
-  bottomSheetTitle: {
-    fontSize: 18,
-    fontWeight: '600',
-    color: '#333',
-  },
-  closeButton: {
-    fontSize: 20,
-    color: '#777',
-    padding: 5,
-  },
-  optionsList: {
-    paddingBottom: 16,
-  },
-  optionItem: {
-    paddingVertical: 14,
-    paddingHorizontal: 16,
-    borderBottomWidth: 1,
-    borderBottomColor: '#f0f0f0',
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-  },
-  selectedOption: {
-    backgroundColor: '#f2f9ff',
-  },
-  optionText: {
-    fontSize: 16,
-    color: '#333',
-    flex: 1,
-  },
-  selectedOptionText: {
-    color: '#3498db',
-    fontWeight: '500',
-  },
-  checkmarkIcon: {
-    color: '#3498db',
-    fontSize: 18,
-  },
-  bottomSheetFooter: {
-    padding: 16,
-    borderTopWidth: 1,
-    borderTopColor: '#f0f0f0',
-  },
-});
+const themeStyles = (theme: any) =>
+  StyleSheet.create({
+    errorText: {
+      color: '#e74c3c',
+      fontSize: 12,
+      marginTop: 4,
+    },
+    labelContainer: {
+      flexDirection: 'row',
+      marginBottom: 8,
+    },
+    inputLabel: {
+      fontSize: 14,
+      fontWeight: '500',
+      color: theme.colors.textSecondary,
+    },
+    requiredStar: {
+      color: '#e74c3c',
+      fontSize: 14,
+      marginLeft: 4,
+    },
+    errorInput: {
+      borderColor: '#e74c3c',
+    },
+    selectContainer: {
+      marginBottom: 16,
+    },
+    selectButton: {
+      height: 48,
+      borderWidth: 1,
+      borderColor: theme.colors.border,
+      borderRadius: 8,
+      paddingHorizontal: 16,
+      flexDirection: 'row',
+      alignItems: 'center',
+      justifyContent: 'space-between',
+      backgroundColor: theme.components.input.background,
+    },
+    selectButtonText: {
+      fontSize: 16,
+      color: theme.colors.text,
+      flex: 1,
+      marginRight: 10,
+    },
+    placeholderText: {
+      color: '#A0A0A0',
+    },
+    dropdownIcon: {
+      fontSize: 14,
+      color: '#777',
+    },
+    modalOverlay: {
+      flex: 1,
+      backgroundColor: 'rgba(0, 0, 0, 0.5)',
+      justifyContent: 'flex-end', // This ensures content is aligned to the bottom
+    },
+    backdropTouchable: {
+      flex: 1,
+    },
+    bottomSheetContainer: {
+      backgroundColor: theme.colors.background,
+      borderTopLeftRadius: 16,
+      borderTopRightRadius: 16,
+      maxHeight: '70%',
+    },
+    bottomSheetHeader: {
+      flexDirection: 'row',
+      justifyContent: 'space-between',
+      alignItems: 'center',
+      paddingHorizontal: 16,
+      paddingVertical: 12,
+      borderBottomWidth: 1,
+      borderBottomColor: theme.colors.border,
+    },
+    bottomSheetTitle: {
+      fontSize: 18,
+      fontWeight: '600',
+      color: theme.colors.textSecondary,
+    },
+    closeButton: {
+      fontSize: 20,
+      color: theme.colors.text,
+      padding: 5,
+    },
+    optionsList: {
+      paddingBottom: 16,
+    },
+    optionItem: {
+      paddingVertical: 14,
+      paddingHorizontal: 16,
+      borderBottomWidth: 1,
+      borderBottomColor: theme.colors.border,
+      flexDirection: 'row',
+      justifyContent: 'space-between',
+      alignItems: 'center',
+    },
+    selectedOption: {
+      backgroundColor: theme.colors.background,
+    },
+    optionText: {
+      fontSize: 16,
+      color: theme.colors.textTertiary,
+      flex: 1,
+    },
+    selectedOptionText: {
+      color: theme.colors.text,
+      fontWeight: '500',
+    },
+    checkmarkIcon: {
+      color: '#3498db',
+      fontSize: 18,
+    },
+    bottomSheetFooter: {
+      padding: 16,
+      borderTopWidth: 1,
+      borderTopColor: '#f0f0f0',
+    },
+  });
