@@ -1,9 +1,15 @@
-import {Container} from '@components/ui/Container';
 import {Heading} from '@features/account/components/Heading';
 import {SPACING} from '@theme/constants';
 import useTheme from '@theme/useTheme';
-import {useState} from 'react';
-import {StatusBar, StyleSheet, Switch, Text, View} from 'react-native';
+import React, {useState} from 'react';
+import {
+  SafeAreaView,
+  StatusBar,
+  StyleSheet,
+  Switch,
+  Text,
+  View,
+} from 'react-native';
 
 export function Notifications() {
   const {theme, themeType} = useTheme();
@@ -14,7 +20,7 @@ export function Notifications() {
     marketingNotifications: true,
   });
   return (
-    <Container>
+    <SafeAreaView style={{flex: 1, backgroundColor: theme.colors.background}}>
       <StatusBar
         barStyle={themeType === 'dark' ? 'light-content' : 'dark-content'}
       />
@@ -81,7 +87,7 @@ export function Notifications() {
           </View>
         </View>
       </View>
-    </Container>
+    </SafeAreaView>
   );
 }
 

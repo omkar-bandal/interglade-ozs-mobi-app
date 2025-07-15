@@ -1,3 +1,4 @@
+import useTheme from '@theme/useTheme';
 import {forwardRef} from 'react';
 import {Platform, StyleSheet, TouchableOpacity, View} from 'react-native';
 import Typography from '../../ui/Typography';
@@ -46,6 +47,8 @@ export const FormRadioGroup = forwardRef(
     let handleChange = onValueChange;
     let radioError = error;
 
+    const {theme} = useTheme();
+    const styles = themeStyles(theme);
     if (name && formControl.register) {
       const inputProps = formControl.register(name, props.validation);
       radioValue = inputProps.value;
@@ -88,322 +91,323 @@ export const FormRadioGroup = forwardRef(
   },
 );
 
-const styles = StyleSheet.create({
-  // Form container
-  formContainer: {
-    flex: 1,
-    width: '100%',
-  },
-  scrollContent: {
-    flexGrow: 1,
-    paddingBottom: 24,
-  },
+const themeStyles = (theme: any) =>
+  StyleSheet.create({
+    // Form container
+    formContainer: {
+      flex: 1,
+      width: '100%',
+    },
+    scrollContent: {
+      flexGrow: 1,
+      paddingBottom: 24,
+    },
 
-  // Form group
-  formGroup: {
-    marginBottom: 24,
-    borderRadius: 8,
-    backgroundColor: '#fff',
-    ...Platform.select({
-      ios: {
-        shadowColor: '#000',
-        shadowOffset: {width: 0, height: 2},
-        shadowOpacity: 0.1,
-        shadowRadius: 4,
-      },
-      android: {
-        elevation: 2,
-      },
-    }),
-  },
-  formGroupTitle: {
-    fontSize: 16,
-    fontWeight: '600',
-    color: '#333',
-    paddingHorizontal: 16,
-    paddingVertical: 12,
-    borderBottomWidth: 1,
-    borderBottomColor: '#f0f0f0',
-  },
-  formGroupContent: {
-    padding: 16,
-  },
+    // Form group
+    formGroup: {
+      marginBottom: 24,
+      borderRadius: 8,
+      backgroundColor: theme.colors.background,
+      ...Platform.select({
+        ios: {
+          shadowColor: '#000',
+          shadowOffset: {width: 0, height: 2},
+          shadowOpacity: 0.1,
+          shadowRadius: 4,
+        },
+        android: {
+          elevation: 2,
+        },
+      }),
+    },
+    formGroupTitle: {
+      fontSize: 16,
+      fontWeight: '600',
+      color: theme.colors.textSecondary,
+      paddingHorizontal: 16,
+      paddingVertical: 12,
+      borderBottomWidth: 1,
+      borderBottomColor: '#f0f0f0',
+    },
+    formGroupContent: {
+      padding: 16,
+    },
 
-  // Input styles
-  inputContainer: {
-    marginBottom: 16,
-  },
-  labelContainer: {
-    flexDirection: 'row',
-    marginBottom: 8,
-  },
-  inputLabel: {
-    fontSize: 14,
-    fontWeight: '500',
-    color: '#333',
-  },
-  requiredStar: {
-    color: '#e74c3c',
-    fontSize: 14,
-    marginLeft: 4,
-  },
-  input: {
-    height: 48,
-    borderWidth: 1,
-    borderColor: '#ddd',
-    borderRadius: 8,
-    paddingHorizontal: 16,
-    fontSize: 16,
-    color: '#333',
-    backgroundColor: '#fff',
-  },
-  focusedInput: {
-    borderColor: '#3498db',
-    borderWidth: 2,
-  },
-  errorInput: {
-    borderColor: '#e74c3c',
-  },
-  disabledInput: {
-    backgroundColor: '#f9f9f9',
-    color: '#999',
-  },
-  multilineInput: {
-    height: 100,
-    textAlignVertical: 'top',
-    paddingTop: 12,
-    paddingBottom: 12,
-  },
-  errorText: {
-    color: '#e74c3c',
-    fontSize: 12,
-    marginTop: 4,
-  },
+    // Input styles
+    inputContainer: {
+      marginBottom: 16,
+    },
+    labelContainer: {
+      flexDirection: 'row',
+      marginBottom: 8,
+    },
+    inputLabel: {
+      fontSize: 14,
+      fontWeight: '500',
+      color: theme.colors.textSecondary,
+    },
+    requiredStar: {
+      color: '#e74c3c',
+      fontSize: 14,
+      marginLeft: 4,
+    },
+    input: {
+      height: 48,
+      borderWidth: 1,
+      borderColor: '#ddd',
+      borderRadius: 8,
+      paddingHorizontal: 16,
+      fontSize: 16,
+      color: theme.colors.textSecondary,
+      backgroundColor: '#fff',
+    },
+    focusedInput: {
+      borderColor: '#3498db',
+      borderWidth: 2,
+    },
+    errorInput: {
+      borderColor: '#e74c3c',
+    },
+    disabledInput: {
+      backgroundColor: '#f9f9f9',
+      color: '#999',
+    },
+    multilineInput: {
+      height: 100,
+      textAlignVertical: 'top',
+      paddingTop: 12,
+      paddingBottom: 12,
+    },
+    errorText: {
+      color: '#e74c3c',
+      fontSize: 12,
+      marginTop: 4,
+    },
 
-  // Button styles
-  button: {
-    height: 48,
-    backgroundColor: '#3498db',
-    borderRadius: 8,
-    justifyContent: 'center',
-    alignItems: 'center',
-    marginVertical: 12,
-    paddingHorizontal: 16,
-  },
-  fullWidth: {
-    width: '100%',
-  },
-  secondaryButton: {
-    backgroundColor: '#2c3e50',
-  },
-  outlinedButton: {
-    backgroundColor: 'transparent',
-    borderWidth: 2,
-    borderColor: '#3498db',
-  },
-  disabledButton: {
-    backgroundColor: '#bdc3c7',
-    borderColor: '#bdc3c7',
-  },
-  buttonText: {
-    color: '#fff',
-    fontSize: 16,
-    fontWeight: '600',
-  },
-  secondaryButtonText: {
-    color: '#fff',
-  },
-  outlinedButtonText: {
-    color: '#3498db',
-  },
-  disabledButtonText: {
-    color: '#f5f5f5',
-  },
-  buttonContent: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  buttonIcon: {
-    marginHorizontal: 8,
-  },
+    // Button styles
+    button: {
+      height: 48,
+      backgroundColor: '#3498db',
+      borderRadius: 8,
+      justifyContent: 'center',
+      alignItems: 'center',
+      marginVertical: 12,
+      paddingHorizontal: 16,
+    },
+    fullWidth: {
+      width: '100%',
+    },
+    secondaryButton: {
+      backgroundColor: '#2c3e50',
+    },
+    outlinedButton: {
+      backgroundColor: 'transparent',
+      borderWidth: 2,
+      borderColor: '#3498db',
+    },
+    disabledButton: {
+      backgroundColor: '#bdc3c7',
+      borderColor: '#bdc3c7',
+    },
+    buttonText: {
+      color: '#fff',
+      fontSize: 16,
+      fontWeight: '600',
+    },
+    secondaryButtonText: {
+      color: '#fff',
+    },
+    outlinedButtonText: {
+      color: '#3498db',
+    },
+    disabledButtonText: {
+      color: '#f5f5f5',
+    },
+    buttonContent: {
+      flexDirection: 'row',
+      alignItems: 'center',
+      justifyContent: 'center',
+    },
+    buttonIcon: {
+      marginHorizontal: 8,
+    },
 
-  // Checkbox styles
-  checkboxContainer: {
-    marginBottom: 16,
-  },
-  checkboxTouchable: {
-    flexDirection: 'row',
-    alignItems: 'center',
-  },
-  checkbox: {
-    width: 22,
-    height: 22,
-    borderRadius: 4,
-    borderWidth: 2,
-    borderColor: '#3498db',
-    justifyContent: 'center',
-    alignItems: 'center',
-    marginRight: 8,
-  },
-  checkedBox: {
-    backgroundColor: '#3498db',
-  },
-  checkMark: {
-    color: '#fff',
-    fontSize: 14,
-    fontWeight: 'bold',
-  },
-  checkboxLabel: {
-    fontSize: 14,
-    color: '#333',
-    flex: 1,
-  },
+    // Checkbox styles
+    checkboxContainer: {
+      marginBottom: 16,
+    },
+    checkboxTouchable: {
+      flexDirection: 'row',
+      alignItems: 'center',
+    },
+    checkbox: {
+      width: 22,
+      height: 22,
+      borderRadius: 4,
+      borderWidth: 2,
+      borderColor: theme.colors.primary,
+      justifyContent: 'center',
+      alignItems: 'center',
+      marginRight: 8,
+    },
+    checkedBox: {
+      backgroundColor: theme.colors.primary,
+    },
+    checkMark: {
+      color: '#fff',
+      fontSize: 14,
+      fontWeight: 'bold',
+    },
+    checkboxLabel: {
+      fontSize: 14,
+      color: theme.colors.textSecondary,
+      flex: 1,
+    },
 
-  // Switch styles
-  switchContainer: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'space-between',
-    marginBottom: 16,
-  },
-  switchLabel: {
-    fontSize: 14,
-    fontWeight: '500',
-    color: '#333',
-    flex: 1,
-  },
-  disabledText: {
-    color: '#999',
-  },
+    // Switch styles
+    switchContainer: {
+      flexDirection: 'row',
+      alignItems: 'center',
+      justifyContent: 'space-between',
+      marginBottom: 16,
+    },
+    switchLabel: {
+      fontSize: 14,
+      fontWeight: '500',
+      color: '#333',
+      flex: 1,
+    },
+    disabledText: {
+      color: '#999',
+    },
 
-  // Select styles
-  selectContainer: {
-    marginBottom: 16,
-    zIndex: 1,
-  },
-  selectButton: {
-    height: 48,
-    borderWidth: 1,
-    borderColor: '#ddd',
-    borderRadius: 8,
-    paddingHorizontal: 16,
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'space-between',
-    backgroundColor: '#fff',
-  },
-  selectButtonText: {
-    fontSize: 16,
-    color: '#333',
-  },
-  placeholderText: {
-    color: '#A0A0A0',
-  },
-  dropdownIcon: {
-    fontSize: 14,
-    color: '#777',
-  },
-  optionsContainer: {
-    position: 'absolute',
-    top: 82,
-    left: 0,
-    right: 0,
-    backgroundColor: '#fff',
-    borderWidth: 1,
-    borderColor: '#ddd',
-    borderRadius: 8,
-    maxHeight: 200,
-    zIndex: 2,
-    ...Platform.select({
-      ios: {
-        shadowColor: '#000',
-        shadowOffset: {width: 0, height: 2},
-        shadowOpacity: 0.1,
-        shadowRadius: 4,
-      },
-      android: {
-        elevation: 4,
-      },
-    }),
-  },
-  optionsList: {
-    flex: 1,
-  },
-  optionItem: {
-    paddingVertical: 12,
-    paddingHorizontal: 16,
-    borderBottomWidth: 1,
-    borderBottomColor: '#f0f0f0',
-  },
-  selectedOption: {
-    backgroundColor: '#f2f9ff',
-  },
-  optionText: {
-    fontSize: 16,
-    color: '#333',
-  },
-  selectedOptionText: {
-    color: '#3498db',
-    fontWeight: '500',
-  },
+    // Select styles
+    selectContainer: {
+      marginBottom: 16,
+      zIndex: 1,
+    },
+    selectButton: {
+      height: 48,
+      borderWidth: 1,
+      borderColor: '#ddd',
+      borderRadius: 8,
+      paddingHorizontal: 16,
+      flexDirection: 'row',
+      alignItems: 'center',
+      justifyContent: 'space-between',
+      backgroundColor: '#fff',
+    },
+    selectButtonText: {
+      fontSize: 16,
+      color: '#333',
+    },
+    placeholderText: {
+      color: '#A0A0A0',
+    },
+    dropdownIcon: {
+      fontSize: 14,
+      color: '#777',
+    },
+    optionsContainer: {
+      position: 'absolute',
+      top: 82,
+      left: 0,
+      right: 0,
+      backgroundColor: '#fff',
+      borderWidth: 1,
+      borderColor: '#ddd',
+      borderRadius: 8,
+      maxHeight: 200,
+      zIndex: 2,
+      ...Platform.select({
+        ios: {
+          shadowColor: '#000',
+          shadowOffset: {width: 0, height: 2},
+          shadowOpacity: 0.1,
+          shadowRadius: 4,
+        },
+        android: {
+          elevation: 4,
+        },
+      }),
+    },
+    optionsList: {
+      flex: 1,
+    },
+    optionItem: {
+      paddingVertical: 12,
+      paddingHorizontal: 16,
+      borderBottomWidth: 1,
+      borderBottomColor: '#f0f0f0',
+    },
+    selectedOption: {
+      backgroundColor: '#f2f9ff',
+    },
+    optionText: {
+      fontSize: 16,
+      color: '#333',
+    },
+    selectedOptionText: {
+      color: '#3498db',
+      fontWeight: '500',
+    },
 
-  // Form error and success messages
-  formErrorContainer: {
-    backgroundColor: '#FFECEC',
-    borderWidth: 1,
-    borderColor: '#e74c3c',
-    borderRadius: 8,
-    padding: 12,
-    marginBottom: 16,
-  },
-  formErrorText: {
-    color: '#e74c3c',
-    fontSize: 14,
-  },
-  formSuccessContainer: {
-    backgroundColor: '#E7F9EF',
-    borderWidth: 1,
-    borderColor: '#2ecc71',
-    borderRadius: 8,
-    padding: 12,
-    marginBottom: 16,
-  },
-  formSuccessText: {
-    color: '#2ecc71',
-    fontSize: 14,
-  },
+    // Form error and success messages
+    formErrorContainer: {
+      backgroundColor: '#FFECEC',
+      borderWidth: 1,
+      borderColor: '#e74c3c',
+      borderRadius: 8,
+      padding: 12,
+      marginBottom: 16,
+    },
+    formErrorText: {
+      color: '#e74c3c',
+      fontSize: 14,
+    },
+    formSuccessContainer: {
+      backgroundColor: '#E7F9EF',
+      borderWidth: 1,
+      borderColor: '#2ecc71',
+      borderRadius: 8,
+      padding: 12,
+      marginBottom: 16,
+    },
+    formSuccessText: {
+      color: '#2ecc71',
+      fontSize: 14,
+    },
 
-  // Radio button styles
-  radioGroupContainer: {
-    marginBottom: 16,
-  },
-  radioOption: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    marginVertical: 8,
-  },
-  disabledRadioOption: {
-    opacity: 0.6,
-  },
-  radioButtonOuter: {
-    height: 22,
-    width: 22,
-    borderRadius: 11,
-    borderWidth: 2,
-    borderColor: '#3498db',
-    alignItems: 'center',
-    justifyContent: 'center',
-    marginRight: 10,
-  },
-  radioButtonInner: {
-    height: 12,
-    width: 12,
-    borderRadius: 6,
-    backgroundColor: '#3498db',
-  },
-  radioLabel: {
-    fontSize: 14,
-    color: '#333',
-  },
-});
+    // Radio button styles
+    radioGroupContainer: {
+      marginBottom: 16,
+    },
+    radioOption: {
+      flexDirection: 'row',
+      alignItems: 'center',
+      marginVertical: 8,
+    },
+    disabledRadioOption: {
+      opacity: 0.6,
+    },
+    radioButtonOuter: {
+      height: 22,
+      width: 22,
+      borderRadius: 11,
+      borderWidth: 2,
+      borderColor: theme.colors.primary,
+      alignItems: 'center',
+      justifyContent: 'center',
+      marginRight: 10,
+    },
+    radioButtonInner: {
+      height: 12,
+      width: 12,
+      borderRadius: 6,
+      backgroundColor: theme.colors.primary,
+    },
+    radioLabel: {
+      fontSize: 14,
+      color: theme.colors.textSecondary,
+    },
+  });

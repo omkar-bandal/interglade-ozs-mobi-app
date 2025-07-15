@@ -5,6 +5,7 @@ import {Image, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 
 export default function ConversationListItem({conversation}: any) {
   const {theme} = useTheme();
+  const styles = themeStyles(theme);
   const {participants} = conversation;
   return (
     <TouchableOpacity
@@ -60,61 +61,62 @@ export default function ConversationListItem({conversation}: any) {
   );
 }
 
-const styles = StyleSheet.create({
-  conversationItem: {
-    flexDirection: 'row',
-    padding: 16,
-    borderBottomWidth: 1,
-    borderBottomColor: '#f0f0f0',
-    alignItems: 'center',
-  },
-  avatar: {
-    width: 50,
-    height: 50,
-    borderRadius: 25,
-    marginRight: 12,
-  },
-  conversationContent: {
-    flex: 1,
-  },
-  conversationHeader: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    marginBottom: 4,
-  },
-  conversationTitle: {
-    fontSize: 16,
-    fontWeight: '600',
-    color: '#333333',
-    flex: 1,
-  },
-  timestamp: {
-    fontSize: 12,
-    color: '#999999',
-    marginLeft: 8,
-  },
-  conversationFooter: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-  },
-  lastMessage: {
-    fontSize: 14,
-    color: '#666666',
-    flex: 1,
-  },
-  unreadBadge: {
-    backgroundColor: '#2196F3',
-    width: 20,
-    height: 20,
-    borderRadius: 10,
-    justifyContent: 'center',
-    alignItems: 'center',
-    marginLeft: 8,
-  },
-  unreadText: {
-    color: '#ffffff',
-    fontSize: 12,
-    fontWeight: 'bold',
-  },
-});
+const themeStyles = (theme: any) =>
+  StyleSheet.create({
+    conversationItem: {
+      flexDirection: 'row',
+      padding: 16,
+      borderBottomWidth: 1,
+      borderBottomColor: theme.colors.border,
+      alignItems: 'center',
+    },
+    avatar: {
+      width: 50,
+      height: 50,
+      borderRadius: 25,
+      marginRight: 12,
+    },
+    conversationContent: {
+      flex: 1,
+    },
+    conversationHeader: {
+      flexDirection: 'row',
+      justifyContent: 'space-between',
+      marginBottom: 4,
+    },
+    conversationTitle: {
+      fontSize: 16,
+      fontWeight: '600',
+      color: theme.colors.text,
+      flex: 1,
+    },
+    timestamp: {
+      fontSize: 12,
+      color: '#999999',
+      marginLeft: 8,
+    },
+    conversationFooter: {
+      flexDirection: 'row',
+      justifyContent: 'space-between',
+      alignItems: 'center',
+    },
+    lastMessage: {
+      fontSize: 14,
+      color: theme.colors.textTertiary,
+      flex: 1,
+    },
+    unreadBadge: {
+      backgroundColor: '#2196F3',
+      width: 20,
+      height: 20,
+      borderRadius: 10,
+      justifyContent: 'center',
+      alignItems: 'center',
+      marginLeft: 8,
+    },
+    unreadText: {
+      color: '#ffffff',
+      fontSize: 12,
+      fontWeight: 'bold',
+    },
+  });

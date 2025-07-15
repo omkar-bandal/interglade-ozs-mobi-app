@@ -150,7 +150,7 @@ const ServiceDetails = ({serviceId}: {serviceId: string}) => {
                 {serviceData?.description || 'NA'}
               </Typography>
             </View>
-            <Button variant="primary" label="Book Service" size="medium" />
+            {/* <Button variant="primary" label="Book Service" size="medium" /> */}
           </View>
 
           {/* Action Buttons */}

@@ -7,6 +7,7 @@ import {
 import {useTypedSelector} from '@hooks/useTypedSelector';
 import {supabase} from '@lib/supabase/supabase';
 import {useIsFocused} from '@react-navigation/native';
+import useTheme from '@theme/useTheme';
 import {goBack} from '@utils/NavigationUtils';
 import React, {useEffect, useRef, useState} from 'react';
 import {
@@ -23,6 +24,8 @@ import MessageBubble from './MessageBubble';
 import MessageInput from './MessageInput';
 
 const Conversation = ({conversationId, title, avatar}: any) => {
+  const {theme} = useTheme();
+  const styles = themeStyles(theme);
   const isFocused = useIsFocused();
   const {user} = useTypedSelector(state => state.auth);
   const [messages, setMessages] = useState<any[]>([]);
@@ -140,48 +143,50 @@ const Conversation = ({conversationId, title, avatar}: any) => {
   );
 };
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#f5f5f5',
-  },
-  header: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    padding: 16,
-    backgroundColor: '#ffffff',
-    borderBottomWidth: 1,
-    borderBottomColor: '#f0f0f0',
-    elevation: 2,
-    shadowColor: '#000000',
-    shadowOffset: {width: 0, height: 1},
-    shadowOpacity: 0.1,
-    shadowRadius: 2,
-  },
-  avatar: {
-    width: 36,
-    height: 36,
-    borderRadius: 18,
-  },
-  headerTitle: {
-    fontSize: 18,
-    fontWeight: '600',
-    flex: 1,
-    marginLeft: 8,
-  },
-  messagesContainer: {
-    flex: 1,
-  },
-  messageContent: {
-    padding: 16,
-  },
-  dateHeader: {
-    textAlign: 'center',
-    color: '#999999',
-    marginVertical: 16,
-    fontSize: 14,
-  },
-  centerContainer: {flex: 1, alignItems: 'center', justifyContent: 'center'},
-});
+const themeStyles = (theme: any) =>
+  StyleSheet.create({
+    container: {
+      flex: 1,
+      backgroundColor: theme.colors.background,
+      paddingTop: 10,
+    },
+    header: {
+      flexDirection: 'row',
+      alignItems: 'center',
+      padding: 16,
+      backgroundColor: theme.colors.background,
+      borderBottomWidth: 1,
+      borderBottomColor: theme.colors.border,
+      elevation: 2,
+      shadowColor: '#000000',
+      shadowOffset: {width: 0, height: 1},
+      shadowOpacity: 0.1,
+      shadowRadius: 2,
+    },
+    avatar: {
+      width: 36,
+      height: 36,
+      borderRadius: 18,
+    },
+    headerTitle: {
+      fontSize: 18,
+      fontWeight: '600',
+      flex: 1,
+      marginLeft: 8,
+    },
+    messagesContainer: {
+      flex: 1,
+    },
+    messageContent: {
+      padding: 16,
+    },
+    dateHeader: {
+      textAlign: 'center',
+      color: theme.colors.textSecondary,
+      marginVertical: 16,
+      fontSize: 14,
+    },
+    centerContainer: {flex: 1, alignItems: 'center', justifyContent: 'center'},
+  });
 
 export default Conversation;

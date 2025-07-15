@@ -33,7 +33,7 @@ export default function Login() {
     if (data.user) {
       await navigate('Tab', {screen: 'Home'});
       setUser(data.user);
-      Alert.alert('Error', JSON.stringify(data));
+      //Alert.alert('Error', JSON.stringify(data));
       setSession(data.session);
       return;
     }

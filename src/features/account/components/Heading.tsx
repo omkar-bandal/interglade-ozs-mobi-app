@@ -32,6 +32,7 @@ export const Heading: React.FC<HeadingProps> = ({title}) => {
 const themeStyles = (theme: any) =>
   StyleSheet.create({
     header: {
+      paddingTop: 30,
       flexDirection: 'row',
       alignItems: 'center',
       justifyContent: 'space-between',
