@@ -9,7 +9,7 @@ import {
 
 export function useGetAllSales(): UseQueryResult<any, ErrorModel> {
   return useQuery<any, ErrorModel>({
-    queryKey: ['getAllSalse'],
+    queryKey: ['getAllSales'],
     queryFn: () => SalesService.getAllSales(),
   });
 }

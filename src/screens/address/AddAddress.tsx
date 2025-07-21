@@ -1,13 +1,15 @@
 import {FormCheckbox} from '@components/auto-form/form-fields/Checkbox';
 import {FormInput} from '@components/auto-form/form-fields/Input';
 import ScreenHeader from '@components/header/ScreenHeader';
-import Button from '@components/ui/Button';
-import {Form, FormError} from '@components/ui/Form';
+import {Form, FormButton, FormError} from '@components/ui/Form';
+import {useCreateAddress, useUpdateAddress} from '@hooks/api/address.rq';
 import useForm from '@hooks/useForm';
+import {useTypedSelector} from '@hooks/useTypedSelector';
 import useTheme from '@theme/useTheme';
 import React, {useState} from 'react';
 import {
   ActivityIndicator,
+  Alert,
   KeyboardAvoidingView,
   Modal,
   Platform,
@@ -45,39 +47,43 @@ const AddEditAddressScreen = ({navigation, route}: any) => {
   } | null>(null);
   const [addressFromLocation, setAddressFromLocation] = useState<string>('');
   const [showLocationModal, setShowLocationModal] = useState(false);
+  const {user} = useTypedSelector(state => state.auth);
+  const {mutateAsync: createAddress, isPending} = useCreateAddress();
+  const {mutateAsync: updateAddress} = useUpdateAddress();
 
+  //const {mutateAsync: updateAddress, isPending} = useUpdateAddress();
   // Validation schema
   const validationSchema = {
-    title: {
+    address_title: {
       required: {value: true, message: 'Address title is required'},
     },
-    address: {
-      required: {value: true, message: 'Address line is required'},
-    },
+    // address: {
+    //   required: {value: true, message: 'Address line is required'},
+    // },
     city: {
       required: {value: true, message: 'City is required'},
     },
-    state: {
-      required: {value: true, message: 'State is required'},
-    },
-    zipCode: {
-      required: {value: true, message: 'ZIP code is required'},
-      pattern: {
-        value: /^\d{5}(-\d{4})?$/,
-        message: 'Please enter a valid ZIP code',
-      },
-    },
+    // state: {
+    //   required: {value: true, message: 'State is required'},
+    // },
+    // zipCode: {
+    //   required: {value: true, message: 'ZIP code is required'},
+    //   pattern: {
+    //     value: /^\d{5}(-\d{4})?$/,
+    //     message: 'Please enter a valid ZIP code',
+    //   },
+    // },
   };
 
   // Initialize form with default values or existing address
   const formControl = useForm(
     {
-      title: isEditMode ? address?.title || '' : '',
-      address: isEditMode ? address?.address || '' : '',
+      address_title: isEditMode ? address?.address_title || '' : '',
+      // address: isEditMode ? address?.address || '' : '',
       city: isEditMode ? address?.city || '' : '',
-      state: isEditMode ? address?.state || '' : '',
-      zipCode: isEditMode ? address?.zipCode || '' : '',
-      isDefault: isEditMode ? address?.isDefault || false : false,
+      // state: isEditMode ? address?.state || '' : '',
+      // zipCode: isEditMode ? address?.zipCode || '' : '',
+      // isDefault: isEditMode ? address?.isDefault || false : false,
     },
     validationSchema,
   );
@@ -114,10 +120,10 @@ const AddEditAddressScreen = ({navigation, route}: any) => {
         );
 
         // Update form values with detected address
-        formControl.setValue('address', mockAddress.address);
+        //formControl.setValue('address', mockAddress.address);
         formControl.setValue('city', mockAddress.city);
-        formControl.setValue('state', mockAddress.state);
-        formControl.setValue('zipCode', mockAddress.zipCode);
+        //formControl.setValue('state', mockAddress.state);
+        //formControl.setValue('zipCode', mockAddress.zipCode);
       } catch (error) {
         setFormError(
           'Failed to detect location. Please enter address manually.',
@@ -136,40 +142,76 @@ const AddEditAddressScreen = ({navigation, route}: any) => {
 
   // Enter manually
   const enterManually = () => {
-    formControl.setValue('address', '');
+    //formControl.setValue('address', '');
     formControl.setValue('city', '');
-    formControl.setValue('state', '');
-    formControl.setValue('zipCode', '');
+    // formControl.setValue('state', '');
+    // formControl.setValue('zipCode', '');
     setShowLocationModal(false);
   };
 
   // Form submission handler
-  const onSubmit = (data: any) => {
+  // const onSubmit = async (data: any) => {
+  //   Alert.alert('Form Data', JSON.stringify(data, null, 2));
+  //   try {
+  //     setFormError('');
+
+  //     const updatedAddress: Address = {
+  //       //id: isEditMode ? address?.id || '0' : '0',
+  //       profile_id: user?.id,
+  //       address_title: data.address_title,
+  //       city: data.city, // Make sure this matches your interface
+  //       // address: data.address,
+  //       // state: data.state,
+  //       // zipCode: data.zipCode,
+  //       // isDefault: data.isDefault,
+  //       // latitude: currentLocation?.latitude || address?.latitude,
+  //       // longitude: currentLocation?.longitude || address?.longitude,
+  //     };
+
+  //     const result = await createAddress(updatedAddress);
+
+  //     if (isEditMode) {
+  //       await updateAddress({id: address.id, ...updatedAddress});
+  //     } else {
+  //       await createAddress(updatedAddress);
+  //     }
+  //   } catch (error) {
+  //     // Pass back the updated address to the list screen
+  //     setFormError(
+  //       'An error occurred. Please check your information and try again.',
+  //     );
+  //     console.error('Submission error:', error);
+  //   }
+  // };
+
+  const onSubmit = async (data: any) => {
     try {
       setFormError('');
 
-      const updatedAddress: Address = {
-        id: isEditMode ? address?.id || '0' : '0', // Will be replaced by real ID if adding
-        title: data.title,
-        address: data.address,
+      const payload = {
+        profile_id: user?.id,
+        address_title: data.address_title,
         city: data.city,
-        state: data.state,
-        zipCode: data.zipCode,
-        isDefault: data.isDefault,
-        latitude: currentLocation?.latitude || address?.latitude,
-        longitude: currentLocation?.longitude || address?.longitude,
       };
 
-      // Pass back the updated address to the list screen
-      navigation.navigate('AddressList', {
-        updatedAddress,
-        mode,
-      });
-    } catch (error) {
-      setFormError(
-        'An error occurred. Please check your information and try again.',
-      );
+      if (isEditMode && address?.id) {
+        const response = await updateAddress({id: address.id, ...payload});
+        Alert.alert('Update Response', JSON.stringify(response, null, 2));
+      } else {
+        const response = await createAddress(payload);
+        Alert.alert('Create Response', JSON.stringify(response, null, 2));
+      }
+
+      navigation.navigate('AddressList');
+    } catch (error: any) {
       console.error('Submission error:', error);
+
+      Alert.alert(
+        'Error',
+        error?.message || 'Something went wrong. Please try again.',
+      );
+
+      setFormError('Something went wrong. Please try again.');
     }
   };
 
@@ -227,20 +269,20 @@ const AddEditAddressScreen = ({navigation, route}: any) => {
               <FormInput
                 label="Address Title"
                 placeholder="Home, Work, etc."
-                name="title"
+                name="address_title"
                 formControl={formControl}
                 isRequired={true}
                 autoCapitalize="words"
               />
 
-              <FormInput
+              {/* <FormInput
                 label="Address Line"
                 placeholder="Street address, building, etc."
                 name="address"
                 formControl={formControl}
-                isRequired={true}
+                isRequired={false}
                 autoCapitalize="words"
-              />
+              /> */}
 
               <View style={styles.row}>
                 <View style={styles.column}>
@@ -254,29 +296,29 @@ const AddEditAddressScreen = ({navigation, route}: any) => {
                   />
                 </View>
 
-                <View style={styles.halfColumn}>
+                {/* <View style={styles.halfColumn}>
                   <FormInput
                     label="State"
                     placeholder="State"
                     name="state"
                     formControl={formControl}
-                    isRequired={true}
+                    isRequired={false}
                     autoCapitalize="characters"
                     maxLength={2}
                   />
-                </View>
+                </View> */}
 
-                <View style={styles.halfColumn}>
+                {/* <View style={styles.halfColumn}>
                   <FormInput
                     label="ZIP Code"
                     placeholder="ZIP"
                     name="zipCode"
                     formControl={formControl}
-                    isRequired={true}
+                    isRequired={false}
                     keyboardType="numeric"
                     maxLength={10}
                   />
-                </View>
+                </View> */}
               </View>
 
               <FormCheckbox
@@ -287,8 +329,9 @@ const AddEditAddressScreen = ({navigation, route}: any) => {
             </View>
 
             {/* Save Button */}
-            <Button
+            <FormButton
               label="Save Address"
+              loading={isPending}
               onPress={formControl.handleSubmit(onSubmit, onError)}
             />
           </Form>

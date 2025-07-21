@@ -33,7 +33,9 @@ const OfferCard = ({sale, onReserveClick}: any) => {
           style={styles.image}
           resizeMode="cover"
         />
-        <Text style={styles.title}>{sale.title}</Text>
+        <Text style={styles.title} numberOfLines={1} ellipsizeMode="tail">
+          {sale.title}
+        </Text>
         <Text style={styles.discription} numberOfLines={1} ellipsizeMode="tail">
           {sale.description}
         </Text>
@@ -56,7 +58,8 @@ export default OfferCard;
 const themeStyles = (theme: any) =>
   StyleSheet.create({
     card: {
-      width: 170,
+      width: 160,
+      height: 220,
       margin: SPACING.sm,
       padding: SPACING.sm,
       borderRadius: 10,

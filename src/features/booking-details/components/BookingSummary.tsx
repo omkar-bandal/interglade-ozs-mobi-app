@@ -224,7 +224,10 @@ const BookingSummary = () => {
                 </Text>
               </View>
             </View>
-            <TouchableOpacity>
+            <TouchableOpacity
+              onPress={() => {
+                navigate('AddressList');
+              }}>
               <Text style={styles.changeButton}>Change</Text>
             </TouchableOpacity>
           </View>

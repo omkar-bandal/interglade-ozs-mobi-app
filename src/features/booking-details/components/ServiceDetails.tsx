@@ -23,8 +23,7 @@ import {useTypedSelector} from '@hooks/useTypedSelector';
 import {SPACING} from '@theme/constants';
 import useTheme from '@theme/useTheme';
 import {navigate} from '@utils/NavigationUtils';
-import AntDesignIcon from 'react-native-vector-icons/AntDesign';
-import {default as Ionicons} from 'react-native-vector-icons/Ionicons';
+import Icon, {default as Ionicons} from 'react-native-vector-icons/Ionicons';
 
 const ServiceDetails = ({serviceId}: {serviceId: string}) => {
   const {theme} = useTheme();
@@ -154,29 +153,23 @@ const ServiceDetails = ({serviceId}: {serviceId: string}) => {
           </View>
 
           {/* Action Buttons */}
-          <View style={styles.actionRow}>
+
+          <View style={styles.locationContainer}>
             <View style={styles.actionBox}>
               <Button
                 variant="secondary"
-                leftIcon={
-                  <AntDesignIcon name="wechat" size={24} color="#393872" />
-                }
+                label={serviceData?.location || 'NA'}
+                leftIcon={<Icon name="location" size={24} color="#393872" />}
               />
+              {/* <Typography variant="body2">
+                  {serviceData?.location || 'NA'}
+                </Typography> */}
             </View>
             <View style={styles.actionBox}>
               <Button
                 variant="secondary"
-                leftIcon={
-                  <AntDesignIcon name="location" size={24} color="#393872" />
-                }
-              />
-            </View>
-            <View style={styles.actionBox}>
-              <Button
-                variant="secondary"
-                leftIcon={
-                  <AntDesignIcon name="sharealt" size={24} color="#393872" />
-                }
+                label="Share"
+                leftIcon={<Icon name="share" size={24} color="#393872" />}
               />
             </View>
           </View>
@@ -356,6 +349,12 @@ const themeStyles = (theme: any) =>
       flexDirection: 'row',
       justifyContent: 'center',
       alignItems: 'center',
+    },
+    locationContainer: {
+      flex: 1,
+      paddingHorizontal: 8,
+      flexDirection: 'row',
+      justifyContent: 'space-between',
     },
     actionBox: {
       padding: SPACING.sm,
