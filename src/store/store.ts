@@ -10,6 +10,7 @@ import {
   REGISTER,
   REHYDRATE,
 } from 'redux-persist';
+import addressReducer from './slice/address.slice';
 import authReducer from './slice/auth.slice';
 import cartReducer from './slice/cart.slice';
 import salesReducer from './slice/sales.slice';
@@ -30,6 +31,7 @@ const rootReducer = combineReducers({
   sales: salesReducer,
   services: servicesReducer,
   cart: cartReducer,
+  address: addressReducer,
 });
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);

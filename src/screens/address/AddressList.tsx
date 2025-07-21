@@ -1,5 +1,6 @@
 import ScreenHeader from '@components/header/ScreenHeader';
 import Button from '@components/ui/Button';
+import {useDeleteAddress, useGetAllAddress} from '@hooks/api/address.rq';
 import useTheme from '@theme/useTheme';
 import React, {useEffect, useState} from 'react';
 import {
@@ -14,52 +15,54 @@ import {
   View,
 } from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons';
+import {useDispatch} from 'react-redux';
 
 // Sample data for addresses
-const SAMPLE_ADDRESSES = [
-  {
-    id: '1',
-    title: 'Home',
-    address: '123 Maple Street, Apartment 4B',
-    city: 'San Francisco',
-    state: 'CA',
-    zipCode: '94107',
-    isDefault: true,
-    latitude: 37.7749,
-    longitude: -122.4194,
-  },
-  {
-    id: '2',
-    title: 'Work',
-    address: '456 Market Street, Suite 200',
-    city: 'San Francisco',
-    state: 'CA',
-    zipCode: '94103',
-    isDefault: false,
-    latitude: 37.7899,
-    longitude: -122.3995,
-  },
-  {
-    id: '3',
-    title: "Parent's House",
-    address: '789 Oak Avenue',
-    city: 'Oakland',
-    state: 'CA',
-    zipCode: '94610',
-    isDefault: false,
-    latitude: 37.8044,
-    longitude: -122.2712,
-  },
-];
+// const SAMPLE_ADDRESSES = [
+//   {
+//     id: '1',
+//     title: 'Home',
+//     address: '123 Maple Street, Apartment 4B',
+//     city: 'San Francisco',
+//     state: 'CA',
+//     zipCode: '94107',
+//     isDefault: true,
+//     latitude: 37.7749,
+//     longitude: -122.4194,
+//   },
+//   {
+//     id: '2',
+//     title: 'Work',
+//     address: '456 Market Street, Suite 200',
+//     city: 'San Francisco',
+//     state: 'CA',
+//     zipCode: '94103',
+//     isDefault: false,
+//     latitude: 37.7899,
+//     longitude: -122.3995,
+//   },
+//   {
+//     id: '3',
+//     title: "Parent's House",
+//     address: '789 Oak Avenue',
+//     city: 'Oakland',
+//     state: 'CA',
+//     zipCode: '94610',
+//     isDefault: false,
+//     latitude: 37.8044,
+//     longitude: -122.2712,
+//   },
+// ];
 
 export interface Address {
-  id: string;
-  title: string;
-  address: string;
+  id?: string;
+  address_title: string;
+  profile_id: string;
+  //address?: string;
   city: string;
-  state: string;
-  zipCode: string;
-  isDefault: boolean;
+  state?: string;
+  zipCode?: string;
+  isDefault?: boolean;
   latitude?: number;
   longitude?: number;
 }
@@ -82,7 +85,7 @@ const AddressItem = ({
   const confirmDelete = () => {
     Alert.alert(
       'Delete Address',
-      `Are you sure you want to delete "${address.title}"?`,
+      `Are you sure you want to delete "${address.address_title}"?`,
       [
         {text: 'Cancel', style: 'cancel'},
         {
@@ -98,7 +101,7 @@ const AddressItem = ({
     <View style={styles.addressItem}>
       <View style={styles.addressHeader}>
         <View style={styles.addressTitleContainer}>
-          <Text style={styles.addressTitle}>{address.title}</Text>
+          <Text style={styles.addressTitle}>{address.address_title}</Text>
           {address.isDefault && (
             <View style={styles.defaultBadge}>
               <Text style={styles.defaultBadgeText}>Default</Text>
@@ -142,32 +145,44 @@ interface AddressListScreenProps {
 }
 
 const AddressListScreen = ({navigation}: AddressListScreenProps) => {
+  const {data, isLoading, isError, refetch} = useGetAllAddress();
   const [addresses, setAddresses] = useState<Address[]>([]);
-  const [isLoading, setIsLoading] = useState(true);
+  const dispatch = useDispatch();
+  const {mutate: deleteAddress} = useDeleteAddress();
   const {theme, themeType} = useTheme();
   const styles = themeStyles(theme);
 
-  // Simulated data loading
+  Alert.alert('Address Data', JSON.stringify(data));
+
   useEffect(() => {
-    setTimeout(() => {
-      setAddresses(SAMPLE_ADDRESSES);
-      setIsLoading(false);
-    }, 800);
-  }, []);
+    if (data) {
+      setAddresses(data); // update state when API data comes
+    }
+  }, [data]);
 
   const handleEditAddress = (address: Address) => {
+    Alert.alert('Update address', JSON.stringify(address));
     navigation.navigate('AddEditAddress', {address, mode: 'edit'});
   };
 
   const handleDeleteAddress = (id: string) => {
-    setAddresses(addresses.filter(address => address.id !== id));
+    deleteAddress(id, {
+      onSuccess: () => {
+        dispatch(deleteAddress(id));
+        refetch();
+      },
+      onError: (error: any) => {
+        console.error('Delete error:', error);
+        Alert.alert('Error', 'Failed to delete address.');
+      },
+    });
   };
 
   const handleSetDefaultAddress = (id: string) => {
-    setAddresses(
-      addresses.map(address => ({
+    setAddresses(prev =>
+      prev.map(address => ({
         ...address,
-        isDefault: address.id === id,
+        isDefault: address.id === id, // set only this one to true
       })),
     );
   };
@@ -238,6 +253,14 @@ const AddressListScreen = ({navigation}: AddressListScreenProps) => {
     );
   }
 
+  if (isError) {
+    return (
+      <SafeAreaView style={[styles.container, styles.centerContent]}>
+        <Text style={styles.loadingText}>Failed to load addresses.</Text>
+        <Button label="Retry" onPress={() => refetch} />
+      </SafeAreaView>
+    );
+  }
   return (
     <SafeAreaView style={styles.container}>
       <StatusBar
@@ -252,11 +275,11 @@ const AddressListScreen = ({navigation}: AddressListScreenProps) => {
       <ScrollView
         style={styles.scrollView}
         contentContainerStyle={
-          addresses.length === 0 ? styles.emptyScrollContent : {}
+          data.length === 0 ? styles.emptyScrollContent : {}
         }
         showsVerticalScrollIndicator={false}>
-        {addresses.length > 0 ? (
-          addresses.map(address => (
+        {data.data?.length > 0 ? (
+          data?.data?.map((address: any) => (
             <AddressItem
               key={address.id}
               address={address}
@@ -278,7 +301,7 @@ const AddressListScreen = ({navigation}: AddressListScreenProps) => {
       {/* Add New Address Button */}
       <View style={styles.buttonContainer}>
         <Button
-          label="Add New Address"
+          label="Add Address"
           onPress={handleAddNewAddress}
           leftIcon={<Icon name="add" size={16} color="#fff" />}
         />

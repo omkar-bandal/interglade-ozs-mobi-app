@@ -1,6 +1,7 @@
 import {supabase} from '@lib/supabase/supabase';
 
 export class CategoryService {
+
   static getAllSalesCategories(): any {
     return supabase.from('categories_ventes').select('*').order('id');
   }
