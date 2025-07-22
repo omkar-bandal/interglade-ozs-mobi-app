@@ -1,3 +1,4 @@
+import {addressActionCreators} from '@store/slice/address.slice';
 import {authActionCreators} from '@store/slice/auth.slice';
 import {cartActionCreators} from '@store/slice/cart.slice';
 import {salesActionCreators} from '@store/slice/sales.slice';
@@ -15,6 +16,7 @@ export const useActions = () => {
       ...salesActionCreators,
       ...servicesActionCreators,
       ...cartActionCreators,
+      ...addressActionCreators,
     },
     dispatch,
   );

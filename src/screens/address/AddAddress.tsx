@@ -37,6 +37,7 @@ const AddEditAddressScreen = ({navigation, route}: any) => {
   const {theme, themeType} = useTheme();
   const styles = themeStyles(theme);
   const {mode, address} = route.params || {mode: 'add'};
+  //Alert.alert('Address data to edit', JSON.stringify(address, mode));
   const isEditMode = mode === 'edit';
 
   const [formError, setFormError] = useState('');
@@ -83,7 +84,7 @@ const AddEditAddressScreen = ({navigation, route}: any) => {
       city: isEditMode ? address?.city || '' : '',
       // state: isEditMode ? address?.state || '' : '',
       // zipCode: isEditMode ? address?.zipCode || '' : '',
-      // isDefault: isEditMode ? address?.isDefault || false : false,
+      isDefault: isEditMode ? address?.isDefault || false : false,
     },
     validationSchema,
   );
@@ -195,14 +196,31 @@ const AddEditAddressScreen = ({navigation, route}: any) => {
       };
 
       if (isEditMode && address?.id) {
-        const response = await updateAddress({id: address.id, ...payload});
-        Alert.alert('Update Response', JSON.stringify(response, null, 2));
+        const response = await updateAddress({
+          address: payload,
+          addressId: address.id,
+        });
+        if (response?.status === 204) {
+          Alert.alert('Address updated successfully');
+        }
+        navigation.navigate('AddressList', {
+          updatedAddress: {
+            id: address.id,
+            ...payload,
+            isDefault: data.isDefault, // Include if you're managing this in local state
+          },
+        });
       } else {
         const response = await createAddress(payload);
-        Alert.alert('Create Response', JSON.stringify(response, null, 2));
+        navigation.navigate('AddressList', {
+          updatedAddress: {
+            ...response.data,
+            isDefault: data.isDefault,
+          },
+        });
       }
 
-      navigation.navigate('AddressList');
+      //navigation.navigate('AddressList');
     } catch (error: any) {
       console.error('Submission error:', error);
 
