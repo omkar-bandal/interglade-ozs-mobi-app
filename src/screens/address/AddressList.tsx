@@ -2,7 +2,7 @@ import ScreenHeader from '@components/header/ScreenHeader';
 import Button from '@components/ui/Button';
 import {useDeleteAddress, useGetAllAddress} from '@hooks/api/address.rq';
 import useTheme from '@theme/useTheme';
-import React, {useEffect, useState} from 'react';
+import React, {useEffect} from 'react';
 import {
   ActivityIndicator,
   Alert,
@@ -15,7 +15,6 @@ import {
   View,
 } from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons';
-import {useDispatch} from 'react-redux';
 
 // Sample data for addresses
 // const SAMPLE_ADDRESSES = [
@@ -82,6 +81,7 @@ const AddressItem = ({
 }: AddressItemProps) => {
   const {theme} = useTheme();
   const styles = themeStyles(theme);
+
   const confirmDelete = () => {
     Alert.alert(
       'Delete Address',
@@ -90,7 +90,7 @@ const AddressItem = ({
         {text: 'Cancel', style: 'cancel'},
         {
           text: 'Delete',
-          onPress: () => onDelete(address.id),
+          onPress: () => onDelete(address.id!),
           style: 'destructive',
         },
       ],
@@ -124,14 +124,14 @@ const AddressItem = ({
         </View>
       </View>
 
-      <Text style={styles.addressText}>{address.address}</Text>
+      <Text style={styles.addressText}>{address.address_title}</Text>
       <Text style={styles.addressText}>
         {address.city}, {address.state} {address.zipCode}
       </Text>
 
-      {!address.isDefault && (
+      {!address.isDefault && address.id && (
         <TouchableOpacity
-          onPress={() => onSetDefault(address.id)}
+          onPress={() => onSetDefault(address.id!)}
           style={styles.setDefaultButton}>
           <Text style={styles.setDefaultText}>Set as default</Text>
         </TouchableOpacity>
@@ -146,33 +146,28 @@ interface AddressListScreenProps {
 
 const AddressListScreen = ({navigation}: AddressListScreenProps) => {
   const {data, isLoading, isError, refetch} = useGetAllAddress();
-  const [addresses, setAddresses] = useState<Address[]>([]);
-  const dispatch = useDispatch();
+  const [addresses, setAddresses] = React.useState<Address[]>([]);
   const {mutate: deleteAddress} = useDeleteAddress();
+
   const {theme, themeType} = useTheme();
   const styles = themeStyles(theme);
 
-  Alert.alert('Address Data', JSON.stringify(data));
-
   useEffect(() => {
-    if (data) {
-      setAddresses(data); // update state when API data comes
+    if (data?.data) {
+      setAddresses(data?.data);
     }
   }, [data]);
 
   const handleEditAddress = (address: Address) => {
-    Alert.alert('Update address', JSON.stringify(address));
     navigation.navigate('AddEditAddress', {address, mode: 'edit'});
   };
 
-  const handleDeleteAddress = (id: string) => {
+  const handleDeleteAddress = async (id: string) => {
     deleteAddress(id, {
       onSuccess: () => {
-        dispatch(deleteAddress(id));
         refetch();
       },
-      onError: (error: any) => {
-        console.error('Delete error:', error);
+      onError: () => {
         Alert.alert('Error', 'Failed to delete address.');
       },
     });
@@ -182,7 +177,7 @@ const AddressListScreen = ({navigation}: AddressListScreenProps) => {
     setAddresses(prev =>
       prev.map(address => ({
         ...address,
-        isDefault: address.id === id, // set only this one to true
+        isDefault: address.id === id,
       })),
     );
   };
@@ -278,8 +273,8 @@ const AddressListScreen = ({navigation}: AddressListScreenProps) => {
           data.length === 0 ? styles.emptyScrollContent : {}
         }
         showsVerticalScrollIndicator={false}>
-        {data.data?.length > 0 ? (
-          data?.data?.map((address: any) => (
+        {addresses.length > 0 ? (
+          addresses.map((address: any) => (
             <AddressItem
               key={address.id}
               address={address}

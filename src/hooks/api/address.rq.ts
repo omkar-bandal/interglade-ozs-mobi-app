@@ -49,12 +49,14 @@ export function useGetAddressById(
   });
 }
 
-export function useDeleteAddress(
-  addressId: string,
-): UseQueryResult<any, ErrorModel> {
-  return useQuery<any, ErrorModel>({
-    queryKey: ['deleteAddress', addressId],
-    queryFn: () => AddressService.deleteAddress(addressId),
-    enabled: !!addressId,
+export function useDeleteAddress(): UseMutationResult<
+  any,
+  ErrorModel,
+  string,
+  unknown
+> {
+  return useMutation<any, ErrorModel, string, unknown>({
+    mutationKey: ['deleteAddress'],
+    mutationFn: addressId => AddressService.deleteAddress(addressId),
   });
 }
