@@ -15,6 +15,8 @@ const Confirm = ({id}: {id: string}) => {
         reservation: {status: 'confirmed'},
         reservationId: id,
       });
+      //Alert.alert('Booking Confirmed');
+      setModalVisible(false);
     } catch (error) {
       console.log('Error confirming reservation:', error);
     }

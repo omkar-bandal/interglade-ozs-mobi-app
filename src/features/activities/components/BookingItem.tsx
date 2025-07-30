@@ -25,11 +25,15 @@ const CalendarIcon = () => {
   );
 };
 
-// const ClockIcon = () => (
-//   <View style={styles.icon}>
-//     <Ionicons name="time-outline" size={20} color="#666" />
-//   </View>
-// );
+const ClockIcon = () => {
+  const {theme} = useTheme();
+  const styles = themeStyles(theme);
+  return (
+    <View style={styles.icon}>
+      <Ionicons name="time-outline" size={20} color="#666" />
+    </View>
+  );
+};
 
 const LocationIcon = () => {
   const {theme} = useTheme();
@@ -48,6 +52,7 @@ const BookingItem = ({
   date,
   location,
   status,
+  time,
   //onChat,
   onCancel,
   onClose,
@@ -97,10 +102,10 @@ const BookingItem = ({
           <Text style={styles.detailText}>{date}</Text>
         </View>
 
-        {/* <View style={styles.bookingDetail}>
+        <View style={styles.bookingDetail}>
           <ClockIcon />
           <Text style={styles.detailText}>{time}</Text>
-        </View> */}
+        </View>
 
         <View style={styles.bookingDetailLocation}>
           <LocationIcon />
@@ -164,7 +169,7 @@ const themeStyles = (theme: any) =>
       marginVertical: 8,
     },
     bookingItemConfirmed: {
-      backgroundColor: 'white',
+      backgroundColor: theme.components.card.backgroundColor,
       borderRadius: 8,
       padding: 15,
       marginVertical: 8,
@@ -172,7 +177,7 @@ const themeStyles = (theme: any) =>
       borderColor: '#8BC34A', // Success green color for confirmed items
     },
     bookingItemDeclined: {
-      backgroundColor: 'white',
+      backgroundColor: theme.components.card.backgroundColor,
       borderRadius: 8,
       padding: 15,
       marginVertical: 8,
@@ -183,13 +188,14 @@ const themeStyles = (theme: any) =>
       flexDirection: 'row',
       justifyContent: 'space-between',
       alignItems: 'flex-start',
-      marginBottom: 12,
+      //marginBottom: 6,
+      paddingVertical: 3,
       //backgroundColor: 'red',
     },
     bookingTitle: {
       fontSize: 16,
       fontWeight: 'bold',
-      color: '#333',
+      color: theme.colors.text,
     },
     bookingProvider: {
       fontSize: 14,

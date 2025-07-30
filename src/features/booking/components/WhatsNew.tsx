@@ -1,4 +1,3 @@
-import Button from '@components/ui/Button';
 import Typography from '@components/ui/Typography';
 import {useGetAllServicesExpectUser} from '@hooks/api/service.rq';
 import {useTypedSelector} from '@hooks/useTypedSelector';
@@ -18,7 +17,8 @@ const WhatsNew = () => {
 
   const handleCardDetails = useCallback((serviceId: string): void => {
     navigate('ServiceDetails', {
-      serviceId,
+      type: 'service',
+      id: serviceId,
     });
     // Implement reservation logic here
     //Alert.alert('Service data', JSON.stringify(serviceId));
@@ -34,14 +34,14 @@ const WhatsNew = () => {
           Whats New?
         </Typography>
 
-        <Button
+        {/* <Button
           label="See All"
           size="small"
           variant="ghost"
           onPress={() => {
             navigate('SearchAndFilter');
           }}
-        />
+        /> */}
       </View>
       <View style={styles.cardsContainer}>
         <ScrollView horizontal showsHorizontalScrollIndicator={false}>

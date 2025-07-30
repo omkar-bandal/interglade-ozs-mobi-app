@@ -45,6 +45,7 @@ export const useUpdateReservation = () => {
 };
 
 export const useDeleteReservation = () => {
+  //const queryClient = useQueryClient();
   return useMutation<any, ErrorModel, any, unknown>({
     mutationKey: ['deleteReservation'],
     mutationFn: reservationId =>

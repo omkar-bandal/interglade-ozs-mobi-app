@@ -5,51 +5,19 @@ import {
 } from '@hooks/api/reservation.rq';
 import {useTypedSelector} from '@hooks/useTypedSelector';
 import {useNavigation} from '@react-navigation/native';
+import {useQueryClient} from '@tanstack/react-query';
 import React from 'react';
-import {ActivityIndicator, Alert, FlatList, StyleSheet} from 'react-native';
+import {
+  ActivityIndicator,
+  Alert,
+  Dimensions,
+  FlatList,
+  StyleSheet,
+} from 'react-native';
 import BookingItem from './BookingItem';
 import EmptyBookingsList from './EmptyBookingList';
 
-// const data = {
-//   data: [
-//     {
-//       id: '1',
-//       services: {
-//         title: 'Hair Spa Treatment',
-//         location: 'Bella Salon, Mumbai',
-//       },
-//       provider: {
-//         name: 'Ritika Sharma',
-//       },
-//       date: '2025-07-05T15:30:00',
-//       status: 'confirmed',
-//     },
-//     {
-//       id: '2',
-//       services: {
-//         title: 'Full Body Massage',
-//         location: 'Urban Wellness, Pune',
-//       },
-//       provider: {
-//         name: 'Karan Mehta',
-//       },
-//       date: '2025-07-08T11:00:00',
-//       status: 'pending',
-//     },
-//     {
-//       id: '3',
-//       services: {
-//         title: 'Manicure & Pedicure',
-//         location: 'Nail Spa, Delhi',
-//       },
-//       provider: {
-//         name: 'Ayesha Khan',
-//       },
-//       date: '2025-07-12T17:45:00',
-//       status: 'completed',
-//     },
-//   ],
-// };
+const SCREEN_HEIGHT = Dimensions.get('window').height;
 
 const MyBookings = ({tabType}: any) => {
   const {user} = useTypedSelector(state => state.auth);
@@ -58,7 +26,16 @@ const MyBookings = ({tabType}: any) => {
     tabType,
   );
   const navigation = useNavigation<any>();
+  const queryClient = useQueryClient();
   const {mutate: deleteReservation} = useDeleteReservation();
+
+  const formatDate = (isoDate: string): string => {
+    const date = new Date(isoDate);
+    const day = String(date.getDate()).padStart(2, '0');
+    const month = String(date.getMonth() + 1).padStart(2, '0'); // Month is 0-indexed
+    const year = date.getFullYear();
+    return `${day}/${month}/${year}`;
+  };
 
   // Handle actions
 
@@ -67,6 +44,9 @@ const MyBookings = ({tabType}: any) => {
       onSuccess: () => {
         Alert.alert('Success', 'Booking cancelled successfully.');
         // Optional: refetch reservation list here if needed
+        queryClient.invalidateQueries({
+          queryKey: ['getReservationByUserIdAndStatus', user?.id, tabType],
+        });
       },
       onError: (error: any) => {
         Alert.alert('Error', 'Failed to cancel booking. Please try again.');
@@ -89,7 +69,8 @@ const MyBookings = ({tabType}: any) => {
           id={item.id}
           title={item.services?.title}
           provider={item.provider?.name}
-          date={item.date}
+          date={formatDate(item.date)}
+          time={item.time_slot}
           location={item.services?.location}
           status={item.status}
           onCancel={() => {
@@ -138,5 +119,20 @@ export default MyBookings;
 const styles = StyleSheet.create({
   bookingsList: {
     flex: 1,
+  },
+  modalWrapper: {
+    flex: 1,
+    backgroundColor: 'rgba(0, 0, 0, 0.3)', // greyish transparent overlay
+    justifyContent: 'flex-end',
+  },
+  modalContent: {
+    backgroundColor: '#E0F0F0',
+    borderTopLeftRadius: 20,
+    borderTopRightRadius: 20,
+    padding: 16,
+    height: SCREEN_HEIGHT * 0.5,
+    position: 'absolute',
+    width: '100%',
+    bottom: 0,
   },
 });

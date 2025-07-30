@@ -3,6 +3,7 @@ import Typography from '@components/ui/Typography';
 import {useGetAllSales} from '@hooks/api/sales.rq';
 import {ActivityIndicator, ScrollView, StyleSheet, View} from 'react-native';
 import {SalesCard} from './card/SalesCard';
+import { navigate } from '@utils/NavigationUtils';
 
 export const RecentSales = () => {
   const {data, isLoading} = useGetAllSales();
@@ -18,7 +19,14 @@ export const RecentSales = () => {
           Recent Sales
         </Typography>
 
-        <Button label="See All" size="small" variant="ghost" />
+        <Button
+          label="See All"
+          size="small"
+          variant="ghost"
+          onPress={() => {
+            navigate('SearchAndFilter');
+          }}
+        />
       </View>
 
       <ScrollView

@@ -17,8 +17,8 @@ import {
 import Icon from 'react-native-vector-icons/Ionicons';
 
 export const SalesListScreen = ({sales, onEditSale, onDeleteSale}: any) => {
-   const {theme} = useTheme();
-    const styles = themeStyles(theme);
+  const {theme} = useTheme();
+  const styles = themeStyles(theme);
   // const renderSaleCard = ({item}: any) => {
   //   return (
   //     <View style={styles.cardContainer}>

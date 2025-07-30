@@ -14,7 +14,8 @@ export const PopularServices = (): JSX.Element => {
 
   const handleReserveClick = useCallback((serviceId: string): void => {
     navigate('ServiceDetails', {
-      serviceId,
+      type: 'service',
+      id: serviceId,
     });
     // Implement reservation logic here
   }, []);

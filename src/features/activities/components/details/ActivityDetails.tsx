@@ -17,61 +17,14 @@ import {useGetReservationById} from '@hooks/api/reservation.rq';
 import {SPACING} from '@theme/constants';
 import Complete from '../Complete';
 
-// const reservationData = {
-//   data: [
-//     {
-//       id: '101',
-//       service: {
-//         title: 'Bridal Makeup Trial',
-//         location: 'Shimmer Studio, Mumbai',
-//         photos: {
-//           //image: require('https://randomuser.me/api/portraits/men/44.jpg'),
-//         },
-//       },
-//       provider: {
-//         name: 'Priya Deshmukh',
-//       },
-//       date: '2025-07-03T14:00:00',
-//       status: 'pending',
-//     },
-//     {
-//       id: '102',
-//       service: {
-//         title: 'Hair Styling Session',
-//         location: 'Salon One, Pune',
-//       },
-//       provider: {
-//         name: 'Rahul Verma',
-//       },
-//       date: '2025-07-10T10:30:00',
-//       status: 'approved',
-//     },
-//     {
-//       id: '103',
-//       service: {
-//         title: 'Makeup Consultation',
-//         location: 'Beauty Point, Delhi',
-//         price: 100,
-//       },
-//       provider: {
-//         name: 'Sana Khan',
-//       },
-//       date: '2025-07-15T16:15:00',
-//       status: 'Completed',
-//     },
-//   ],
-// };
-
 const ActivityDetails = ({reservationId}: any) => {
   const {theme} = useTheme();
   const styles = themeStyles(theme);
-
-  // const reservation = reservationData.data.find(
-  //   reservation => reservation.id === reservationId,
-  // );
-
   const {data: reservationData, isLoading} =
     useGetReservationById(reservationId);
+
+  const reservation = reservationData?.data;
+  //Alert.alert('Booking data', JSON.stringify(reservation));
 
   if (isLoading) {
     return (
@@ -81,14 +34,31 @@ const ActivityDetails = ({reservationId}: any) => {
     );
   }
 
-  const reservation = reservationData?.data;
-
   if (!reservation) {
     return (
       <View style={styles.centerContainer}>
         <Text>No reservation found</Text>
       </View>
     );
+  }
+  let statusStyle;
+  let statusText;
+
+  if (reservation.status === 'confirmed') {
+    statusStyle = styles.statusConfirmed;
+    statusText = 'Confirmed';
+  } else if (reservation.status === 'completed') {
+    statusStyle = styles.statusConfirmed;
+    statusText = 'Completed';
+  } else if (
+    reservation.status === 'declined' ||
+    reservation.status === 'cancelled'
+  ) {
+    statusStyle = styles.statusDeclined;
+    statusText = reservation.status === 'declined' ? 'Declined' : 'Cancelled';
+  } else if (reservation.status === 'pending') {
+    statusStyle = styles.statusPending;
+    statusText = 'Pending';
   }
 
   return (
@@ -119,6 +89,9 @@ const ActivityDetails = ({reservationId}: any) => {
               <Text style={styles.ratingText}>5.0</Text>
             </View>
             <Text style={styles.price}>${reservation?.service?.price}</Text>
+            <View style={[statusStyle]}>
+              <Text style={styles.statusText}>{statusText}</Text>
+            </View>
           </View>
         </View>
 
@@ -142,20 +115,12 @@ const ActivityDetails = ({reservationId}: any) => {
             source={{uri: 'https://randomuser.me/api/portraits/men/44.jpg'}}
             style={styles.providerImage}
           />
-          {/* <View style={{flex: 1, marginLeft: 12}}>
-            <Text style={styles.providerName}>
-              {reservation?.provider?.first_name || 'Sara'}{' '}
-              {reservation?.provider?.last_name || 'Khan'}
-            </Text>
-          </View> */}
           <View style={{flex: 1, marginLeft: 12}}>
             <Text style={styles.providerName}>
-              {reservation?.provider?.name} {reservation?.provider?.name}
+              {`${reservation?.service?.provider?.first_name} ${reservation?.service?.provider?.last_name}`}
             </Text>
           </View>
-          {/* <View style={styles.providerActions}>
-          <Contact />
-        </View> */}
+          <View style={styles.providerActions}>{/* <Contact /> */}</View>
         </View>
 
         {/* Booking Status */}
@@ -283,6 +248,39 @@ const themeStyles = (theme: any) =>
       borderRadius: 12,
       padding: 12,
     },
+    statusReserved: {
+      backgroundColor: '#D4E157',
+      paddingHorizontal: 8,
+      paddingVertical: 3,
+      borderRadius: 4,
+      alignSelf: 'center',
+    },
+    statusPending: {
+      backgroundColor: '#FFB74D',
+      paddingHorizontal: 8,
+      paddingVertical: 3,
+      borderRadius: 4,
+      alignSelf: 'center',
+    },
+    statusConfirmed: {
+      backgroundColor: '#8BC34A',
+      paddingHorizontal: 8,
+      paddingVertical: 3,
+      borderRadius: 4,
+      alignSelf: 'center',
+    },
+    statusDeclined: {
+      backgroundColor: '#F44336',
+      paddingHorizontal: 8,
+      paddingVertical: 3,
+      borderRadius: 4,
+      alignSelf: 'center',
+    },
+    statusText: {
+      color: 'white',
+      fontSize: 14,
+      fontWeight: '500',
+    },
     serviceImage: {
       width: 60,
       height: 60,
@@ -347,6 +345,8 @@ const themeStyles = (theme: any) =>
       fontWeight: 'bold',
       fontSize: 16,
       marginVertical: 12,
+      color: theme.colors.textSecondary,
+      //backgroundColor: 'red',
     },
     providerCard: {
       flexDirection: 'row',
@@ -365,6 +365,7 @@ const themeStyles = (theme: any) =>
       fontWeight: 'bold',
       fontSize: 15,
       color: theme.colors.text,
+      //backgroundColor: 'red',
     },
     providerRole: {
       color: theme.colors.gray,
@@ -407,6 +408,7 @@ const themeStyles = (theme: any) =>
       marginTop: 2,
     },
     statusTitle: {
+      color: theme.colors.textTertiary,
       fontWeight: 'bold',
       fontSize: 15,
     },

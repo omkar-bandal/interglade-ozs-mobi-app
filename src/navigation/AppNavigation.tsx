@@ -1,4 +1,3 @@
-
 import BookingSummary from '@features/booking-details/components/BookingSummary';
 import {NavigationContainer} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';

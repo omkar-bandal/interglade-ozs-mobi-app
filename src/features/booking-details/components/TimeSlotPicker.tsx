@@ -138,7 +138,7 @@ const TimeSlotPicker: React.FC<TimeSlotPickerProps> = ({
     <View style={styles.container}>
       <ScrollView>
         <View style={styles.sectionTitleContainer}>
-          <Text style={styles.sectionTitle}>Select Day Day</Text>
+          <Text style={styles.sectionTitle}>Select Day </Text>
           <TouchableOpacity onPress={() => setCustomDayModalVisible(true)}>
             <Text style={styles.sectionTitle}>Custom Day</Text>
           </TouchableOpacity>
@@ -186,7 +186,7 @@ const TimeSlotPicker: React.FC<TimeSlotPickerProps> = ({
                   styles.dayText,
                   selectedDay === day.id && styles.selectedDayText,
                 ]}>
-                {day.label}
+                { day.label}
               </Text>
               <Text
                 style={[
@@ -226,22 +226,22 @@ const TimeSlotPicker: React.FC<TimeSlotPickerProps> = ({
           ))} */}
           {/* .filter((_, index) => index % 4 !== 0) */}
           {allTimeSlots.map((slot, index) => (
-              <TouchableOpacity
-                key={`${slot.id}-${index}`}
+            <TouchableOpacity
+              key={`${slot.id}-${index}`}
+              style={[
+                styles.timeSlotChip,
+                selectedTimeSlot === slot.id && styles.selectedTimeSlotChip,
+              ]}
+              onPress={() => onSelectTimeSlot(slot.id)}>
+              <Text
                 style={[
-                  styles.timeSlotChip,
-                  selectedTimeSlot === slot.id && styles.selectedTimeSlotChip,
-                ]}
-                onPress={() => onSelectTimeSlot(slot.id)}>
-                <Text
-                  style={[
-                    styles.timeSelectText,
-                    selectedTimeSlot === slot.id && styles.selectedTimeSlotText,
-                  ]}>
-                  {slot.label}
-                </Text>
-              </TouchableOpacity>
-            ))}
+                  styles.timeSelectText,
+                  selectedTimeSlot === slot.id && styles.selectedTimeSlotText,
+                ]}>
+                {slot.label}
+              </Text>
+            </TouchableOpacity>
+          ))}
         </View>
       </ScrollView>
 

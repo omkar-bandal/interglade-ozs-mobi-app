@@ -15,6 +15,7 @@ const Decline = ({id}: {id: string}) => {
         reservation: {status: 'cancelled'},
         reservationId: id,
       });
+      setModalVisible(false);
     } catch (error) {
       console.log('Error Declineing reservation:', error);
     }
