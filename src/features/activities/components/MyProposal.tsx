@@ -4,59 +4,14 @@
 import {useGetReservationByProviderIdAndStatus} from '@hooks/api/reservation.rq';
 import {useTypedSelector} from '@hooks/useTypedSelector';
 import {useNavigation} from '@react-navigation/native';
-import React, {useState} from 'react';
 import {
   ActivityIndicator,
   Dimensions,
   FlatList,
-  Modal,
   StyleSheet,
-  View,
 } from 'react-native';
 import BookingItem from './BookingItem';
 import EmptyBookingsList from './EmptyBookingList';
-import Overview from './details/Overview';
-
-// const data = {
-//   data: [
-//     {
-//       id: '101',
-//       service: {
-//         title: 'Bridal Makeup Trial',
-//         location: 'Shimmer Studio, Mumbai',
-//       },
-//       provider: {
-//         name: 'Priya Deshmukh',
-//       },
-//       date: '2025-07-03T14:00:00',
-//       status: 'pending',
-//     },
-//     {
-//       id: '102',
-//       service: {
-//         title: 'Hair Styling Session',
-//         location: 'Salon One, Pune',
-//       },
-//       provider: {
-//         name: 'Rahul Verma',
-//       },
-//       date: '2025-07-10T10:30:00',
-//       status: 'approved',
-//     },
-//     {
-//       id: '103',
-//       service: {
-//         title: 'Makeup Consultation',
-//         location: 'Beauty Point, Delhi',
-//       },
-//       provider: {
-//         name: 'Sana Khan',
-//       },
-//       date: '2025-07-15T16:15:00',
-//       status: 'rejected',
-//     },
-//   ],
-// };
 
 const SCREEN_HEIGHT = Dimensions.get('window').height;
 
@@ -67,24 +22,24 @@ const MyProposal = ({tabType}: any) => {
     tabType,
   );
 
-  const [modalVisible, setModalVisible] = useState(false);
+  const formatDate = (isoDate: string): string => {
+    const date = new Date(isoDate);
+    const day = String(date.getDate()).padStart(2, '0');
+    const month = String(date.getMonth() + 1).padStart(2, '0'); // Month is 0-indexed
+    const year = date.getFullYear();
+    return `${day}/${month}/${year}`;
+  };
+
   const navigation = useNavigation<any>();
 
   //const isLoading = false;
+
   // Handle actions
-  const handleClose = (id: any) => {
-    setModalVisible(true);
-    console.log(id);
-  };
   const handleViewDetails = (id: any) => {
     // Alert.alert(`View details for proposal ${id}`);
     navigation.navigate('ActivityDetails', {
       reservationId: id,
     });
-  };
-
-  const handleModalClose = () => {
-    setModalVisible(false);
   };
 
   const renderProposalItem = ({item}: any) => (
@@ -93,22 +48,12 @@ const MyProposal = ({tabType}: any) => {
         id={item.id}
         title={item.service?.title}
         provider={item.provider?.name}
-        date={item.date}
+        date={formatDate(item.date)}
+        time={item.time_slot}
         location={item.service?.location}
         status={item.status}
-        onClose={() => handleClose(item.id)}
         onViewDetails={() => handleViewDetails(item.id)}
       />
-      <Modal
-        visible={modalVisible}
-        onRequestClose={handleModalClose}
-        style={styles.modalWrapper}
-        animationType="slide"
-        transparent={true}>
-        <View style={styles.modalContent}>
-          <Overview onClose={handleModalClose} />
-        </View>
-      </Modal>
     </>
   );
 
