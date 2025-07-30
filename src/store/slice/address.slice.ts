@@ -7,65 +7,78 @@ export interface Address {
   address_title: string;
   city: string;
   created_at?: string;
+  isDefault: boolean;
   [key: string]: any;
 }
 
 export interface AddressState {
-  addresses: Address[] | null;
+  myAddress: Address[] | null;
 }
 
 const initialState: AddressState = {
-  addresses: null,
+  myAddress: null,
 };
 
 const addressSlice = createSlice({
   name: sliceConstants.ADDRESS,
   initialState,
   reducers: {
-    setAddresses: (state, {payload}: PayloadAction<Address[]>) => {
-      state.addresses = payload;
+    setMyAddresses: (state, {payload}: PayloadAction<Address[]>) => {
+      state.myAddress = payload;
     },
-    addAddress: (state, {payload}: PayloadAction<Address>) => {
-      if (!state.addresses) {
-        state.addresses = [];
+    addMyAddress: (state, {payload}: PayloadAction<Address>) => {
+      if (!state.myAddress) {
+        state.myAddress = [];
       }
-      state.addresses.push(payload);
+      state.myAddress.push(payload);
     },
-    updateAddress: (state, {payload}: PayloadAction<Address>) => {
-      if (!state.addresses) {
+    updateMyAddress: (state, {payload}: PayloadAction<Address>) => {
+      if (!state.myAddress) {
         return;
       }
-      const index = state.addresses.findIndex(addr => addr.id === payload.id);
+      const index = state.myAddress.findIndex(addr => addr.id === payload.id);
       if (index !== -1) {
-        state.addresses[index] = payload;
+        state.myAddress[index] = payload;
       }
     },
-    deleteAddress: (state, {payload}: PayloadAction<string>) => {
-      if (!state.addresses) {
+    deleteMyAddress: (state, {payload}: PayloadAction<string>) => {
+      if (!state.myAddress) {
         return;
       }
-      state.addresses = state.addresses.filter(addr => addr.id !== payload);
+      state.myAddress = state.myAddress.filter(addr => addr.id !== payload);
     },
-    resetAddresses: state => {
-      state.addresses = null;
+    resetMyAddresses: state => {
+      state.myAddress = null;
+    },
+    setDefaultAddress: (state, {payload}: PayloadAction<string>) => {
+      if (!state.myAddress) {
+        return;
+      }
+
+      state.myAddress = state.myAddress.map(addr => ({
+        ...addr,
+        isDefault: addr.id === payload, // Set only the selected one as default
+      }));
     },
   },
 });
 
 export const {
-  setAddresses,
-  addAddress,
-  updateAddress,
-  deleteAddress,
-  resetAddresses,
+  setMyAddresses,
+  addMyAddress,
+  updateMyAddress,
+  deleteMyAddress,
+  resetMyAddresses,
+  setDefaultAddress,
 } = addressSlice.actions;
 
 export const addressActionCreators = {
-  setAddresses,
-  addAddress,
-  updateAddress,
-  deleteAddress,
-  resetAddresses,
+  setMyAddresses,
+  addMyAddress,
+  updateMyAddress,
+  deleteMyAddress,
+  resetMyAddresses,
+  setDefaultAddress,
 };
 
 export default addressSlice.reducer;

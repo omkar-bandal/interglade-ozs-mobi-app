@@ -33,7 +33,7 @@ interface AddEditAddressScreenProps {
   };
 }
 
-const AddEditAddressScreen = ({navigation, route}: any) => {
+const AddEditAddressScreen = ({navigation, route}: AddEditAddressScreenProps ) => {
   const {theme, themeType} = useTheme();
   const styles = themeStyles(theme);
   const {mode, address} = route.params || {mode: 'add'};
@@ -212,6 +212,11 @@ const AddEditAddressScreen = ({navigation, route}: any) => {
         });
       } else {
         const response = await createAddress(payload);
+        if (response?.status === 201) {
+          Alert.alert('Address created successfully', JSON.stringify(response));
+        } else {
+          Alert.alert('Address created successfully', JSON.stringify(response));
+        }
         navigation.navigate('AddressList', {
           updatedAddress: {
             ...response.data,

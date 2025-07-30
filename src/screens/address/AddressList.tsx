@@ -1,6 +1,8 @@
 import ScreenHeader from '@components/header/ScreenHeader';
 import Button from '@components/ui/Button';
 import {useDeleteAddress, useGetAllAddress} from '@hooks/api/address.rq';
+import {useActions} from '@hooks/useActions';
+import {useTypedSelector} from '@hooks/useTypedSelector';
 import useTheme from '@theme/useTheme';
 import React, {useEffect} from 'react';
 import {
@@ -145,24 +147,31 @@ interface AddressListScreenProps {
 }
 
 const AddressListScreen = ({navigation}: AddressListScreenProps) => {
-  const {data, isLoading, isError, refetch} = useGetAllAddress();
-  const [addresses, setAddresses] = React.useState<Address[]>([]);
+  const {data: address, isLoading, isError, refetch} = useGetAllAddress();
+  // const [addresses, setAddresses] = React.useState<Address[]>([]);
   const {mutate: deleteAddress} = useDeleteAddress();
+  const {myAddress} = useTypedSelector(state => state.address) || [];
+  const {setMyAddresses, setDefaultAddress} = useActions();
 
   const {theme, themeType} = useTheme();
   const styles = themeStyles(theme);
 
   useEffect(() => {
-    if (data?.data) {
-      setAddresses(data?.data);
+    if (address?.data) {
+      setMyAddresses(address?.data);
     }
-  }, [data]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [address]);
 
   const handleEditAddress = (address: Address) => {
     navigation.navigate('AddEditAddress', {address, mode: 'edit'});
   };
 
   const handleDeleteAddress = async (id: string) => {
+    // const result = await deleteAddress({id});
+    // if (result?.status === 204) {
+    //   deleteMyAddress(id);
+    // }
     deleteAddress(id, {
       onSuccess: () => {
         refetch();
@@ -174,12 +183,14 @@ const AddressListScreen = ({navigation}: AddressListScreenProps) => {
   };
 
   const handleSetDefaultAddress = (id: string) => {
-    setAddresses(prev =>
-      prev.map(address => ({
-        ...address,
-        isDefault: address.id === id,
-      })),
-    );
+    // const updated =
+    //   myAddress?.map(addr => ({
+    //     ...addr,
+    //     isDefault: addr.id === id,
+    //   })) || [];
+
+    // setMyAddresses(updated);
+    setDefaultAddress(id);
   };
 
   const handleAddNewAddress = () => {
@@ -187,36 +198,66 @@ const AddressListScreen = ({navigation}: AddressListScreenProps) => {
   };
 
   // Simulated add/update handler that would be called from the add/edit screen
+  // const handleAddressUpdate = (address: Address, mode: 'add' | 'edit') => {
+  //   if (mode === 'add') {
+  //     const newAddress = {
+  //       ...address,
+  //       id: (address.length + 1).toString(),
+  //       isDefault: address.length === 0 ? true : address.isDefault,
+  //     };
+
+  //     if (newAddress.isDefault) {
+  //       // Make sure only one address is default
+  //       setMyAddresses(prevAddresses => [
+  //         ...prevAddresses.map(a => ({...a, isDefault: false})),
+  //         newAddress,
+  //       ]);
+  //     } else {
+  //       setAddresses(prevAddresses => [...prevAddresses, newAddress]);
+  //     }
+  //   } else {
+  //     // Edit mode
+  //     setAddresses(prevAddresses => {
+  //       const newAddresses = prevAddresses.map(a =>
+  //         a.id === address.id
+  //           ? address
+  //           : address.isDefault
+  //           ? {...a, isDefault: false}
+  //           : a,
+  //       );
+  //       return newAddresses;
+  //     });
+  //   }
+  // };
+
   const handleAddressUpdate = (address: Address, mode: 'add' | 'edit') => {
+    const prevAddresses = myAddress || [];
+
+    let updatedAddresses = [...prevAddresses];
+
+    if (address.isDefault) {
+      // If current address is default, reset default from others
+      updatedAddresses = updatedAddresses.map(a => ({
+        ...a,
+        isDefault: false,
+      }));
+    }
+
     if (mode === 'add') {
       const newAddress = {
         ...address,
-        id: (addresses.length + 1).toString(),
-        isDefault: addresses.length === 0 ? true : address.isDefault,
+        id: Date.now().toString(), // Simulated unique ID
       };
-
-      if (newAddress.isDefault) {
-        // Make sure only one address is default
-        setAddresses(prevAddresses => [
-          ...prevAddresses.map(a => ({...a, isDefault: false})),
-          newAddress,
-        ]);
-      } else {
-        setAddresses(prevAddresses => [...prevAddresses, newAddress]);
-      }
+      updatedAddresses.push(newAddress);
     } else {
-      // Edit mode
-      setAddresses(prevAddresses => {
-        const newAddresses = prevAddresses.map(a =>
-          a.id === address.id
-            ? address
-            : address.isDefault
-            ? {...a, isDefault: false}
-            : a,
-        );
-        return newAddresses;
-      });
+      // Edit mode: Replace the existing one
+      updatedAddresses = updatedAddresses.map(a =>
+        a.id === address.id ? address : a,
+      );
     }
+
+    // Finally update state
+    setMyAddresses(updatedAddresses);
   };
 
   // This would typically be registered through navigation
@@ -236,7 +277,6 @@ const AddressListScreen = ({navigation}: AddressListScreenProps) => {
 
       return unsubscribe;
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [navigation]);
 
   if (isLoading) {
@@ -252,7 +292,7 @@ const AddressListScreen = ({navigation}: AddressListScreenProps) => {
     return (
       <SafeAreaView style={[styles.container, styles.centerContent]}>
         <Text style={styles.loadingText}>Failed to load addresses.</Text>
-        <Button label="Retry" onPress={() => refetch} />
+        <Button label="Retry" onPress={() => refetch()} />
       </SafeAreaView>
     );
   }
@@ -270,14 +310,14 @@ const AddressListScreen = ({navigation}: AddressListScreenProps) => {
       <ScrollView
         style={styles.scrollView}
         contentContainerStyle={
-          data.length === 0 ? styles.emptyScrollContent : {}
+          address.length === 0 ? styles.emptyScrollContent : {}
         }
         showsVerticalScrollIndicator={false}>
-        {addresses.length > 0 ? (
-          addresses.map((address: any) => (
+        {myAddress && myAddress.length > 0 ? (
+          myAddress.map((item: Address) => (
             <AddressItem
-              key={address.id}
-              address={address}
+              key={item.id}
+              address={item}
               onEdit={handleEditAddress}
               onDelete={handleDeleteAddress}
               onSetDefault={handleSetDefaultAddress}
