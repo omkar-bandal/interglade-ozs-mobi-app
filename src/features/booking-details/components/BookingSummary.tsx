@@ -33,6 +33,9 @@ const BookingSummary = () => {
   const {setSuccess, deleteCart} = useActions();
   const {mutateAsync: bookService, isPending} = useCreateReservation();
 
+  const {myAddress} = useTypedSelector(state => state.address);
+  const defaultAddress = myAddress?.find(addr => addr.isDefault);
+
   const decrementQuantity = () => {
     if (quantity > 1) {
       setQuantity(quantity - 1);
@@ -220,7 +223,9 @@ const BookingSummary = () => {
               <View style={styles.addressTextContainer}>
                 <Text style={styles.addressLabel}>Address</Text>
                 <Text style={styles.addressValue}>
-                  2118 Thornridge California
+                  {defaultAddress
+                    ? `${defaultAddress.address_title}, ${defaultAddress.city}`
+                    : 'No default address set'}
                 </Text>
               </View>
             </View>

@@ -8,33 +8,6 @@ import React, {useCallback} from 'react';
 import {ActivityIndicator, Alert, StyleSheet, View} from 'react-native';
 import OfferCard from './card/SalesOfferCard';
 
-// export const SaleOffer = [
-//   {
-//     id: 1,
-//     // image: require('../../assets/bag.png'),
-//     title: 'Designer Handbag',
-//     description: 'Authentic designer handbag',
-//   },
-//   {
-//     id: 2,
-//     // image: require('../../assets/bag.png'),
-//     title: 'Designer Handbag',
-//     description: 'Authentic designer handbag',
-//   },
-//   {
-//     id: 2,
-//     // image: require('../../assets/bag.png'),
-//     title: 'Designer Handbag',
-//     description: 'Authentic designer handbag',
-//   },
-//   {
-//     id: 2,
-//     //  image: require('../../assets/bag.png'),
-//     title: 'Designer Handbag',
-//     description: 'Authentic designer handbag',
-//   },
-// ];
-
 export const SpecialOffer = () => {
   const {user} = useTypedSelector(state => state.auth);
   const {data: salesData, isLoading: isSalesLoading} = useGetMySales(
@@ -42,10 +15,12 @@ export const SpecialOffer = () => {
   );
 
   const handleReserveClick = useCallback((saleId: string): void => {
-    navigate('SaerviceDetails', {
-      saleId,
-    });
-    Alert.alert('Sale data', JSON.stringify(saleId));
+    navigate('ServiceDetails', {
+    type: 'sale',
+    id: saleId,
+  });
+    // Implement reservation logic here
+    Alert.alert('Sale Booking data', JSON.stringify(salesData));
   }, []);
 
   if (isSalesLoading) {

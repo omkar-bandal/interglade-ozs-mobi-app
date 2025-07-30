@@ -1,3 +1,4 @@
+import {AddressState} from '@store/slice/address.slice';
 import {AuthState} from '@store/slice/auth.slice';
 import {CartState} from '@store/slice/cart.slice';
 import {SalesState} from '@store/slice/sales.slice';
@@ -10,4 +11,5 @@ export interface BaseStoreState {
   sales: SalesState;
   services: ServicesState;
   cart: CartState;
+  address: AddressState;
 }

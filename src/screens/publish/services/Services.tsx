@@ -314,6 +314,7 @@ const themeStyles = (theme: any) =>
       fontSize: 16,
       fontWeight: '600',
       marginBottom: 4,
+      color: theme.colors.textSecondary,
     },
     priceContainer: {
       flexDirection: 'row',
@@ -324,10 +325,11 @@ const themeStyles = (theme: any) =>
       fontSize: 16,
       fontWeight: 'bold',
       marginRight: 8,
+      color: theme.colors.textSecondary,
     },
     originalPrice: {
       fontSize: 14,
-      color: '#999',
+      color: theme.colors.textSecondary,
       textDecorationLine: 'line-through',
     },
     providerContainer: {
