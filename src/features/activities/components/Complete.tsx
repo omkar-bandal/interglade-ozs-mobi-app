@@ -1,9 +1,10 @@
 import Button from '@components/ui/Button';
-import {useUpdateReservation} from '@hooks/api/reservation.rq';
+import {useUpdateServiceReservation} from '@hooks/api/reservation-service.rq';
 import React from 'react';
 
 const Complete = ({id}: {id: string}) => {
-  const {mutateAsync: completeReservation, isPending} = useUpdateReservation();
+  const {mutateAsync: completeReservation, isPending} =
+    useUpdateServiceReservation();
 
   const handleComplete = async () => {
     try {

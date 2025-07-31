@@ -144,17 +144,17 @@ export const SalesListScreen = ({sales, onEditSale, onDeleteSale}: any) => {
                   label="Edit"
                   style={styles.editButton}
                   leftIcon={
-                    <Icon name="create-outline" size={16} color="#393972" />
+                    <Icon name="create-outline" size={16} color="#fff" />
                   }
                   onPress={() => onEditSale(item)}
                 />
                 <Button
                   label="Delete"
-                  variant="secondary"
+                  variant="destructive"
                   size="small"
                   style={styles.deleteButton}
                   leftIcon={
-                    <Icon name="trash-outline" size={16} color="#393872" />
+                    <Icon name="trash-outline" size={16} color="#fff" />
                   }
                   onPress={() => {
                     Alert.alert(
@@ -189,9 +189,7 @@ export const SalesListScreen = ({sales, onEditSale, onDeleteSale}: any) => {
         showsVerticalScrollIndicator={false}
         ListEmptyComponent={
           <View style={styles.centerContent}>
-            <Text>
-              “No listings yet. Tap the + to publish your first item!”
-            </Text>
+            <Text>No sales found</Text>
           </View>
         }
       />

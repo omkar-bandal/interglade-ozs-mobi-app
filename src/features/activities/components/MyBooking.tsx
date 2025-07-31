@@ -2,7 +2,7 @@
 import {
   useDeleteReservation,
   useGetReservationByUserIdAndStatus,
-} from '@hooks/api/reservation.rq';
+} from '@hooks/api/reservation-service.rq';
 import {useTypedSelector} from '@hooks/useTypedSelector';
 import {useNavigation} from '@react-navigation/native';
 import {useQueryClient} from '@tanstack/react-query';
@@ -41,7 +41,8 @@ const MyBookings = ({tabType}: any) => {
 
   const handleCancel = (id: any) => {
     deleteReservation(id, {
-      onSuccess: () => {
+      onSuccess: (response: any) => {
+        console.log('Booking cancelled successfully:', response);
         Alert.alert('Success', 'Booking cancelled successfully.');
         // Optional: refetch reservation list here if needed
         queryClient.invalidateQueries({

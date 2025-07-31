@@ -3,51 +3,59 @@ import {SPACING} from '@theme/constants';
 import React, {useState} from 'react';
 import {StyleSheet, View} from 'react-native';
 
-import MyBookings from './MyBooking';
-import MyProposal from './MyProposal';
+import MySalesBookings from './my-booking/MySalesBooking';
+import MyServiceBookings from './my-booking/MyServiceBooking';
+import MySalesProposal from './my-proposal/MySalesProposal';
+import MyServiceProposal from './my-proposal/MyServiceProposal';
 
 const MainTabs = () => {
-  const [mainTab, setMainTab] = useState('bookings');
-  const [secondaryTab, setSecondaryTab] = useState('pending');
-
-  const handleMainTabChange = (value: any) => {
-    setMainTab(value);
-  };
-
-  const handleSecondaryTabChange = (value: any) => {
-    setSecondaryTab(value);
-  };
+  const [mainTab, setMainTab] = useState('services');
+  const [secondaryTab, setSecondaryTab] = useState('bookings');
+  const [thirdTab, setThirdTab] = useState('pending');
 
   return (
-    <>
+    <View style={{flex: 1}}>
       <View style={styles.tabsContainer}>
+        <Tabs
+          items={[
+            {name: 'Services', value: 'services'},
+            {name: 'Sales', value: 'sales'},
+          ]}
+          value={mainTab}
+          onItemChange={setMainTab}
+        />
         <Tabs
           items={[
             {name: 'My Bookings', value: 'bookings'},
             {name: 'My Proposal', value: 'proposal'},
           ]}
-          value={mainTab}
-          onItemChange={handleMainTabChange}
+          value={secondaryTab}
+          onItemChange={setSecondaryTab}
         />
-
         <Tabs
           items={[
             {name: 'Upcoming', value: 'pending'},
             {name: 'Past', value: 'past'},
           ]}
-          value={secondaryTab}
-          onItemChange={handleSecondaryTabChange}
+          value={thirdTab}
+          onItemChange={setThirdTab}
         />
       </View>
 
       <View style={styles.tabsInnerContainer}>
-        {mainTab === 'bookings' ? (
-          <MyBookings tabType={secondaryTab} />
+        {mainTab === 'services' ? (
+          secondaryTab === 'proposal' ? (
+            <MyServiceProposal tabType={thirdTab} />
+          ) : (
+            <MyServiceBookings tabType={thirdTab} />
+          )
+        ) : secondaryTab === 'proposal' ? (
+          <MySalesProposal tabType={thirdTab} />
         ) : (
-          <MyProposal tabType={secondaryTab} />
+          <MySalesBookings tabType={thirdTab} />
         )}
       </View>
-    </>
+    </View>
   );
 };
 
@@ -58,7 +66,7 @@ const styles = StyleSheet.create({
   },
   tabsInnerContainer: {
     flex: 1,
-    marginTop: SPACING.xxl * 2,
+    marginTop: SPACING.xxl * 3,
   },
 });
 

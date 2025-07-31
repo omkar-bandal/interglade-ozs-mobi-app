@@ -117,7 +117,7 @@ const BookingItem = ({
               <AntDesignIcon color="#393872" name="wechat" size={20} />
               <Text style={styles.viewDetailsText}>Chat</Text>
             </TouchableOpacity> */}
-            {status === 'pending' ? (
+            {/* {status === 'pending' ? (
               <TouchableOpacity
                 style={styles.viewDetailsButton}
                 onPress={onCancel}>
@@ -131,7 +131,7 @@ const BookingItem = ({
                 <AntDesignIcon color="#393872" name="close" size={20} />
                 <Text style={styles.viewDetailsText}>Close</Text>
               </TouchableOpacity>
-            )}
+            )} */}
             <TouchableOpacity
               style={styles.viewDetailsButton}
               onPress={onViewDetails}>
@@ -252,7 +252,7 @@ const themeStyles = (theme: any) =>
     },
     btnCon: {
       flexDirection: 'row',
-      justifyContent: 'space-between',
+      justifyContent: 'flex-end',
     },
     viewDetailsButton: {
       paddingVertical: 5,

@@ -30,6 +30,7 @@ export default function AddSale({route}: any) {
         condition: data.data.condition || '',
         location: data.data.location || '',
         items: data.data.items || [],
+        availability: data.data.availability || [],
       };
     }
 
@@ -44,6 +45,7 @@ export default function AddSale({route}: any) {
       condition: '',
       location: '',
       items: [],
+      availability: [],
     };
   }, [data]);
 
@@ -57,16 +59,11 @@ export default function AddSale({route}: any) {
   }
 
   const handleRedirect = () => {
-    navigate('Tab-', {screen: 'Publish'});
+    navigate('Tab', {screen: 'Publish'});
   };
 
   if (isSuccess) {
-    return (
-      <SuccessScreen
-        message="Sales added successfully!"
-        onRedirect={handleRedirect}
-      />
-    );
+    return <SuccessScreen onRedirect={handleRedirect} />;
   }
 
   // Render AddSaleForm with initial data

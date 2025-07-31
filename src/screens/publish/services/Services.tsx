@@ -23,6 +23,7 @@ export const ServicesListScreen = ({
 }: any) => {
   const {theme} = useTheme();
   const styles = themeStyles(theme);
+
   // const renderServiceCard = ({item}: any) => {
   //   return (
   //     <View style={styles.cardContainer}>
@@ -110,7 +111,11 @@ export const ServicesListScreen = ({
         <View>
           {/* Service Image */}
           <Image
-            source={{uri: item.photos[0]}}
+            source={{
+              uri:
+                item?.photos?.[0] ||
+                'https://via.placeholder.com/300x200.png?text=No+Image',
+            }}
             style={styles.image}
             resizeMode="cover"
           />

@@ -13,7 +13,6 @@ import {navigate} from '@utils/NavigationUtils';
 import React, {useState} from 'react';
 import {
   ActivityIndicator,
-  Alert,
   Image,
   ScrollView,
   StyleSheet,
@@ -36,7 +35,7 @@ const SaleDetails = ({saleId}: {saleId: string}) => {
   const [selectedTimeSlot, setSelectedTimeSlot] = useState('');
   const {addCart} = useActions();
 
-  Alert.alert('Sale data', JSON.stringify(saleId));
+  //Alert.alert('Sale data', JSON.stringify(saleId));
 
   if (isLoading) {
     return (

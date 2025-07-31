@@ -1,12 +1,13 @@
 import Button from '@components/ui/Button';
-import {useUpdateReservation} from '@hooks/api/reservation.rq';
+import {useUpdateServiceReservation} from '@hooks/api/reservation-service.rq';
 import {SPACING} from '@theme/constants';
 import darkTheme from '@theme/light';
 import React, {useState} from 'react';
 import {Modal, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 
 const Confirm = ({id}: {id: string}) => {
-  const {mutateAsync: confirmReservation, isPending} = useUpdateReservation();
+  const {mutateAsync: confirmReservation, isPending} =
+    useUpdateServiceReservation();
   const [modalVisible, setModalVisible] = useState(false);
 
   const handleConfirm = async () => {

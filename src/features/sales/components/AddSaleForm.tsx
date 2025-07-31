@@ -8,7 +8,7 @@ import {SPACING} from '@theme/constants';
 import useTheme from '@theme/useTheme';
 import {uploadFile} from '@utils/upload.utils';
 import React, {useState} from 'react';
-import {StyleSheet} from 'react-native';
+import {Alert, StyleSheet} from 'react-native';
 import {validationLoginFormSchema} from '../utils/validate';
 import {StepFour} from './add-sale-steps/StepFour';
 import {StepOne} from './add-sale-steps/StepOne';
@@ -28,6 +28,7 @@ export default function AddSaleForm({initialData, saleId}: any) {
 
   const handleComplete = async () => {
     const {values} = formControl;
+    console.log('Form Values:', values);
 
     const uploadedPhotos: string[] = [];
     for (const file of values.photos) {
@@ -65,8 +66,10 @@ export default function AddSaleForm({initialData, saleId}: any) {
       items: values.items || [],
       updated_at: new Date().toISOString(),
     };
+    Alert.alert('Sale Data:', JSON.stringify(saleData));
     if (saleId) {
       const updatedResult = await updateSale({sale: saleData, saleId});
+      Alert.alert('Updated Result:', JSON.stringify(updatedResult));
       if (updatedResult?.status === 204) {
         updateMySale(saleData as any);
         setSuccess(true);

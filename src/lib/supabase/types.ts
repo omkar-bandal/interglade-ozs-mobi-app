@@ -474,6 +474,69 @@ export type Database = {
           },
         ];
       };
+      reservations_ventes: {
+        Row: {
+          address: string | null;
+          client_id: string;
+          created_at: string;
+          date: string;
+          date_time_end: string | null;
+          id: string;
+          instructions: string | null;
+          sales_id: string;
+          status: string;
+          time_slot: string;
+          total_amount: number;
+          updated_at: string;
+          viewed: boolean | null;
+        };
+        Insert: {
+          address?: string | null;
+          client_id: string;
+          created_at?: string;
+          date: string;
+          date_time_end?: string | null;
+          id?: string;
+          instructions?: string | null;
+          sales_id: string;
+          status: string;
+          time_slot: string;
+          total_amount: number;
+          updated_at?: string;
+          viewed?: boolean | null;
+        };
+        Update: {
+          address?: string | null;
+          client_id?: string;
+          created_at?: string;
+          date?: string;
+          date_time_end?: string | null;
+          id?: string;
+          instructions?: string | null;
+          sales_id?: string;
+          status?: string;
+          time_slot?: string;
+          total_amount?: number;
+          updated_at?: string;
+          viewed?: boolean | null;
+        };
+        Relationships: [
+          {
+            foreignKeyName: 'reservations_client_id_fkey';
+            columns: ['client_id'];
+            isOneToOne: false;
+            referencedRelation: 'profiles';
+            referencedColumns: ['id'];
+          },
+          {
+            foreignKeyName: 'reservations_sales_id_fkey';
+            columns: ['sales_id'];
+            isOneToOne: false;
+            referencedRelation: 'sales';
+            referencedColumns: ['id'];
+          },
+        ];
+      };
       reviews: {
         Row: {
           comment: string | null;

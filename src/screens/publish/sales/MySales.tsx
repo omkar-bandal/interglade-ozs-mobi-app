@@ -5,6 +5,7 @@ import {navigate} from '@utils/NavigationUtils';
 import React, {useEffect} from 'react';
 import {
   ActivityIndicator,
+  Alert,
   StyleSheet,
   Text,
   TouchableOpacity,
@@ -19,18 +20,28 @@ const MySales: React.FC = () => {
   const {mutateAsync: deleteSale} = useDeleteSale();
   const {deleteMySale, setMySales} = useActions();
 
+  //Alert.alert('Sales', JSON.stringify(sales?.data));
+
   useEffect(() => {
-    if (sales?.data) {
+    if (sales?.data?.id) {
       setMySales(sales?.data);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [sales]);
 
   const handleEditSale = (item: any) => {
+    if (item.id === undefined || item.id === null) {
+      Alert.alert('Error', 'Sale ID is required for edition');
+      return;
+    }
     navigate('AddSale', {saleId: item.id});
   };
 
   const handleDeleteSale = async (saleId: string) => {
+    if (!saleId) {
+      Alert.alert('Error', 'Sale ID is required for deletion');
+      return;
+    }
     const result = await deleteSale({saleId});
     if (result?.status === 204) {
       deleteMySale(saleId);
@@ -40,7 +51,7 @@ const MySales: React.FC = () => {
   if (isLoading) {
     return (
       <View style={styles.centerContent}>
-        <ActivityIndicator size="large" color="#4D948E" />
+        <ActivityIndicator size="large" color="#007bff" />
       </View>
     );
   }
@@ -57,11 +68,14 @@ const MySales: React.FC = () => {
   }
 
   return (
-    <SalesListScreen
-      sales={mySales}
-      onEditSale={handleEditSale}
-      onDeleteSale={handleDeleteSale}
-    />
+    <>
+      <SalesListScreen
+        sales={sales?.data || mySales}
+        //sales={mySales}
+        onEditSale={handleEditSale}
+        onDeleteSale={handleDeleteSale}
+      />
+    </>
   );
 };
 
