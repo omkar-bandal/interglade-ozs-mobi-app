@@ -186,7 +186,7 @@ const TimeSlotPicker: React.FC<TimeSlotPickerProps> = ({
                   styles.dayText,
                   selectedDay === day.id && styles.selectedDayText,
                 ]}>
-                { day.label}
+                {day.label}
               </Text>
               <Text
                 style={[

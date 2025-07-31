@@ -111,10 +111,8 @@ const ServiceDetailsScreen = ({route}: any) => {
         <View style={styles.subCon}>
           <Text style={styles.headingText}>Description</Text>
           <Text style={styles.descriptionText}>
-            Lorem ipsum dolor, sit amet consectetur adipisicing elit. Officia at
-            cupiditate consectetur doloribus iste numquam deserunt, inventore
-            quibusdam labore adipisci assumenda reiciendis nam vero molestiae
-            atque modi porro similique maiores?
+            {serviceData?.description ||
+              'Lorem ipsum dolor, sit amet consectetur adipisicing elit. Officia at'}
           </Text>
         </View>
 

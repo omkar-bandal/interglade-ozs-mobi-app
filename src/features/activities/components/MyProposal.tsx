@@ -1,7 +1,5 @@
 /* eslint-disable react-native/no-inline-styles */
-// import {useGetReservationByProviderIdAndStatus} from '@hooks/api/reservation.rq';
-// import {useTypedSelector} from '@hooks/useTypedSelector';
-import {useGetReservationByProviderIdAndStatus} from '@hooks/api/reservation.rq';
+import {useGetReservationByProviderIdAndStatus} from '@hooks/api/reservation-service.rq';
 import {useTypedSelector} from '@hooks/useTypedSelector';
 import {useNavigation} from '@react-navigation/native';
 import {

@@ -3,7 +3,8 @@
 import ScreenHeader from '@components/header/ScreenHeader';
 import SuccessScreen from '@components/Success';
 import Button from '@components/ui/Button';
-import {useCreateReservation} from '@hooks/api/reservation.rq';
+import {useCreateSalesReservation} from '@hooks/api/reservation-sales.rq';
+import {useCreateServiceReservation} from '@hooks/api/reservation-service.rq';
 import {useActions} from '@hooks/useActions';
 import {useTypedSelector} from '@hooks/useTypedSelector';
 import {SPACING} from '@theme/constants';
@@ -16,6 +17,7 @@ import {
   ScrollView,
   StyleSheet,
   Text,
+  TextInput,
   TouchableOpacity,
   View,
 } from 'react-native';
@@ -29,12 +31,19 @@ const BookingSummary = () => {
   const {cartItem} = useTypedSelector(state => state.cart);
   const {user} = useTypedSelector(state => state.auth);
   const {isSuccess} = useTypedSelector(state => state.success);
+  const {addressList, primaryId} = useTypedSelector(state => state.address);
+  const primaryAddress = addressList.find(addr => addr.id === primaryId);
+
+  const [isAddressModalVisible, setIsAddressModalVisible] = useState(false);
+  const [instructions, setInstructions] = useState('');
 
   const {setSuccess, deleteCart} = useActions();
-  const {mutateAsync: bookService, isPending} = useCreateReservation();
+  const {mutateAsync: bookService, isPending} = useCreateServiceReservation();
+  const {mutateAsync: bookSales, isPending: isSalesPending} =
+    useCreateSalesReservation();
 
-  const {myAddress} = useTypedSelector(state => state.address);
-  const defaultAddress = myAddress?.find(addr => addr.isDefault);
+  // const {myAddress} = useTypedSelector(state => state.address);
+  // const defaultAddress = myAddress?.find(addr => addr.isDefault);
 
   const decrementQuantity = () => {
     if (quantity > 1) {
@@ -45,19 +54,34 @@ const BookingSummary = () => {
   const handleBooking = async () => {
     setSuccess(true);
     try {
-      const reservationData = {
-        service_id: cartItem.id,
+      const reservationCommonData = {
         client_id: user?.id,
         status: 'pending',
         date: new Date(cartItem.selectedDay).toISOString(),
         time_slot: cartItem.selectedTimeSlot,
-        total_amount: cartItem.price * quantity,
-        address: 'India',
-        instructions: '',
+        total_amount: cartItem.price * 1,
+        address: primaryAddress
+          ? `${primaryAddress.address_title} ${primaryAddress.city}`
+          : '',
+        instructions: instructions,
       };
-      const response = await bookService(reservationData);
-      console.log('response', response);
-      //Alert.alert('Response', JSON.stringify(response));
+      let response;
+      if (cartItem.type === 'sales') {
+        const reservationData = {
+          ...reservationCommonData,
+          sales_id: cartItem.id,
+        };
+        response = await bookSales(reservationData);
+        console.log('response', response, reservationData);
+      } else if (cartItem.type === 'services') {
+        const reservationData = {
+          ...reservationCommonData,
+          service_id: cartItem.id,
+        };
+
+        response = await bookService(reservationData);
+        console.log('response', response);
+      }
       if (response?.status === 201) {
         deleteCart();
         setSuccess(true);
@@ -223,9 +247,9 @@ const BookingSummary = () => {
               <View style={styles.addressTextContainer}>
                 <Text style={styles.addressLabel}>Address</Text>
                 <Text style={styles.addressValue}>
-                  {defaultAddress
-                    ? `${defaultAddress.address_title}, ${defaultAddress.city}`
-                    : 'No default address set'}
+                  {primaryAddress
+                    ? `${primaryAddress.address_title} ${primaryAddress.city}`
+                    : 'No address set'}
                 </Text>
               </View>
             </View>
@@ -236,6 +260,21 @@ const BookingSummary = () => {
               <Text style={styles.changeButton}>Change</Text>
             </TouchableOpacity>
           </View>
+        </View>
+        <View style={styles.instructionsSection}>
+          <Text style={styles.sectionTitle}>Special Instructions</Text>
+          <TextInput
+            style={{
+              height: 60,
+              borderColor: '#ddd',
+              borderWidth: 1,
+              borderRadius: 4,
+              paddingHorizontal: 8,
+            }}
+            placeholder="Add any special instructions for the service provider"
+            value={instructions}
+            onChangeText={setInstructions}
+          />
         </View>
       </ScrollView>
       <View style={styles.priceConfirmRow}>
@@ -348,6 +387,11 @@ const themeStyles = (theme: any) =>
       backgroundColor: theme.colors.card,
       padding: 16,
       marginTop: 8,
+    },
+    instructionsSection: {
+      backgroundColor: '#fff',
+      padding: 16,
+      marginBottom: 20,
     },
     sectionTitle: {
       fontSize: 16,

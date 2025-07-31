@@ -13,7 +13,8 @@ import {
 } from 'react-native';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 
-import {useGetReservationById} from '@hooks/api/reservation.rq';
+//import { useGetReservationById } from '@hooks/api/reservation-service.rq';
+import {useGetServiceReservationById} from '@hooks/api/reservation-service.rq';
 import {SPACING} from '@theme/constants';
 import Complete from '../Complete';
 
@@ -21,7 +22,7 @@ const ActivityDetails = ({reservationId}: any) => {
   const {theme} = useTheme();
   const styles = themeStyles(theme);
   const {data: reservationData, isLoading} =
-    useGetReservationById(reservationId);
+    useGetServiceReservationById(reservationId);
 
   const reservation = reservationData?.data;
   //Alert.alert('Booking data', JSON.stringify(reservation));

@@ -13,6 +13,8 @@ import {
 import addressReducer from './slice/address.slice';
 import authReducer from './slice/auth.slice';
 import cartReducer from './slice/cart.slice';
+import reservationSalesReducer from './slice/reservation-sales.slice';
+import reservationServiceReducer from './slice/reservation-service.slice';
 import salesReducer from './slice/sales.slice';
 import servicesReducer from './slice/services.slice';
 import successReducer from './slice/success.slice';
@@ -31,6 +33,8 @@ const rootReducer = combineReducers({
   sales: salesReducer,
   services: servicesReducer,
   cart: cartReducer,
+  reservationService: reservationServiceReducer,
+  reservationSales: reservationSalesReducer,
   address: addressReducer,
 });
 

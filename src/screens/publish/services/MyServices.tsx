@@ -19,6 +19,8 @@ const MyServices: React.FC = () => {
   const {mutateAsync: deleteService} = useDeleteService();
   const {deleteMyService, setMyServices} = useActions();
 
+  //Alert.alert('MyServices', JSON.stringify(services));
+
   useEffect(() => {
     if (services?.data) {
       setMyServices(services?.data);
@@ -27,6 +29,7 @@ const MyServices: React.FC = () => {
   }, [services]);
 
   const handleEditService = (item: any) => {
+    //Alert.alert('Edit Service', JSON.stringify(item));
     navigate('AddService', {serviceId: item.id});
   };
 
@@ -59,7 +62,7 @@ const MyServices: React.FC = () => {
   console.log('services', services?.data);
   return (
     <ServicesListScreen
-      services={myServices}
+      services={services?.data || myServices}
       onEditService={handleEditService}
       onDeleteService={handleDeleteService}
     />
