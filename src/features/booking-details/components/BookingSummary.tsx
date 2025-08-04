@@ -1,8 +1,10 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable react-native/no-inline-styles */
+import {ActionSheet} from '@components/ActionSheet';
 import ScreenHeader from '@components/header/ScreenHeader';
 import SuccessScreen from '@components/Success';
 import Button from '@components/ui/Button';
+import {AddressList} from '@features/account/components/address/list/AddressList';
 import {useCreateSalesReservation} from '@hooks/api/reservation-sales.rq';
 import {useCreateServiceReservation} from '@hooks/api/reservation-service.rq';
 import {useActions} from '@hooks/useActions';
@@ -45,6 +47,8 @@ const BookingSummary = () => {
   // const {myAddress} = useTypedSelector(state => state.address);
   // const defaultAddress = myAddress?.find(addr => addr.isDefault);
 
+  console.log('Cart data', cartItem);
+
   const decrementQuantity = () => {
     if (quantity > 1) {
       setQuantity(quantity - 1);
@@ -52,7 +56,7 @@ const BookingSummary = () => {
   };
 
   const handleBooking = async () => {
-    setSuccess(true);
+    console.log('Booking button clicked');
     try {
       const reservationCommonData = {
         client_id: user?.id,
@@ -88,7 +92,6 @@ const BookingSummary = () => {
       }
     } catch (error) {
       console.log('error', error);
-      //Alert.alert('Error', JSON.stringify(error));
     }
   };
 
@@ -110,186 +113,195 @@ const BookingSummary = () => {
   }
 
   return (
-    <SafeAreaView style={styles.container}>
-      <ScreenHeader title="Booking Summary" rightContent={<View />} />
+    <>
+      <SafeAreaView style={styles.container}>
+        <ScreenHeader title="Booking Summary" rightContent={<View />} />
 
-      <ScrollView>
-        {/* Main Service */}
-        <View style={styles.mainServiceCard}>
-          <Image
-            source={{uri: cartItem.photos[0]}}
-            style={styles.mainServiceImage}
-          />
-          <View style={styles.mainServiceDetails}>
-            <Text style={styles.mainServiceTitle}>{cartItem.title}</Text>
-            <View style={styles.ratingContainer}>
-              {[1, 2, 3, 4, 5].map(star => (
-                <Icon key={star} name="star" size={14} color="#FFC107" />
-              ))}
-              <Text style={styles.ratingText}>(5.0)</Text>
+        <ScrollView>
+          {/* Main Service */}
+          <View style={styles.mainServiceCard}>
+            <Image
+              source={{uri: cartItem.photos[0]}}
+              style={styles.mainServiceImage}
+            />
+            <View style={styles.mainServiceDetails}>
+              <Text style={styles.mainServiceTitle}>{cartItem.title}</Text>
+              <View style={styles.ratingContainer}>
+                {[1, 2, 3, 4, 5].map(star => (
+                  <Icon key={star} name="star" size={14} color="#FFC107" />
+                ))}
+                <Text style={styles.ratingText}>(5.0)</Text>
+              </View>
+              <View style={styles.priceQuantityContainer}>
+                <Text style={styles.priceText}>${cartItem.price}</Text>
+                <View style={styles.quantityControl}>
+                  <Button
+                    variant="ghost"
+                    leftIcon={<Icon name="trash" size={16} color="red" />}
+                    onPress={() => deleteCart()}
+                  />
+                </View>
+              </View>
             </View>
-            <View style={styles.priceQuantityContainer}>
-              <Text style={styles.priceText}>${cartItem.price}</Text>
-              <View style={styles.quantityControl}>
+          </View>
+
+          {/* Frequently Added Together */}
+          <View style={styles.sectionContainer}>
+            <Text style={styles.sectionTitle}>Frequently Added Together</Text>
+
+            <View style={styles.recommendedServices}>
+              {/* Kitchen Cleaning */}
+              <View style={styles.recommendedServiceCard}>
+                {/* <Image
+                source={require('../assets/kitchen-cleaning.jpg')}
+                style={styles.recommendedServiceImage}
+              /> */}
+                <View style={styles.recommendedServiceRating}>
+                  {[1, 2, 3, 4, 5].map(star => (
+                    <Icon key={star} name="star" size={12} color="#FFC107" />
+                  ))}
+                  <Text style={styles.smallRatingText}>(130 Reviews)</Text>
+                </View>
+                <Text style={styles.recommendedServiceTitle}>
+                  Complete Kitchen Cleaning
+                </Text>
+                <View style={styles.recommendedServicePrice}>
+                  <Text style={styles.discountedPrice}>$150</Text>
+                  <Text style={styles.originalPrice}>$180</Text>
+                </View>
+                <View style={styles.providerContainer}>
+                  {/* <Image
+                  source={require('../assets/provider1.jpg')}
+                  style={styles.providerImage}
+                /> */}
+                  <Text style={styles.providerName}>Mark Williams</Text>
+                </View>
                 <Button
-                  variant="ghost"
-                  leftIcon={<Icon name="trash" size={16} color="red" />}
-                  onPress={() => deleteCart()}
+                  label="View Details"
+                  size="small"
+                  style={styles.addButton}
+                />
+              </View>
+
+              {/* AC Service */}
+              <View style={styles.recommendedServiceCard}>
+                {/* <Image
+                source={require('../assets/ac-service.jpg')}
+                style={styles.recommendedServiceImage}
+              /> */}
+                <View style={styles.recommendedServiceRating}>
+                  {[1, 2, 3, 4, 5].map(star => (
+                    <Icon key={star} name="star" size={12} color="#FFC107" />
+                  ))}
+                  <Text style={styles.smallRatingText}>(1)</Text>
+                </View>
+                <Text style={styles.recommendedServiceTitle}>AC Service</Text>
+                <View style={styles.recommendedServicePrice}>
+                  <Text style={styles.discountedPrice}>$50</Text>
+                  <Text style={styles.originalPrice}>$80</Text>
+                </View>
+                <View style={styles.providerContainer}>
+                  {/* <Image
+                  source={require('../assets/provider2.jpg')}
+                  style={styles.providerImage}
+                /> */}
+                  <Text style={styles.providerName}>Jacob James</Text>
+                </View>
+                <Button
+                  label="View Details"
+                  size="small"
+                  style={styles.addButton}
                 />
               </View>
             </View>
           </View>
-        </View>
 
-        {/* Frequently Added Together */}
-        <View style={styles.sectionContainer}>
-          <Text style={styles.sectionTitle}>Frequently Added Together</Text>
+          <Button
+            label="Apply Coupon"
+            variant="ghost"
+            style={styles.couponButton}
+            leftIcon={
+              <Icon name="pricetag-outline" size={20} color="#FFC163" />
+            }
+          />
 
-          <View style={styles.recommendedServices}>
-            {/* Kitchen Cleaning */}
-            <View style={styles.recommendedServiceCard}>
-              {/* <Image
-                source={require('../assets/kitchen-cleaning.jpg')}
-                style={styles.recommendedServiceImage}
-              /> */}
-              <View style={styles.recommendedServiceRating}>
-                {[1, 2, 3, 4, 5].map(star => (
-                  <Icon key={star} name="star" size={12} color="#FFC107" />
-                ))}
-                <Text style={styles.smallRatingText}>(130 Reviews)</Text>
-              </View>
-              <Text style={styles.recommendedServiceTitle}>
-                Complete Kitchen Cleaning
-              </Text>
-              <View style={styles.recommendedServicePrice}>
-                <Text style={styles.discountedPrice}>$150</Text>
-                <Text style={styles.originalPrice}>$180</Text>
-              </View>
-              <View style={styles.providerContainer}>
-                {/* <Image
-                  source={require('../assets/provider1.jpg')}
-                  style={styles.providerImage}
-                /> */}
-                <Text style={styles.providerName}>Mark Williams</Text>
-              </View>
-              <Button
-                label="View Details"
-                size="small"
-                style={styles.addButton}
-              />
+          {/* Cost Breakdown */}
+          <View style={styles.costBreakdown}>
+            <View style={styles.costRow}>
+              <Text style={styles.costLabel}>Item Total</Text>
+              <Text style={styles.costValue}>${cartItem.price}</Text>
             </View>
-
-            {/* AC Service */}
-            <View style={styles.recommendedServiceCard}>
-              {/* <Image
-                source={require('../assets/ac-service.jpg')}
-                style={styles.recommendedServiceImage}
-              /> */}
-              <View style={styles.recommendedServiceRating}>
-                {[1, 2, 3, 4, 5].map(star => (
-                  <Icon key={star} name="star" size={12} color="#FFC107" />
-                ))}
-                <Text style={styles.smallRatingText}>(1)</Text>
-              </View>
-              <Text style={styles.recommendedServiceTitle}>AC Service</Text>
-              <View style={styles.recommendedServicePrice}>
-                <Text style={styles.discountedPrice}>$50</Text>
-                <Text style={styles.originalPrice}>$80</Text>
-              </View>
-              <View style={styles.providerContainer}>
-                {/* <Image
-                  source={require('../assets/provider2.jpg')}
-                  style={styles.providerImage}
-                /> */}
-                <Text style={styles.providerName}>Jacob James</Text>
-              </View>
-              <Button
-                label="View Details"
-                size="small"
-                style={styles.addButton}
-              />
+            <View style={styles.costRow}>
+              <Text style={styles.costLabel}>Discount</Text>
+              <Text style={styles.costValue}>$0</Text>
+            </View>
+            <View style={styles.costRow}>
+              <Text style={styles.costLabel}>Delivery Fee</Text>
+              <Text style={styles.deliveryText}>Free</Text>
+            </View>
+            <View style={[styles.costRow, styles.totalRow]}>
+              <Text style={styles.grandTotalLabel}>Grand Total</Text>
+              <Text style={styles.grandTotalValue}>${cartItem.price}</Text>
             </View>
           </View>
-        </View>
 
-        <Button
-          label="Apply Coupon"
-          variant="ghost"
-          style={styles.couponButton}
-          leftIcon={<Icon name="pricetag-outline" size={20} color="#FFC163" />}
-        />
-
-        {/* Cost Breakdown */}
-        <View style={styles.costBreakdown}>
-          <View style={styles.costRow}>
-            <Text style={styles.costLabel}>Item Total</Text>
-            <Text style={styles.costValue}>${cartItem.price}</Text>
-          </View>
-          <View style={styles.costRow}>
-            <Text style={styles.costLabel}>Discount</Text>
-            <Text style={styles.costValue}>$0</Text>
-          </View>
-          <View style={styles.costRow}>
-            <Text style={styles.costLabel}>Delivery Fee</Text>
-            <Text style={styles.deliveryText}>Free</Text>
-          </View>
-          <View style={[styles.costRow, styles.totalRow]}>
-            <Text style={styles.grandTotalLabel}>Grand Total</Text>
-            <Text style={styles.grandTotalValue}>${cartItem.price}</Text>
-          </View>
-        </View>
-
-        {/* Address Section */}
-        <View style={styles.addressSection}>
-          <View style={styles.addressRow}>
-            <View style={styles.addressLeft}>
-              <Icon name="location-outline" size={20} color="#FFC163" />
-              <View style={styles.addressTextContainer}>
-                <Text style={styles.addressLabel}>Address</Text>
-                <Text style={styles.addressValue}>
-                  {primaryAddress
-                    ? `${primaryAddress.address_title} ${primaryAddress.city}`
-                    : 'No address set'}
-                </Text>
+          {/* Address Section */}
+          <View style={styles.addressSection}>
+            <View style={styles.addressRow}>
+              <View style={styles.addressLeft}>
+                <Icon name="location-outline" size={20} color="#FFC163" />
+                <View style={styles.addressTextContainer}>
+                  <Text style={styles.addressLabel}>Address</Text>
+                  <Text style={styles.addressValue}>
+                    {primaryAddress
+                      ? `${primaryAddress.address_title} ${primaryAddress.city}`
+                      : 'No address set'}
+                  </Text>
+                </View>
               </View>
+              <TouchableOpacity onPress={() => setIsAddressModalVisible(true)}>
+                <Text style={styles.changeButton}>Change</Text>
+              </TouchableOpacity>
             </View>
-            <TouchableOpacity
-              onPress={() => {
-                navigate('AddressList');
-              }}>
-              <Text style={styles.changeButton}>Change</Text>
-            </TouchableOpacity>
           </View>
-        </View>
-        <View style={styles.instructionsSection}>
-          <Text style={styles.sectionTitle}>Special Instructions</Text>
-          <TextInput
-            style={{
-              height: 60,
-              borderColor: '#ddd',
-              borderWidth: 1,
-              borderRadius: 4,
-              paddingHorizontal: 8,
-            }}
-            placeholder="Add any special instructions for the service provider"
-            value={instructions}
-            onChangeText={setInstructions}
+          <View style={styles.instructionsSection}>
+            <Text style={styles.sectionTitle}>Special Instructions</Text>
+            <TextInput
+              style={{
+                height: 60,
+                borderColor: '#ddd',
+                borderWidth: 1,
+                borderRadius: 4,
+                paddingHorizontal: 8,
+                color: theme.colors.textSecondary,
+              }}
+              placeholder="Add any special instructions for the service provider"
+              placeholderTextColor={'#888'}
+              value={instructions}
+              onChangeText={setInstructions}
+            />
+          </View>
+        </ScrollView>
+        <View style={styles.priceConfirmRow}>
+          <View>
+            <Text style={styles.confirmPriceLabel}>Price</Text>
+            <Text style={styles.confirmPriceValue}>${cartItem.price}</Text>
+          </View>
+          <Button
+            label="Book"
+            disabled={isPending}
+            loading={isPending}
+            onPress={handleBooking}
           />
         </View>
-      </ScrollView>
-      <View style={styles.priceConfirmRow}>
-        <View>
-          <Text style={styles.confirmPriceLabel}>Price</Text>
-          <Text style={styles.confirmPriceValue}>${cartItem.price}</Text>
-        </View>
-        <Button
-          label="Book"
-          disabled={isPending}
-          loading={isPending}
-          onPress={handleBooking}
-        />
-      </View>
-    </SafeAreaView>
+      </SafeAreaView>
+      <ActionSheet
+        title="Select an Address"
+        visible={isAddressModalVisible}
+        onCancel={() => setIsAddressModalVisible(false)}>
+        <AddressList />
+      </ActionSheet>
+    </>
   );
 };
 

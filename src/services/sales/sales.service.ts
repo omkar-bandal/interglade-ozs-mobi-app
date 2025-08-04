@@ -8,6 +8,27 @@ export class SalesService {
       .order('created_at', {ascending: false});
   }
 
+  static getAllSalesExpectUser(userId: string) {
+    return supabase
+      .from('sales')
+      .select(
+        `
+          id,
+          title,
+          description,
+          price,
+          photos,
+          profiles(
+            first_name,
+            last_name,
+            email,
+            profile_picture_url
+          )`,
+      )
+      .not('seller_id', 'eq', userId)
+      .order('created_at', {ascending: false});
+  }
+
   static getMySales(userId: string): any {
     return supabase
       .from('sales')

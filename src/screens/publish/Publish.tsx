@@ -68,12 +68,12 @@ export function Publish() {
 
 const styles = StyleSheet.create({
   tabContainer: {
-    paddingTop: SPACING.md,
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center', // Changed from 'stretch' to 'center'
     paddingHorizontal: SPACING.md,
     marginVertical: SPACING.sm,
+    // backgroundColor: 'red',
   },
   tabsWrapper: {
     flex: 1,

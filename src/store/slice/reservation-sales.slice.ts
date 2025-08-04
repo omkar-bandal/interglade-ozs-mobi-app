@@ -7,54 +7,62 @@ export interface Sale {
 }
 
 export interface ReservationSalesState {
-  mySales: any[] | null;
+  myReservationSales: any[] | null;
 }
 
 const initialState: ReservationSalesState = {
-  mySales: null,
+  myReservationSales: null,
 };
 
 const reservationSalesSlice = createSlice({
   name: sliceConstants.RESERVATION_SALES,
   initialState,
   reducers: {
-    setMySales: (state, {payload}: PayloadAction<any[]>) => {
-      state.mySales = payload;
+    setMyReservationSales: (state, {payload}: PayloadAction<any[]>) => {
+      state.myReservationSales = payload;
     },
 
-    addMySale: (state, {payload}: PayloadAction<any>) => {
-      if (!state.mySales) {
-        state.mySales = [];
+    addMyReservationSale: (state, {payload}: PayloadAction<any>) => {
+      if (!state.myReservationSales) {
+        state.myReservationSales = [];
       }
-      state.mySales.push(payload);
+      state.myReservationSales.push(payload);
     },
 
-    updateMySale: (state, {payload}: PayloadAction<any>) => {
-      if (!state.mySales) {
+    updateMyReservationSale: (state, {payload}: PayloadAction<any>) => {
+      if (!state.myReservationSales) {
         return;
       }
-      const index = state.mySales.findIndex(Sale => Sale.id === payload.id);
+      const index = state.myReservationSales.findIndex(
+        Sale => Sale.id === payload.id,
+      );
       if (index !== -1) {
-        state.mySales[index] = payload;
+        state.myReservationSales[index] = payload;
       }
     },
-    deleteMySale: (state, {payload}: PayloadAction<string>) => {
-      if (!state.mySales) {
+    deleteMyReservationSale: (state, {payload}: PayloadAction<string>) => {
+      if (!state.myReservationSales) {
         return;
       }
-      state.mySales = state.mySales.filter(Sale => Sale.id !== payload);
+      state.myReservationSales = state.myReservationSales.filter(
+        Sale => Sale.id !== payload,
+      );
     },
   },
 });
 
-export const {setMySales, addMySale, updateMySale, deleteMySale} =
-  reservationSalesSlice.actions;
+export const {
+  setMyReservationSales,
+  addMyReservationSale,
+  updateMyReservationSale,
+  deleteMyReservationSale,
+} = reservationSalesSlice.actions;
 
 export const reservationSalesActionCreators = {
-  setMySales,
-  addMySale,
-  updateMySale,
-  deleteMySale,
+  setMyReservationSales,
+  addMyReservationSale,
+  updateMyReservationSale,
+  deleteMyReservationSale,
 };
 
 export default reservationSalesSlice.reducer;

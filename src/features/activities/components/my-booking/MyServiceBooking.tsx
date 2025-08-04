@@ -2,6 +2,7 @@ import {useGetServiceReservationByUserIdAndStatus} from '@hooks/api/reservation-
 import {useActions} from '@hooks/useActions';
 import {useTypedSelector} from '@hooks/useTypedSelector';
 import {supabase} from '@lib/supabase/supabase';
+import {navigate} from '@utils/NavigationUtils';
 import React, {useEffect} from 'react';
 import {ActivityIndicator, FlatList, StyleSheet} from 'react-native';
 import BookingItem from '../BookingItem';
@@ -9,25 +10,22 @@ import EmptyBookingsList from '../EmptyBookingList';
 
 const MyServiceBookings = ({tabType}: any) => {
   const {user} = useTypedSelector(state => state.auth);
-  const {myServices} = useTypedSelector(state => state.reservationService);
-  const {setMyServices, addMyService, updateMyService} = useActions();
-
+  const {myReservationServices} = useTypedSelector(
+    state => state.reservationService,
+  );
+  const {
+    setMyReservationServices,
+    addMyReservationService,
+    updateMyReservationService,
+  } = useActions();
   const {data, isLoading} = useGetServiceReservationByUserIdAndStatus(
     user?.id as string,
     tabType,
   );
 
-  const formatDate = (isoDate: string): string => {
-    const date = new Date(isoDate);
-    const day = String(date.getDate()).padStart(2, '0');
-    const month = String(date.getMonth() + 1).padStart(2, '0'); // Month is 0-indexed
-    const year = date.getFullYear();
-    return `${day}/${month}/${year}`;
-  };
-
   useEffect(() => {
     if (data?.data) {
-      setMyServices(data.data);
+      setMyReservationServices(data.data);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [data]);
@@ -40,9 +38,9 @@ const MyServiceBookings = ({tabType}: any) => {
         {event: '*', schema: 'public', table: 'reservations_services'},
         payload => {
           if (payload.eventType === 'UPDATE') {
-            updateMyService(payload.new);
+            updateMyReservationService(payload.new);
           } else if (payload.eventType === 'INSERT') {
-            addMyService(payload.new);
+            addMyReservationService(payload.new);
           }
         },
       )
@@ -50,11 +48,20 @@ const MyServiceBookings = ({tabType}: any) => {
     return () => {
       supabase.removeChannel(channels);
     };
-  }, [addMyService, updateMyService]);
+  }, [addMyReservationService, updateMyReservationService]);
+
+  const formatDate = (isoDate: string): string => {
+    const date = new Date(isoDate);
+    const day = String(date.getDate()).padStart(2, '0');
+    const month = String(date.getMonth() + 1).padStart(2, '0'); // Month is 0-indexed
+    const year = date.getFullYear();
+    return `${day}/${month}/${year}`;
+  };
 
   // Handle actions
   const handleViewDetails = (id: any) => {
-    console.log(`View details for booking ${id}`);
+    console.log(`service mybooking ${id}`);
+    navigate('ActivityDetails', {reservationId: id});
   };
 
   const renderBookingItem = ({item}: any) => (
@@ -72,17 +79,17 @@ const MyServiceBookings = ({tabType}: any) => {
   );
 
   if (isLoading) {
-    return <ActivityIndicator size="large" color="#FFC163" />;
+    return <ActivityIndicator size="large" color="#4D948E" />;
   }
 
   return (
     <FlatList
       style={styles.bookingsList}
-      data={myServices || []}
+      data={myReservationServices || []}
       renderItem={renderBookingItem}
       keyExtractor={item => item.id.toString()}
       contentContainerStyle={
-        myServices?.length === 0 ? {flex: 1} : {paddingTop: 16}
+        myReservationServices?.length === 0 ? {flex: 1} : {paddingTop: 16}
       }
       ListEmptyComponent={<EmptyBookingsList />}
     />

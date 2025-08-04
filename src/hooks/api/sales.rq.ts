@@ -14,6 +14,14 @@ export function useGetAllSales(): UseQueryResult<any, ErrorModel> {
   });
 }
 
+export function useGetAllSalesExpectUser(
+  userId: string,
+): UseQueryResult<any, ErrorModel> {
+  return useQuery<any, ErrorModel>({
+    queryKey: ['getAllSalesExpectUser', userId],
+    queryFn: () => SalesService.getAllSalesExpectUser(userId),
+  });
+}
 export function useGetMySales(userId: string): UseQueryResult<any, ErrorModel> {
   return useQuery<any, ErrorModel>({
     queryKey: ['getMySales', userId],

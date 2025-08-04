@@ -2,6 +2,7 @@ import {useGetSalesReservationByUserIdAndStatus} from '@hooks/api/reservation-sa
 import {useActions} from '@hooks/useActions';
 import {useTypedSelector} from '@hooks/useTypedSelector';
 import {supabase} from '@lib/supabase/supabase';
+import {navigate} from '@utils/NavigationUtils';
 import React, {useEffect} from 'react';
 import {ActivityIndicator, FlatList, StyleSheet} from 'react-native';
 import BookingItem from '../BookingItem';
@@ -9,24 +10,19 @@ import EmptyBookingsList from '../EmptyBookingList';
 
 const MySalesBookings = ({tabType}: any) => {
   const {user} = useTypedSelector(state => state.auth);
-  const {mySales} = useTypedSelector(state => state.reservationSales);
-  const {setMySales, addMySale, updateMySale} = useActions();
+  const {myReservationSales} = useTypedSelector(
+    state => state.reservationSales,
+  );
+  const {setMyReservationSales, addMyReservationSale, updateMyReservationSale} =
+    useActions();
   const {data, isLoading} = useGetSalesReservationByUserIdAndStatus(
     user?.id as string,
     tabType,
   );
 
-  const formatDate = (isoDate: string): string => {
-    const date = new Date(isoDate);
-    const day = String(date.getDate()).padStart(2, '0');
-    const month = String(date.getMonth() + 1).padStart(2, '0'); // Month is 0-indexed
-    const year = date.getFullYear();
-    return `${day}/${month}/${year}`;
-  };
-
   useEffect(() => {
     if (data?.data) {
-      setMySales(data.data);
+      setMyReservationSales(data.data);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [data]);
@@ -39,9 +35,9 @@ const MySalesBookings = ({tabType}: any) => {
         {event: '*', schema: 'public', table: 'reservations_ventes'},
         payload => {
           if (payload.eventType === 'UPDATE') {
-            updateMySale(payload.new);
+            updateMyReservationSale(payload.new);
           } else if (payload.eventType === 'INSERT') {
-            addMySale(payload.new);
+            addMyReservationSale(payload.new);
           }
         },
       )
@@ -49,11 +45,21 @@ const MySalesBookings = ({tabType}: any) => {
     return () => {
       supabase.removeChannel(channels);
     };
-  }, [addMySale, updateMySale]);
+  }, [addMyReservationSale, updateMyReservationSale]);
+
+  const formatDate = (isoDate: string): string => {
+    const date = new Date(isoDate);
+    const day = String(date.getDate()).padStart(2, '0');
+    const month = String(date.getMonth() + 1).padStart(2, '0'); // Month is 0-indexed
+    const year = date.getFullYear();
+    return `${day}/${month}/${year}`;
+  };
 
   // Handle actions
   const handleViewDetails = (id: any) => {
-    console.log(`View details for booking ${id}`);
+    console.log(`Sale mybooking details ${id}`);
+    // Navigate to booking details screen
+    navigate('SaleReservationDetails', {reservationId: id});
   };
 
   const renderBookingItem = ({item}: any) => (
@@ -71,19 +77,19 @@ const MySalesBookings = ({tabType}: any) => {
   );
 
   if (isLoading) {
-    return <ActivityIndicator size="large" color="#FFC163" />;
+    return <ActivityIndicator size="large" color="#4D948E" />;
   }
 
-  console.log('mySales', mySales);
+  console.log('myReservationSales', myReservationSales);
 
   return (
     <FlatList
       style={styles.bookingsList}
-      data={mySales || []}
+      data={myReservationSales || []}
       renderItem={renderBookingItem}
       keyExtractor={item => item.id.toString()}
       contentContainerStyle={
-        mySales?.length === 0 ? {flex: 1} : {paddingTop: 16}
+        myReservationSales?.length === 0 ? {flex: 1} : {paddingTop: 16}
       }
       ListEmptyComponent={<EmptyBookingsList />}
     />

@@ -7,6 +7,7 @@ import {PersonalInfo} from '@screens/account/PersonalInfo';
 import {Privacy} from '@screens/account/Privacy';
 import {Settings} from '@screens/account/Settings';
 import {ActivityDetailsScreen} from '@screens/activities/ActivityDetails';
+import {SaleReservationDetailsScreen} from '@screens/activities/SaleReservationDetails';
 import AddEditAddressScreen from '@screens/address/AddAddress';
 import AddressList from '@screens/address/AddressList';
 import {ForgotPassword} from '@screens/auth/ForgotPassword';
@@ -76,6 +77,10 @@ const AppNavigation: React.FC = () => {
         <Stack.Screen
           name="ActivityDetails"
           component={ActivityDetailsScreen}
+        />
+        <Stack.Screen
+          name="SaleReservationDetails"
+          component={SaleReservationDetailsScreen}
         />
 
         <Stack.Screen name="Review" component={ReviewScreen} />

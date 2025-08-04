@@ -1,26 +1,26 @@
 import Button from '@components/ui/Button';
 import Typography from '@components/ui/Typography';
-import {useGetMySales} from '@hooks/api/sales.rq';
+import {useGetAllSalesExpectUser} from '@hooks/api/sales.rq';
 import {useTypedSelector} from '@hooks/useTypedSelector';
 import {darkTheme} from '@theme/constants';
 import {navigate} from '@utils/NavigationUtils';
 import React, {useCallback} from 'react';
-import {ActivityIndicator, Alert, StyleSheet, View} from 'react-native';
+import {ActivityIndicator, StyleSheet, View} from 'react-native';
 import OfferCard from './card/SalesOfferCard';
 
 export const SpecialOffer = () => {
   const {user} = useTypedSelector(state => state.auth);
-  const {data: salesData, isLoading: isSalesLoading} = useGetMySales(
+  const {data: salesData, isLoading: isSalesLoading} = useGetAllSalesExpectUser(
     user?.id || '',
   );
 
   const handleReserveClick = useCallback((saleId: string): void => {
     navigate('ServiceDetails', {
-    type: 'sale',
-    id: saleId,
-  });
+      type: 'sale',
+      id: saleId,
+    });
     // Implement reservation logic here
-    Alert.alert('Sale Booking data', JSON.stringify(salesData));
+    console.log('Sale Booking data', JSON.stringify(saleId));
   }, []);
 
   if (isSalesLoading) {
