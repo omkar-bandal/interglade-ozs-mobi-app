@@ -31,7 +31,7 @@ const MySales: React.FC = () => {
 
   const handleEditSale = (item: any) => {
     if (item.id === undefined || item.id === null) {
-      Alert.alert('Error', 'Sale ID is required for edition');
+      console.log('Error', 'Sale ID is required for edition');
       return;
     }
     navigate('AddSale', {saleId: item.id});
@@ -39,11 +39,12 @@ const MySales: React.FC = () => {
 
   const handleDeleteSale = async (saleId: string) => {
     if (!saleId) {
-      Alert.alert('Error', 'Sale ID is required for deletion');
+      console.log('Error', 'Sale ID is required for deletion');
       return;
     }
     const result = await deleteSale({saleId});
     if (result?.status === 204) {
+      Alert.alert('Deleted Sucessfully!', `Sale deleted sucessfully`);
       deleteMySale(saleId);
     }
   };
@@ -52,6 +53,14 @@ const MySales: React.FC = () => {
     return (
       <View style={styles.centerContent}>
         <ActivityIndicator size="large" color="#007bff" />
+      </View>
+    );
+  }
+
+  if (!sales || !sales.data || sales.data.length === 0) {
+    return (
+      <View style={styles.centerContent}>
+        <Text style={styles.errorText}>No sales found</Text>
       </View>
     );
   }
@@ -67,10 +76,13 @@ const MySales: React.FC = () => {
     );
   }
 
+  console.log('Sales', JSON.stringify(sales?.data));
+  console.log('MySales', JSON.stringify(mySales));
+
   return (
     <>
       <SalesListScreen
-        sales={sales?.data || mySales}
+        sales={mySales}
         //sales={mySales}
         onEditSale={handleEditSale}
         onDeleteSale={handleDeleteSale}

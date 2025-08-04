@@ -7,58 +7,62 @@ export interface Service {
 }
 
 export interface ReservationServicesState {
-  myServices: any[] | null;
+  myReservationServices: any[] | null;
 }
 
 const initialState: ReservationServicesState = {
-  myServices: null,
+  myReservationServices: null,
 };
 
 const reservationServiceSlice = createSlice({
   name: sliceConstants.RESERVATION_SERVICE,
   initialState,
   reducers: {
-    setMyServices: (state, {payload}: PayloadAction<any[]>) => {
-      state.myServices = payload;
+    setMyReservationServices: (state, {payload}: PayloadAction<any[]>) => {
+      state.myReservationServices = payload;
     },
 
-    addMyService: (state, {payload}: PayloadAction<any>) => {
-      if (!state.myServices) {
-        state.myServices = [];
+    addMyReservationService: (state, {payload}: PayloadAction<any>) => {
+      if (!state.myReservationServices) {
+        state.myReservationServices = [];
       }
-      state.myServices.push(payload);
+      state.myReservationServices.push(payload);
     },
 
-    updateMyService: (state, {payload}: PayloadAction<any>) => {
-      if (!state.myServices) {
+    updateMyReservationService: (state, {payload}: PayloadAction<any>) => {
+      if (!state.myReservationServices) {
         return;
       }
-      const index = state.myServices.findIndex(
+      const index = state.myReservationServices.findIndex(
         service => service.id === payload.id,
       );
       if (index !== -1) {
-        state.myServices[index] = payload;
+        state.myReservationServices[index] = payload;
       }
     },
-    deleteMyService: (state, {payload}: PayloadAction<string>) => {
-      if (!state.myServices) {
+    deleteMyReservationService: (state, {payload}: PayloadAction<string>) => {
+      if (!state.myReservationServices) {
         return;
       }
-      state.myServices = state.myServices.filter(
+      state.myReservationServices = state.myReservationServices.filter(
         service => service.id !== payload,
       );
     },
   },
 });
 
-export const {setMyServices, addMyService, updateMyService, deleteMyService} =
-  reservationServiceSlice.actions;
+export const {
+  setMyReservationServices,
+  addMyReservationService,
+  updateMyReservationService,
+  deleteMyReservationService,
+} = reservationServiceSlice.actions;
 
 export const reservationServiceActionCreators = {
-  setMyServices,
-  addMyService,
-  updateMyService,
-  deleteMyService,
+  setMyReservationServices,
+  addMyReservationService,
+  updateMyReservationService,
+  deleteMyReservationService,
 };
 
 export default reservationServiceSlice.reducer;

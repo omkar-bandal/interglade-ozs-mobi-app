@@ -85,7 +85,10 @@ const BookingItem = ({
   }
 
   return (
-    <Pressable onPress={() => navigate('ActivityDetails', {reservationId: id})}>
+    <Pressable
+      onPress={() => {
+        navigate('ActivityDetails', {reservationId: id, type});
+      }}>
       <View style={containerStyle}>
         <View style={styles.bookingHeader}>
           <View style={{width: '75%'}}>

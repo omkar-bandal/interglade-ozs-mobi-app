@@ -155,7 +155,9 @@ const SaleDetailsScreen = ({route}: any) => {
           <View style={styles.iconCon}>
             <Icon name="star" size={24} color="#393872" />
           </View>
-          <Text style={styles.locationText}>{salesData.reviews || '128 Views'}</Text>
+          <Text style={styles.locationText}>
+            {salesData.reviews || '128 Views'}
+          </Text>
         </View>
 
         <View style={styles.rowCon}>

@@ -1,14 +1,18 @@
 import Button from '@components/ui/Button';
 import Typography from '@components/ui/Typography';
-import {useGetAllSales} from '@hooks/api/sales.rq';
+import {useGetAllSalesExpectUser} from '@hooks/api/sales.rq';
+import {useTypedSelector} from '@hooks/useTypedSelector';
+import {navigate} from '@utils/NavigationUtils';
 import {ActivityIndicator, ScrollView, StyleSheet, View} from 'react-native';
 import {SalesCard} from './card/SalesCard';
-import { navigate } from '@utils/NavigationUtils';
 
 export const RecentSales = () => {
-  const {data, isLoading} = useGetAllSales();
+  const {user} = useTypedSelector(state => state.auth);
+  const {data: salesData, isLoading: isSalesLoading} = useGetAllSalesExpectUser(
+    user?.id || '',
+  );
 
-  if (isLoading) {
+  if (isSalesLoading) {
     return <ActivityIndicator />;
   }
 
@@ -33,7 +37,7 @@ export const RecentSales = () => {
         horizontal
         showsHorizontalScrollIndicator={false}
         style={styles.horizontalScrollView}>
-        {data?.data?.map((sale: any) => (
+        {salesData?.data?.map((sale: any) => (
           <SalesCard
             key={sale.id}
             sale={sale}

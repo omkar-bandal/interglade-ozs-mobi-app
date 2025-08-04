@@ -25,7 +25,7 @@ import {
 } from 'react-native-vector-icons/Ionicons';
 import TimeSlotPicker from './TimeSlotPicker';
 
-const SaleDetails = ({saleId}: {saleId: string}) => {
+const SalesDetails = ({saleId}: {saleId: string}) => {
   const {theme} = useTheme();
   const styles = themeStyles(theme);
   const {user} = useTypedSelector(state => state.auth);
@@ -35,7 +35,7 @@ const SaleDetails = ({saleId}: {saleId: string}) => {
   const [selectedTimeSlot, setSelectedTimeSlot] = useState('');
   const {addCart} = useActions();
 
-  //Alert.alert('Sale data', JSON.stringify(saleId));
+  console.log('Sale Details Data', data);
 
   if (isLoading) {
     return (
@@ -52,7 +52,12 @@ const SaleDetails = ({saleId}: {saleId: string}) => {
 
   const handleOpenTimeSlotModal = () => {
     if (selectedDay && selectedTimeSlot) {
-      addCart({...saleData, selectedDay, selectedTimeSlot});
+      addCart({
+        ...saleData,
+        selectedDay,
+        selectedTimeSlot,
+        type: 'sales',
+      });
       navigate('BookingSummary');
       return;
     }
@@ -463,4 +468,4 @@ const themeStyles = (theme: any) =>
     },
   });
 
-export default SaleDetails;
+export default SalesDetails;

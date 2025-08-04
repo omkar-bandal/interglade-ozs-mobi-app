@@ -51,7 +51,12 @@ const ServiceDetails = ({serviceId}: {serviceId: string}) => {
 
   const handleOpenTimeSlotModal = () => {
     if (selectedDay && selectedTimeSlot) {
-      addCart({...serviceData, selectedDay, selectedTimeSlot});
+      addCart({
+        ...serviceData,
+        selectedDay,
+        selectedTimeSlot,
+        type: 'services',
+      });
       navigate('BookingSummary');
       return;
     }

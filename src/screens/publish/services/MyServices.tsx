@@ -5,6 +5,7 @@ import {navigate} from '@utils/NavigationUtils';
 import React, {useEffect} from 'react';
 import {
   ActivityIndicator,
+  Alert,
   StyleSheet,
   Text,
   TouchableOpacity,
@@ -19,7 +20,7 @@ const MyServices: React.FC = () => {
   const {mutateAsync: deleteService} = useDeleteService();
   const {deleteMyService, setMyServices} = useActions();
 
-  //Alert.alert('MyServices', JSON.stringify(services));
+  //console.log('Services', JSON.stringify(services));
 
   useEffect(() => {
     if (services?.data) {
@@ -28,14 +29,17 @@ const MyServices: React.FC = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [services]);
 
+  //console.log('MyServices', JSON.stringify(MyServices));
+
   const handleEditService = (item: any) => {
-    //Alert.alert('Edit Service', JSON.stringify(item));
+    console.log('Edit Service', JSON.stringify(item));
     navigate('AddService', {serviceId: item.id});
   };
 
   const handleDeleteService = async (serviceId: string) => {
     const result = await deleteService({serviceId});
     if (result?.status === 204) {
+      Alert.alert('Deleted Sucessfully!', `Service deleted sucessfully`);
       deleteMyService(serviceId);
     }
   };
@@ -44,6 +48,14 @@ const MyServices: React.FC = () => {
     return (
       <View style={styles.centerContent}>
         <ActivityIndicator size="large" color="#4D948E" />
+      </View>
+    );
+  }
+
+  if (!services || !services.data || services.data.length === 0) {
+    return (
+      <View style={styles.centerContent}>
+        <Text style={styles.errorText}>No services found</Text>
       </View>
     );
   }
@@ -59,10 +71,11 @@ const MyServices: React.FC = () => {
     );
   }
 
-  console.log('services', services?.data);
+  console.log('Services', services?.data);
+  console.log('MyServices', myServices);
   return (
     <ServicesListScreen
-      services={services?.data || myServices}
+      services={myServices}
       onEditService={handleEditService}
       onDeleteService={handleDeleteService}
     />

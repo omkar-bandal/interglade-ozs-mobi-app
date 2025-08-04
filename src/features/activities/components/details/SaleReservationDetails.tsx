@@ -3,7 +3,6 @@ import useTheme from '@theme/useTheme';
 import {navigate} from '@utils/NavigationUtils';
 import React from 'react';
 import {
-  ActivityIndicator,
   Image,
   ScrollView,
   StyleSheet,
@@ -14,31 +13,36 @@ import {
 import Ionicons from 'react-native-vector-icons/Ionicons';
 
 //import { useGetReservationById } from '@hooks/api/reservation-service.rq';
-import {useGetServiceReservationById} from '@hooks/api/reservation-service.rq';
+import {useTypedSelector} from '@hooks/useTypedSelector';
 import {SPACING} from '@theme/constants';
 import Complete from '../Complete';
 
-const ActivityDetails = ({reservationId, type}: any) => {
+const SaleReservationDetails = ({reservationId}: any) => {
   const {theme} = useTheme();
   const styles = themeStyles(theme);
 
-  const {data: serviceReservationData, isLoading: serviceLoading} =
-    useGetServiceReservationById(reservationId);
+  console.log('SaleReservationDetails Id', reservationId);
 
-  console.log('service Details Data', serviceReservationData?.data);
+  const {myReservationSales} = useTypedSelector(
+    state => state.reservationSales,
+  );
 
-  // const isLoading = type === 'service' ? serviceLoading : saleLoading;
-  const reservation = serviceReservationData?.data;
+  //   const {data: salesReservationData, isLoading: salesLoading} =
+  //     useGetSalesReservationById(reservationId);
 
-  //Alert.alert('Booking data', JSON.stringify(reservation));
+  const reservation = myReservationSales?.find(
+    (item: any) => item.id === reservationId,
+  );
 
-  if (serviceLoading) {
-    return (
-      <View style={styles.centerContainer}>
-        <ActivityIndicator size="large" color="#4D9472" />
-      </View>
-    );
-  }
+  console.log('sale Details Data', reservation);
+
+  //   if (salesLoading) {
+  //     return (
+  //       <View style={styles.centerContainer}>
+  //         <ActivityIndicator size="large" color="#4D9472" />
+  //       </View>
+  //     );
+  //   }
 
   if (!reservation) {
     return (
@@ -84,17 +88,15 @@ const ActivityDetails = ({reservationId, type}: any) => {
             style={styles.serviceImage}
           /> */}
           <View style={{flex: 1, marginLeft: 16}}>
-            <Text style={styles.serviceTitle}>
-              {reservation?.service?.title}
-            </Text>
+            <Text style={styles.serviceTitle}>{reservation?.sales?.title}</Text>
             <View style={styles.ratingRow}>
               <Ionicons name="star" size={16} color={theme.colors.primary} />
               <Text style={styles.ratingText}>
-                {reservation?.service?.status}
+                {reservation?.sales?.status}
               </Text>
               <Text style={styles.ratingText}>5.0</Text>
             </View>
-            <Text style={styles.price}>${reservation?.service?.price}</Text>
+            <Text style={styles.price}>${reservation?.sales?.price}</Text>
             <View style={[statusStyle]}>
               <Text style={styles.statusText}>{statusText}</Text>
             </View>
@@ -123,7 +125,7 @@ const ActivityDetails = ({reservationId, type}: any) => {
           />
           <View style={{flex: 1, marginLeft: 12}}>
             <Text style={styles.providerName}>
-              {`${reservation?.service?.provider?.first_name} ${reservation?.service?.provider?.last_name}`}
+              {`${reservation?.sales?.provider?.first_name} ${reservation?.sales?.provider?.last_name}`}
             </Text>
           </View>
           <View style={styles.providerActions}>{/* <Contact /> */}</View>
@@ -219,7 +221,7 @@ const StatusStep = ({title, date, description, time, active, last}: any) => {
   );
 };
 
-export default ActivityDetails;
+export default SaleReservationDetails;
 
 const themeStyles = (theme: any) =>
   StyleSheet.create({

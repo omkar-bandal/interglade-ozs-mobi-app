@@ -1,5 +1,6 @@
 import ScreenHeader from '@components/header/ScreenHeader';
-import SaleDetails from '@features/booking-details/components/SaleDetails';
+import SalesDetails from '@features/booking-details/components/SalesDetails';
+
 import ServiceDetails from '@features/booking-details/components/ServiceDetails';
 import {Contact} from '@features/contact/components/Contact';
 import {useGetAllSales} from '@hooks/api/sales.rq';
@@ -55,7 +56,7 @@ const ServiceDetailsScreen = ({route}: any) => {
     }
 
     if (type === 'sale') {
-      return <SaleDetails saleId={id} />;
+      return <SalesDetails saleId={id} />;
     }
 
     return null;
